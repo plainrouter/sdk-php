@@ -46,4 +46,6 @@ scripts/check-php-generated.sh
 
 `php scripts/live-smoke.php` calls the live zero-auth sandbox through the SDK. It persists nothing and needs no credentials.
 
+Packagist will read the read-only mirror [`plainrouter/sdk-php`](https://github.com/plainrouter/sdk-php), which the `mirror-php.yml` workflow splits from `packages/php`. Releases use `php-v<version>` tags in this repository; the workflow pushes them to the mirror as `v<version>`. Open issues and pull requests here, not on the mirror.
+
 Licensed under Apache-2.0.
