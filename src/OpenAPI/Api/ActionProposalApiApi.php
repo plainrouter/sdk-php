@@ -136,7 +136,7 @@ class ActionProposalApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
      */
     public function actionsApiPropose($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiPropose'][0])
     {
@@ -155,7 +155,7 @@ class ActionProposalApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiProposeWithHttpInfo($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiPropose'][0])
     {
@@ -199,17 +199,29 @@ class ActionProposalApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ProposalReplayConflict',
+                        $request,
+                        $response,
+                    );
+                case 413:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         $request,
@@ -218,6 +230,24 @@ class ActionProposalApiApi
                 case 422:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
                         $request,
                         $response,
                     );
@@ -264,7 +294,7 @@ class ActionProposalApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -272,12 +302,28 @@ class ActionProposalApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ProposalReplayConflict',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
@@ -289,6 +335,30 @@ class ActionProposalApiApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

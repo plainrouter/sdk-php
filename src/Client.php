@@ -7,6 +7,7 @@ namespace Plainrouter;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
 use Plainrouter\OpenAPI\Configuration;
@@ -14,7 +15,7 @@ use Plainrouter\OpenAPI\Configuration;
 /**
  * Compact entry point for the Plainrouter API.
  *
- * Events, operations, and sandbox expose the generated service groups; every
+ * Events, operations, sandbox, and plans expose the generated service groups; every
  * generated model and operation stays in the separate Plainrouter\OpenAPI
  * namespace.
  */
@@ -28,10 +29,12 @@ final class Client
 
     public readonly SandboxApi $sandbox;
 
+    public readonly DeploymentPlanApi $plans;
+
     public readonly Configuration $configuration;
 
     /**
-     * @param  string|null  $token  Signal Tracker secret, or null for the zero-auth sandbox.
+     * @param  string|null  $token  Bearer token required by the operation, or null for the zero-auth sandbox.
      * @param  float  $timeout  Request timeout in seconds; ignored when $httpClient is supplied.
      */
     public function __construct(
@@ -41,7 +44,7 @@ final class Client
         ?string $userAgent = null,
         ?ClientInterface $httpClient = null,
     ) {
-        $this->configuration = (new Configuration())
+        $this->configuration = (new Configuration)
             ->setHost(self::validatedBaseUrl($baseUrl))
             ->setUserAgent($userAgent ?? 'plainrouter-php/'.Version::SDK);
 
@@ -54,6 +57,7 @@ final class Client
         $this->events = new Events($httpClient, $this->configuration);
         $this->operations = new OperationsApi($httpClient, $this->configuration);
         $this->sandbox = new SandboxApi($httpClient, $this->configuration);
+        $this->plans = new DeploymentPlanApi($httpClient, $this->configuration);
     }
 
     private static function validatedBaseUrl(string $baseUrl): string

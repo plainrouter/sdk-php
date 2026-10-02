@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanCopyReadPlan
+ * LaunchIntentReadIntent
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * PlanCopyReadPlan Class Doc Comment
+ * LaunchIntentReadIntent Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
+class LaunchIntentReadIntent implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'PlanCopyRead_plan';
+    protected static $openAPIModelName = 'LaunchIntentRead_intent';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -58,12 +58,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'id' => 'string',
-        'platform_ad_account_id' => 'int',
         'status' => 'string',
-        'budget_amount_minor' => 'int',
-        'validation_result' => 'object',
-        'validated_at' => 'object',
-        'approval_id' => 'object'
+        'action_batch_id' => 'string',
+        'policy_reasons' => 'string[]',
+        'provider_object_ids' => 'mixed',
+        'campaign_id' => 'string',
+        'ad_set_id' => 'string',
+        'currency' => 'string',
+        'actions' => '\Plainrouter\OpenAPI\Model\LaunchIntentReadIntentActionsInner[]'
     ];
 
     /**
@@ -75,12 +77,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'id' => null,
-        'platform_ad_account_id' => null,
         'status' => null,
-        'budget_amount_minor' => null,
-        'validation_result' => null,
-        'validated_at' => null,
-        'approval_id' => null
+        'action_batch_id' => null,
+        'policy_reasons' => null,
+        'provider_object_ids' => null,
+        'campaign_id' => null,
+        'ad_set_id' => null,
+        'currency' => null,
+        'actions' => null
     ];
 
     /**
@@ -90,12 +94,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'id' => false,
-        'platform_ad_account_id' => false,
         'status' => false,
-        'budget_amount_minor' => false,
-        'validation_result' => true,
-        'validated_at' => true,
-        'approval_id' => true
+        'action_batch_id' => true,
+        'policy_reasons' => false,
+        'provider_object_ids' => true,
+        'campaign_id' => true,
+        'ad_set_id' => true,
+        'currency' => true,
+        'actions' => false
     ];
 
     /**
@@ -185,12 +191,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'platform_ad_account_id' => 'platform_ad_account_id',
         'status' => 'status',
-        'budget_amount_minor' => 'budget_amount_minor',
-        'validation_result' => 'validation_result',
-        'validated_at' => 'validated_at',
-        'approval_id' => 'approval_id'
+        'action_batch_id' => 'action_batch_id',
+        'policy_reasons' => 'policy_reasons',
+        'provider_object_ids' => 'provider_object_ids',
+        'campaign_id' => 'campaign_id',
+        'ad_set_id' => 'ad_set_id',
+        'currency' => 'currency',
+        'actions' => 'actions'
     ];
 
     /**
@@ -200,12 +208,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'platform_ad_account_id' => 'setPlatformAdAccountId',
         'status' => 'setStatus',
-        'budget_amount_minor' => 'setBudgetAmountMinor',
-        'validation_result' => 'setValidationResult',
-        'validated_at' => 'setValidatedAt',
-        'approval_id' => 'setApprovalId'
+        'action_batch_id' => 'setActionBatchId',
+        'policy_reasons' => 'setPolicyReasons',
+        'provider_object_ids' => 'setProviderObjectIds',
+        'campaign_id' => 'setCampaignId',
+        'ad_set_id' => 'setAdSetId',
+        'currency' => 'setCurrency',
+        'actions' => 'setActions'
     ];
 
     /**
@@ -215,12 +225,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'platform_ad_account_id' => 'getPlatformAdAccountId',
         'status' => 'getStatus',
-        'budget_amount_minor' => 'getBudgetAmountMinor',
-        'validation_result' => 'getValidationResult',
-        'validated_at' => 'getValidatedAt',
-        'approval_id' => 'getApprovalId'
+        'action_batch_id' => 'getActionBatchId',
+        'policy_reasons' => 'getPolicyReasons',
+        'provider_object_ids' => 'getProviderObjectIds',
+        'campaign_id' => 'getCampaignId',
+        'ad_set_id' => 'getAdSetId',
+        'currency' => 'getCurrency',
+        'actions' => 'getActions'
     ];
 
     /**
@@ -264,7 +276,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const STATUS_DRAFT = 'draft';
+    public const STATUS_APPROVAL_REQUIRED = 'approval_required';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_EXECUTING = 'executing';
+    public const STATUS_VERIFIED = 'verified';
+    public const STATUS_FAILED = 'failed';
+    public const STATUS_DRIFTED = 'drifted';
+    public const STATUS_PARTIAL = 'partial';
+    public const STATUS_BLOCKED = 'blocked';
 
     /**
      * Gets allowable values of the enum
@@ -274,43 +293,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     public function getStatusAllowableValues()
     {
         return [
-            self::STATUS_DRAFT,
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getValidationResultAllowableValues()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getValidatedAtAllowableValues()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getApprovalIdAllowableValues()
-    {
-        return [
-
+            self::STATUS_APPROVAL_REQUIRED,
+            self::STATUS_APPROVED,
+            self::STATUS_EXECUTING,
+            self::STATUS_VERIFIED,
+            self::STATUS_FAILED,
+            self::STATUS_DRIFTED,
+            self::STATUS_PARTIAL,
+            self::STATUS_BLOCKED,
         ];
     }
 
@@ -330,12 +320,14 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('platform_ad_account_id', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('budget_amount_minor', $data ?? [], null);
-        $this->setIfExists('validation_result', $data ?? [], null);
-        $this->setIfExists('validated_at', $data ?? [], null);
-        $this->setIfExists('approval_id', $data ?? [], null);
+        $this->setIfExists('action_batch_id', $data ?? [], null);
+        $this->setIfExists('policy_reasons', $data ?? [], null);
+        $this->setIfExists('provider_object_ids', $data ?? [], null);
+        $this->setIfExists('campaign_id', $data ?? [], null);
+        $this->setIfExists('ad_set_id', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
+        $this->setIfExists('actions', $data ?? [], null);
     }
 
     /**
@@ -368,9 +360,6 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['platform_ad_account_id'] === null) {
-            $invalidProperties[] = "'platform_ad_account_id' can't be null";
-        }
         if ($this->container['status'] === null) {
             $invalidProperties[] = "'status' can't be null";
         }
@@ -383,45 +372,27 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if ($this->container['budget_amount_minor'] === null) {
-            $invalidProperties[] = "'budget_amount_minor' can't be null";
+        if ($this->container['action_batch_id'] === null && !$this->isNullableSetToNull('action_batch_id')) {
+            $invalidProperties[] = "'action_batch_id' is required";
         }
-        if ($this->container['validation_result'] === null && !$this->isNullableSetToNull('validation_result')) {
-            $invalidProperties[] = "'validation_result' is required";
+        if ($this->container['policy_reasons'] === null) {
+            $invalidProperties[] = "'policy_reasons' can't be null";
         }
-        $allowedValues = $this->getValidationResultAllowableValues();
-        if (!is_null($this->container['validation_result']) && !in_array($this->container['validation_result'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'validation_result', must be one of '%s'",
-                $this->container['validation_result'],
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['provider_object_ids'] === null && !$this->isNullableSetToNull('provider_object_ids')) {
+            $invalidProperties[] = "'provider_object_ids' is required";
         }
-
-        if ($this->container['validated_at'] === null && !$this->isNullableSetToNull('validated_at')) {
-            $invalidProperties[] = "'validated_at' is required";
+        if ($this->container['campaign_id'] === null && !$this->isNullableSetToNull('campaign_id')) {
+            $invalidProperties[] = "'campaign_id' is required";
         }
-        $allowedValues = $this->getValidatedAtAllowableValues();
-        if (!is_null($this->container['validated_at']) && !in_array($this->container['validated_at'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'validated_at', must be one of '%s'",
-                $this->container['validated_at'],
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['ad_set_id'] === null && !$this->isNullableSetToNull('ad_set_id')) {
+            $invalidProperties[] = "'ad_set_id' is required";
         }
-
-        if ($this->container['approval_id'] === null && !$this->isNullableSetToNull('approval_id')) {
-            $invalidProperties[] = "'approval_id' is required";
+        if ($this->container['currency'] === null && !$this->isNullableSetToNull('currency')) {
+            $invalidProperties[] = "'currency' is required";
         }
-        $allowedValues = $this->getApprovalIdAllowableValues();
-        if (!is_null($this->container['approval_id']) && !in_array($this->container['approval_id'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'approval_id', must be one of '%s'",
-                $this->container['approval_id'],
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['actions'] === null) {
+            $invalidProperties[] = "'actions' can't be null";
         }
-
         return $invalidProperties;
     }
 
@@ -465,33 +436,6 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets platform_ad_account_id
-     *
-     * @return int
-     */
-    public function getPlatformAdAccountId()
-    {
-        return $this->container['platform_ad_account_id'];
-    }
-
-    /**
-     * Sets platform_ad_account_id
-     *
-     * @param int $platform_ad_account_id platform_ad_account_id
-     *
-     * @return self
-     */
-    public function setPlatformAdAccountId($platform_ad_account_id)
-    {
-        if (is_null($platform_ad_account_id)) {
-            throw new \InvalidArgumentException('non-nullable platform_ad_account_id cannot be null');
-        }
-        $this->container['platform_ad_account_id'] = $platform_ad_account_id;
-
-        return $this;
-    }
-
-    /**
      * Gets status
      *
      * @return string
@@ -529,160 +473,225 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets budget_amount_minor
+     * Gets action_batch_id
      *
-     * @return int
+     * @return string|null
      */
-    public function getBudgetAmountMinor()
+    public function getActionBatchId()
     {
-        return $this->container['budget_amount_minor'];
+        return $this->container['action_batch_id'];
     }
 
     /**
-     * Sets budget_amount_minor
+     * Sets action_batch_id
      *
-     * @param int $budget_amount_minor budget_amount_minor
+     * @param string|null $action_batch_id action_batch_id
      *
      * @return self
      */
-    public function setBudgetAmountMinor($budget_amount_minor)
+    public function setActionBatchId($action_batch_id)
     {
-        if (is_null($budget_amount_minor)) {
-            throw new \InvalidArgumentException('non-nullable budget_amount_minor cannot be null');
-        }
-        $this->container['budget_amount_minor'] = $budget_amount_minor;
-
-        return $this;
-    }
-
-    /**
-     * Gets validation_result
-     *
-     * @return object|null
-     */
-    public function getValidationResult()
-    {
-        return $this->container['validation_result'];
-    }
-
-    /**
-     * Sets validation_result
-     *
-     * @param object|null $validation_result validation_result
-     *
-     * @return self
-     */
-    public function setValidationResult($validation_result)
-    {
-        if (is_null($validation_result)) {
-            array_push($this->openAPINullablesSetToNull, 'validation_result');
+        if (is_null($action_batch_id)) {
+            array_push($this->openAPINullablesSetToNull, 'action_batch_id');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('validation_result', $nullablesSetToNull);
+            $index = array_search('action_batch_id', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $allowedValues = $this->getValidationResultAllowableValues();
-        if (!is_null($validation_result) && !in_array($validation_result, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'validation_result', must be one of '%s'",
-                    $validation_result,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['validation_result'] = $validation_result;
+        $this->container['action_batch_id'] = $action_batch_id;
 
         return $this;
     }
 
     /**
-     * Gets validated_at
+     * Gets policy_reasons
      *
-     * @return object|null
+     * @return string[]
      */
-    public function getValidatedAt()
+    public function getPolicyReasons()
     {
-        return $this->container['validated_at'];
+        return $this->container['policy_reasons'];
     }
 
     /**
-     * Sets validated_at
+     * Sets policy_reasons
      *
-     * @param object|null $validated_at validated_at
+     * @param string[] $policy_reasons policy_reasons
      *
      * @return self
      */
-    public function setValidatedAt($validated_at)
+    public function setPolicyReasons($policy_reasons)
     {
-        if (is_null($validated_at)) {
-            array_push($this->openAPINullablesSetToNull, 'validated_at');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('validated_at', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+        if (is_null($policy_reasons)) {
+            throw new \InvalidArgumentException('non-nullable policy_reasons cannot be null');
         }
-        $allowedValues = $this->getValidatedAtAllowableValues();
-        if (!is_null($validated_at) && !in_array($validated_at, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'validated_at', must be one of '%s'",
-                    $validated_at,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['validated_at'] = $validated_at;
+        $this->container['policy_reasons'] = $policy_reasons;
 
         return $this;
     }
 
     /**
-     * Gets approval_id
+     * Gets provider_object_ids
      *
-     * @return object|null
+     * @return mixed|null
      */
-    public function getApprovalId()
+    public function getProviderObjectIds()
     {
-        return $this->container['approval_id'];
+        return $this->container['provider_object_ids'];
     }
 
     /**
-     * Sets approval_id
+     * Sets provider_object_ids
      *
-     * @param object|null $approval_id approval_id
+     * @param mixed|null $provider_object_ids provider_object_ids
      *
      * @return self
      */
-    public function setApprovalId($approval_id)
+    public function setProviderObjectIds($provider_object_ids)
     {
-        if (is_null($approval_id)) {
-            array_push($this->openAPINullablesSetToNull, 'approval_id');
+        if (is_null($provider_object_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'provider_object_ids');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('approval_id', $nullablesSetToNull);
+            $index = array_search('provider_object_ids', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $allowedValues = $this->getApprovalIdAllowableValues();
-        if (!is_null($approval_id) && !in_array($approval_id, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'approval_id', must be one of '%s'",
-                    $approval_id,
-                    implode("', '", $allowedValues)
-                )
-            );
+        $this->container['provider_object_ids'] = $provider_object_ids;
+
+        return $this;
+    }
+
+    /**
+     * Gets campaign_id
+     *
+     * @return string|null
+     */
+    public function getCampaignId()
+    {
+        return $this->container['campaign_id'];
+    }
+
+    /**
+     * Sets campaign_id
+     *
+     * @param string|null $campaign_id campaign_id
+     *
+     * @return self
+     */
+    public function setCampaignId($campaign_id)
+    {
+        if (is_null($campaign_id)) {
+            array_push($this->openAPINullablesSetToNull, 'campaign_id');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('campaign_id', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
-        $this->container['approval_id'] = $approval_id;
+        $this->container['campaign_id'] = $campaign_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets ad_set_id
+     *
+     * @return string|null
+     */
+    public function getAdSetId()
+    {
+        return $this->container['ad_set_id'];
+    }
+
+    /**
+     * Sets ad_set_id
+     *
+     * @param string|null $ad_set_id ad_set_id
+     *
+     * @return self
+     */
+    public function setAdSetId($ad_set_id)
+    {
+        if (is_null($ad_set_id)) {
+            array_push($this->openAPINullablesSetToNull, 'ad_set_id');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('ad_set_id', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['ad_set_id'] = $ad_set_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return string|null
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param string|null $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            array_push($this->openAPINullablesSetToNull, 'currency');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('currency', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['currency'] = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Gets actions
+     *
+     * @return \Plainrouter\OpenAPI\Model\LaunchIntentReadIntentActionsInner[]
+     */
+    public function getActions()
+    {
+        return $this->container['actions'];
+    }
+
+    /**
+     * Sets actions
+     *
+     * @param \Plainrouter\OpenAPI\Model\LaunchIntentReadIntentActionsInner[] $actions actions
+     *
+     * @return self
+     */
+    public function setActions($actions)
+    {
+        if (is_null($actions)) {
+            throw new \InvalidArgumentException('non-nullable actions cannot be null');
+        }
+        $this->container['actions'] = $actions;
 
         return $this;
     }

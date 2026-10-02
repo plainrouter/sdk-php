@@ -12,7 +12,7 @@ PHP 8.2 or newer is required.
 
 ## Use
 
-Create one client with a Signal Tracker secret and call one of the three API groups:
+Create one client with a Signal Tracker secret and call an API group:
 
 ```php
 use Plainrouter\Client;
@@ -24,6 +24,13 @@ $event = $client->events->getEvent('event-id');
 ```
 
 The default base URL is `https://plainrouter.com/api/v1` and the default timeout is 30 seconds. Credentials are supplied by the caller and are never embedded in the SDK. Pass your own Guzzle client as `httpClient` to control transport options.
+
+To copy a failed plan to a fresh draft, configure a client with a plan-writer bearer token:
+
+```php
+$client = new Client(token: getenv('PLAINROUTER_TOKEN'));
+$draft = $client->plans->launchPlansCopy(1, 'failed-plan-id');
+```
 
 The zero-auth sandbox uses the same client without a token:
 

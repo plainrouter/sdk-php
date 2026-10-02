@@ -136,7 +136,7 @@ class ActionDryRunApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionDryRunRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionDryRunRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage
      */
     public function actionsApiDryRun($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiDryRun'][0])
     {
@@ -155,7 +155,7 @@ class ActionDryRunApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionDryRunRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionDryRunRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiDryRunWithHttpInfo($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiDryRun'][0])
     {
@@ -193,17 +193,23 @@ class ActionDryRunApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 413:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         $request,
@@ -212,6 +218,18 @@ class ActionDryRunApiApi
                 case 422:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         $request,
                         $response,
                     );
@@ -250,7 +268,7 @@ class ActionDryRunApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -258,12 +276,20 @@ class ActionDryRunApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
@@ -275,6 +301,22 @@ class ActionDryRunApiApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

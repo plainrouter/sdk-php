@@ -14,6 +14,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Plainrouter\Client;
 use Plainrouter\Events;
+use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\Api\EventApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
@@ -36,7 +37,7 @@ final class ClientTest extends TestCase
     /** @var list<array{request: RequestInterface}> */
     private array $history = [];
 
-    public function test_exposes_three_service_groups_and_the_configuration(): void
+    public function test_exposes_service_groups_and_the_configuration(): void
     {
         $properties = array_map(
             static fn ($property): string => $property->getName(),
@@ -44,16 +45,18 @@ final class ClientTest extends TestCase
         );
         sort($properties);
 
-        $this->assertSame(['configuration', 'events', 'operations', 'sandbox'], $properties);
+        $this->assertSame(['configuration', 'events', 'operations', 'plans', 'sandbox'], $properties);
 
-        $client = new Client();
+        $client = new Client;
         $this->assertInstanceOf(EventApi::class, $client->events);
         $this->assertInstanceOf(OperationsApi::class, $client->operations);
         $this->assertInstanceOf(SandboxApi::class, $client->sandbox);
+        $this->assertInstanceOf(DeploymentPlanApi::class, $client->plans);
     }
 
     public function test_exposes_the_signed_contract_operations(): void
     {
+        $this->assertSame(['launchPlansCopy', 'launchPlansExecute'], $this->operationNames(DeploymentPlanApi::class));
         $this->assertSame(
             ['createEvent', 'getEvent', 'verifySignalIngestion'],
             $this->operationNames(EventApi::class),
@@ -102,11 +105,12 @@ final class ClientTest extends TestCase
         $this->assertSame($client->configuration, $client->events->getConfig());
         $this->assertSame($client->configuration, $client->operations->getConfig());
         $this->assertSame($client->configuration, $client->sandbox->getConfig());
+        $this->assertSame($client->configuration, $client->plans->getConfig());
     }
 
     public function test_uses_safe_defaults(): void
     {
-        $client = new Client();
+        $client = new Client;
 
         $this->assertSame(Client::DEFAULT_BASE_URL, $client->configuration->getHost());
         $this->assertSame('plainrouter-php/'.Version::SDK, $client->configuration->getUserAgent());

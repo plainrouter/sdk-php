@@ -1925,7 +1925,7 @@ class OperationsApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\SendTestPurchase422Response
+     * @return \Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\SendTestPurchase422Response|\Plainrouter\OpenAPI\Model\SendTestPurchase200Response
      */
     public function sendTestPurchase($destination, $send_test_purchase_request = null, string $contentType = self::contentTypes['sendTestPurchase'][0])
     {
@@ -1944,7 +1944,7 @@ class OperationsApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\SendTestPurchase422Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\SendTestPurchase200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\SendTestPurchase422Response|\Plainrouter\OpenAPI\Model\SendTestPurchase200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function sendTestPurchaseWithHttpInfo($destination, $send_test_purchase_request = null, string $contentType = self::contentTypes['sendTestPurchase'][0])
     {
@@ -1980,12 +1980,6 @@ class OperationsApi
                         $request,
                         $response,
                     );
-                case 502:
-                    return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\SendTestPurchase200Response',
-                        $request,
-                        $response,
-                    );
                 case 401:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
@@ -2001,6 +1995,12 @@ class OperationsApi
                 case 422:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\SendTestPurchase422Response',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\SendTestPurchase200Response',
                         $request,
                         $response,
                     );
@@ -2036,14 +2036,6 @@ class OperationsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 502:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\SendTestPurchase200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -2064,6 +2056,14 @@ class OperationsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\SendTestPurchase422Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\SendTestPurchase200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

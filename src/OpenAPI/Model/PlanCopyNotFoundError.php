@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanCopyErrorError
+ * PlanCopyNotFoundError
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * PlanCopyErrorError Class Doc Comment
+ * PlanCopyNotFoundError Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PlanCopyErrorError implements ModelInterface, ArrayAccess, \JsonSerializable
+class PlanCopyNotFoundError implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PlanCopyErrorError implements ModelInterface, ArrayAccess, \JsonSerializab
      *
      * @var string
      */
-    protected static $openAPIModelName = 'PlanCopyError_error';
+    protected static $openAPIModelName = 'PlanCopyNotFound_error';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -234,6 +234,19 @@ class PlanCopyErrorError implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
+    public const CODE_PLAN_NOT_FOUND = 'plan_not_found';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCodeAllowableValues()
+    {
+        return [
+            self::CODE_PLAN_NOT_FOUND,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -284,6 +297,15 @@ class PlanCopyErrorError implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['code'] === null) {
             $invalidProperties[] = "'code' can't be null";
         }
+        $allowedValues = $this->getCodeAllowableValues();
+        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'code', must be one of '%s'",
+                $this->container['code'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
@@ -323,6 +345,16 @@ class PlanCopyErrorError implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         if (is_null($code)) {
             throw new \InvalidArgumentException('non-nullable code cannot be null');
+        }
+        $allowedValues = $this->getCodeAllowableValues();
+        if (!in_array($code, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'code', must be one of '%s'",
+                    $code,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
         $this->container['code'] = $code;
 

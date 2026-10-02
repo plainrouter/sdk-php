@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanCopyReadPlan
+ * LaunchIntentReadIntentActionsInner
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * PlanCopyReadPlan Class Doc Comment
+ * LaunchIntentReadIntentActionsInner Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
+class LaunchIntentReadIntentActionsInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'PlanCopyRead_plan';
+    protected static $openAPIModelName = 'LaunchIntentRead_intent_actions_inner';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -58,12 +58,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'id' => 'string',
-        'platform_ad_account_id' => 'int',
-        'status' => 'string',
-        'budget_amount_minor' => 'int',
-        'validation_result' => 'object',
-        'validated_at' => 'object',
-        'approval_id' => 'object'
+        'type' => 'string',
+        'verification_result' => 'string',
+        'external_ids' => 'mixed'
     ];
 
     /**
@@ -75,12 +72,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'id' => null,
-        'platform_ad_account_id' => null,
-        'status' => null,
-        'budget_amount_minor' => null,
-        'validation_result' => null,
-        'validated_at' => null,
-        'approval_id' => null
+        'type' => null,
+        'verification_result' => null,
+        'external_ids' => null
     ];
 
     /**
@@ -90,12 +84,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'id' => false,
-        'platform_ad_account_id' => false,
-        'status' => false,
-        'budget_amount_minor' => false,
-        'validation_result' => true,
-        'validated_at' => true,
-        'approval_id' => true
+        'type' => false,
+        'verification_result' => true,
+        'external_ids' => true
     ];
 
     /**
@@ -185,12 +176,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'platform_ad_account_id' => 'platform_ad_account_id',
-        'status' => 'status',
-        'budget_amount_minor' => 'budget_amount_minor',
-        'validation_result' => 'validation_result',
-        'validated_at' => 'validated_at',
-        'approval_id' => 'approval_id'
+        'type' => 'type',
+        'verification_result' => 'verification_result',
+        'external_ids' => 'external_ids'
     ];
 
     /**
@@ -200,12 +188,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'platform_ad_account_id' => 'setPlatformAdAccountId',
-        'status' => 'setStatus',
-        'budget_amount_minor' => 'setBudgetAmountMinor',
-        'validation_result' => 'setValidationResult',
-        'validated_at' => 'setValidatedAt',
-        'approval_id' => 'setApprovalId'
+        'type' => 'setType',
+        'verification_result' => 'setVerificationResult',
+        'external_ids' => 'setExternalIds'
     ];
 
     /**
@@ -215,12 +200,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'platform_ad_account_id' => 'getPlatformAdAccountId',
-        'status' => 'getStatus',
-        'budget_amount_minor' => 'getBudgetAmountMinor',
-        'validation_result' => 'getValidationResult',
-        'validated_at' => 'getValidatedAt',
-        'approval_id' => 'getApprovalId'
+        'type' => 'getType',
+        'verification_result' => 'getVerificationResult',
+        'external_ids' => 'getExternalIds'
     ];
 
     /**
@@ -264,53 +246,47 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const STATUS_DRAFT = 'draft';
+    public const TYPE_INCREASE_BUDGET = 'increase_budget';
+    public const TYPE_DECREASE_BUDGET = 'decrease_budget';
+    public const TYPE_PAUSE = 'pause';
+    public const TYPE_RESUME = 'resume';
+    public const TYPE_REPLACE_CREATIVE = 'replace_creative';
+    public const TYPE_SHIFT_SPEND = 'shift_spend';
+    public const TYPE_ROLLBACK = 'rollback';
+    public const TYPE_CREATE_CAMPAIGN = 'create_campaign';
+    public const TYPE_CREATE_AD_SET = 'create_ad_set';
+    public const TYPE_CREATE_AD = 'create_ad';
+    public const TYPE_UPLOAD_ASSET = 'upload_asset';
+    public const TYPE_ADJUST_BUDGET = 'adjust_budget';
+    public const TYPE_SET_STATUS = 'set_status';
+    public const TYPE_DUPLICATE_AD_WITH_CREATIVE = 'duplicate_ad_with_creative';
+    public const TYPE_DUPLICATE_ADSET = 'duplicate_adset';
+    public const TYPE_DUPLICATE_AD_WITH_CREATIVE_V2 = 'duplicate_ad_with_creative_v2';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getStatusAllowableValues()
+    public function getTypeAllowableValues()
     {
         return [
-            self::STATUS_DRAFT,
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getValidationResultAllowableValues()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getValidatedAtAllowableValues()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getApprovalIdAllowableValues()
-    {
-        return [
-
+            self::TYPE_INCREASE_BUDGET,
+            self::TYPE_DECREASE_BUDGET,
+            self::TYPE_PAUSE,
+            self::TYPE_RESUME,
+            self::TYPE_REPLACE_CREATIVE,
+            self::TYPE_SHIFT_SPEND,
+            self::TYPE_ROLLBACK,
+            self::TYPE_CREATE_CAMPAIGN,
+            self::TYPE_CREATE_AD_SET,
+            self::TYPE_CREATE_AD,
+            self::TYPE_UPLOAD_ASSET,
+            self::TYPE_ADJUST_BUDGET,
+            self::TYPE_SET_STATUS,
+            self::TYPE_DUPLICATE_AD_WITH_CREATIVE,
+            self::TYPE_DUPLICATE_ADSET,
+            self::TYPE_DUPLICATE_AD_WITH_CREATIVE_V2,
         ];
     }
 
@@ -330,12 +306,9 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('platform_ad_account_id', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('budget_amount_minor', $data ?? [], null);
-        $this->setIfExists('validation_result', $data ?? [], null);
-        $this->setIfExists('validated_at', $data ?? [], null);
-        $this->setIfExists('approval_id', $data ?? [], null);
+        $this->setIfExists('type', $data ?? [], null);
+        $this->setIfExists('verification_result', $data ?? [], null);
+        $this->setIfExists('external_ids', $data ?? [], null);
     }
 
     /**
@@ -368,60 +341,24 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['platform_ad_account_id'] === null) {
-            $invalidProperties[] = "'platform_ad_account_id' can't be null";
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
         }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
-        $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status', must be one of '%s'",
-                $this->container['status'],
+                "invalid value '%s' for 'type', must be one of '%s'",
+                $this->container['type'],
                 implode("', '", $allowedValues)
             );
         }
 
-        if ($this->container['budget_amount_minor'] === null) {
-            $invalidProperties[] = "'budget_amount_minor' can't be null";
+        if ($this->container['verification_result'] === null && !$this->isNullableSetToNull('verification_result')) {
+            $invalidProperties[] = "'verification_result' is required";
         }
-        if ($this->container['validation_result'] === null && !$this->isNullableSetToNull('validation_result')) {
-            $invalidProperties[] = "'validation_result' is required";
+        if ($this->container['external_ids'] === null && !$this->isNullableSetToNull('external_ids')) {
+            $invalidProperties[] = "'external_ids' is required";
         }
-        $allowedValues = $this->getValidationResultAllowableValues();
-        if (!is_null($this->container['validation_result']) && !in_array($this->container['validation_result'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'validation_result', must be one of '%s'",
-                $this->container['validation_result'],
-                implode("', '", $allowedValues)
-            );
-        }
-
-        if ($this->container['validated_at'] === null && !$this->isNullableSetToNull('validated_at')) {
-            $invalidProperties[] = "'validated_at' is required";
-        }
-        $allowedValues = $this->getValidatedAtAllowableValues();
-        if (!is_null($this->container['validated_at']) && !in_array($this->container['validated_at'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'validated_at', must be one of '%s'",
-                $this->container['validated_at'],
-                implode("', '", $allowedValues)
-            );
-        }
-
-        if ($this->container['approval_id'] === null && !$this->isNullableSetToNull('approval_id')) {
-            $invalidProperties[] = "'approval_id' is required";
-        }
-        $allowedValues = $this->getApprovalIdAllowableValues();
-        if (!is_null($this->container['approval_id']) && !in_array($this->container['approval_id'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'approval_id', must be one of '%s'",
-                $this->container['approval_id'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -465,224 +402,106 @@ class PlanCopyReadPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets platform_ad_account_id
-     *
-     * @return int
-     */
-    public function getPlatformAdAccountId()
-    {
-        return $this->container['platform_ad_account_id'];
-    }
-
-    /**
-     * Sets platform_ad_account_id
-     *
-     * @param int $platform_ad_account_id platform_ad_account_id
-     *
-     * @return self
-     */
-    public function setPlatformAdAccountId($platform_ad_account_id)
-    {
-        if (is_null($platform_ad_account_id)) {
-            throw new \InvalidArgumentException('non-nullable platform_ad_account_id cannot be null');
-        }
-        $this->container['platform_ad_account_id'] = $platform_ad_account_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets status
+     * Gets type
      *
      * @return string
      */
-    public function getStatus()
+    public function getType()
     {
-        return $this->container['status'];
+        return $this->container['type'];
     }
 
     /**
-     * Sets status
+     * Sets type
      *
-     * @param string $status status
+     * @param string $type type
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setType($type)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($type)) {
+            throw new \InvalidArgumentException('non-nullable type cannot be null');
         }
-        $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!in_array($type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Invalid value '%s' for 'status', must be one of '%s'",
-                    $status,
+                    "Invalid value '%s' for 'type', must be one of '%s'",
+                    $type,
                     implode("', '", $allowedValues)
                 )
             );
         }
-        $this->container['status'] = $status;
+        $this->container['type'] = $type;
 
         return $this;
     }
 
     /**
-     * Gets budget_amount_minor
+     * Gets verification_result
      *
-     * @return int
+     * @return string|null
      */
-    public function getBudgetAmountMinor()
+    public function getVerificationResult()
     {
-        return $this->container['budget_amount_minor'];
+        return $this->container['verification_result'];
     }
 
     /**
-     * Sets budget_amount_minor
+     * Sets verification_result
      *
-     * @param int $budget_amount_minor budget_amount_minor
+     * @param string|null $verification_result verification_result
      *
      * @return self
      */
-    public function setBudgetAmountMinor($budget_amount_minor)
+    public function setVerificationResult($verification_result)
     {
-        if (is_null($budget_amount_minor)) {
-            throw new \InvalidArgumentException('non-nullable budget_amount_minor cannot be null');
-        }
-        $this->container['budget_amount_minor'] = $budget_amount_minor;
-
-        return $this;
-    }
-
-    /**
-     * Gets validation_result
-     *
-     * @return object|null
-     */
-    public function getValidationResult()
-    {
-        return $this->container['validation_result'];
-    }
-
-    /**
-     * Sets validation_result
-     *
-     * @param object|null $validation_result validation_result
-     *
-     * @return self
-     */
-    public function setValidationResult($validation_result)
-    {
-        if (is_null($validation_result)) {
-            array_push($this->openAPINullablesSetToNull, 'validation_result');
+        if (is_null($verification_result)) {
+            array_push($this->openAPINullablesSetToNull, 'verification_result');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('validation_result', $nullablesSetToNull);
+            $index = array_search('verification_result', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $allowedValues = $this->getValidationResultAllowableValues();
-        if (!is_null($validation_result) && !in_array($validation_result, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'validation_result', must be one of '%s'",
-                    $validation_result,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['validation_result'] = $validation_result;
+        $this->container['verification_result'] = $verification_result;
 
         return $this;
     }
 
     /**
-     * Gets validated_at
+     * Gets external_ids
      *
-     * @return object|null
+     * @return mixed|null
      */
-    public function getValidatedAt()
+    public function getExternalIds()
     {
-        return $this->container['validated_at'];
+        return $this->container['external_ids'];
     }
 
     /**
-     * Sets validated_at
+     * Sets external_ids
      *
-     * @param object|null $validated_at validated_at
+     * @param mixed|null $external_ids external_ids
      *
      * @return self
      */
-    public function setValidatedAt($validated_at)
+    public function setExternalIds($external_ids)
     {
-        if (is_null($validated_at)) {
-            array_push($this->openAPINullablesSetToNull, 'validated_at');
+        if (is_null($external_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'external_ids');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('validated_at', $nullablesSetToNull);
+            $index = array_search('external_ids', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $allowedValues = $this->getValidatedAtAllowableValues();
-        if (!is_null($validated_at) && !in_array($validated_at, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'validated_at', must be one of '%s'",
-                    $validated_at,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['validated_at'] = $validated_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets approval_id
-     *
-     * @return object|null
-     */
-    public function getApprovalId()
-    {
-        return $this->container['approval_id'];
-    }
-
-    /**
-     * Sets approval_id
-     *
-     * @param object|null $approval_id approval_id
-     *
-     * @return self
-     */
-    public function setApprovalId($approval_id)
-    {
-        if (is_null($approval_id)) {
-            array_push($this->openAPINullablesSetToNull, 'approval_id');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('approval_id', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $allowedValues = $this->getApprovalIdAllowableValues();
-        if (!is_null($approval_id) && !in_array($approval_id, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'approval_id', must be one of '%s'",
-                    $approval_id,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['approval_id'] = $approval_id;
+        $this->container['external_ids'] = $external_ids;
 
         return $this;
     }

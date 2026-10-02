@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanCopyError
+ * ApiRouteNotFoundError
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * PlanCopyError Class Doc Comment
+ * ApiRouteNotFoundError Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
+class ApiRouteNotFoundError implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'PlanCopyError';
+    protected static $openAPIModelName = 'ApiRouteNotFound_error';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'error' => '\Plainrouter\OpenAPI\Model\PlanCopyErrorError'
+        'code' => 'string',
+        'message' => 'string',
+        'resolution' => 'string'
     ];
 
     /**
@@ -68,7 +70,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'error' => null
+        'code' => null,
+        'message' => null,
+        'resolution' => null
     ];
 
     /**
@@ -77,7 +81,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'error' => false
+        'code' => false,
+        'message' => false,
+        'resolution' => false
     ];
 
     /**
@@ -166,7 +172,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'error' => 'error'
+        'code' => 'code',
+        'message' => 'message',
+        'resolution' => 'resolution'
     ];
 
     /**
@@ -175,7 +183,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'error' => 'setError'
+        'code' => 'setCode',
+        'message' => 'setMessage',
+        'resolution' => 'setResolution'
     ];
 
     /**
@@ -184,7 +194,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'error' => 'getError'
+        'code' => 'getCode',
+        'message' => 'getMessage',
+        'resolution' => 'getResolution'
     ];
 
     /**
@@ -228,6 +240,19 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const CODE_API_ROUTE_NOT_FOUND = 'api_route_not_found';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCodeAllowableValues()
+    {
+        return [
+            self::CODE_API_ROUTE_NOT_FOUND,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -244,7 +269,9 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('error', $data ?? [], null);
+        $this->setIfExists('code', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('resolution', $data ?? [], null);
     }
 
     /**
@@ -274,8 +301,23 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['error'] === null) {
-            $invalidProperties[] = "'error' can't be null";
+        if ($this->container['code'] === null) {
+            $invalidProperties[] = "'code' can't be null";
+        }
+        $allowedValues = $this->getCodeAllowableValues();
+        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'code', must be one of '%s'",
+                $this->container['code'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
+        }
+        if ($this->container['resolution'] === null) {
+            $invalidProperties[] = "'resolution' can't be null";
         }
         return $invalidProperties;
     }
@@ -293,28 +335,92 @@ class PlanCopyError implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets error
+     * Gets code
      *
-     * @return \Plainrouter\OpenAPI\Model\PlanCopyErrorError
+     * @return string
      */
-    public function getError()
+    public function getCode()
     {
-        return $this->container['error'];
+        return $this->container['code'];
     }
 
     /**
-     * Sets error
+     * Sets code
      *
-     * @param \Plainrouter\OpenAPI\Model\PlanCopyErrorError $error error
+     * @param string $code code
      *
      * @return self
      */
-    public function setError($error)
+    public function setCode($code)
     {
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($code)) {
+            throw new \InvalidArgumentException('non-nullable code cannot be null');
         }
-        $this->container['error'] = $error;
+        $allowedValues = $this->getCodeAllowableValues();
+        if (!in_array($code, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'code', must be one of '%s'",
+                    $code,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['code'] = $code;
+
+        return $this;
+    }
+
+    /**
+     * Gets message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string $message message
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        }
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets resolution
+     *
+     * @return string
+     */
+    public function getResolution()
+    {
+        return $this->container['resolution'];
+    }
+
+    /**
+     * Sets resolution
+     *
+     * @param string $resolution resolution
+     *
+     * @return self
+     */
+    public function setResolution($resolution)
+    {
+        if (is_null($resolution)) {
+            throw new \InvalidArgumentException('non-nullable resolution cannot be null');
+        }
+        $this->container['resolution'] = $resolution;
 
         return $this;
     }
