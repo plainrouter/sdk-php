@@ -56,7 +56,7 @@ final class ClientTest extends TestCase
 
     public function test_exposes_the_signed_contract_operations(): void
     {
-        $this->assertSame(['launchPlansCopy', 'launchPlansExecute'], $this->operationNames(DeploymentPlanApi::class));
+        $this->assertSame(['launchPlansCopy', 'launchPlansExecute', 'launchPlansIndex', 'launchPlansShow'], $this->operationNames(DeploymentPlanApi::class));
         $this->assertSame(
             ['createEvent', 'getEvent', 'verifySignalIngestion'],
             $this->operationNames(EventApi::class),

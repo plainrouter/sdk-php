@@ -610,7 +610,7 @@ class CreateEventRequestAnyOf implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets consent_basis
      *
-     * @param string $consent_basis Legal basis for processing. Legitimate-interest revenue lifecycle events are rejected; use an authenticated server adapter.
+     * @param string $consent_basis Legal basis for processing. Legitimate-interest server revenue retains identity only with admitted global visitor or buyer-country evidence and no opt-out.
      *
      * @return self
      */

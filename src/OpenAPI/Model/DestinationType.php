@@ -44,6 +44,8 @@ class DestinationType
      */
     public const META = 'meta';
 
+    public const GOOGLE_ADS = 'google_ads';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -51,7 +53,8 @@ class DestinationType
     public static function getAllowableEnumValues()
     {
         return [
-            self::META
+            self::META,
+            self::GOOGLE_ADS
         ];
     }
 }

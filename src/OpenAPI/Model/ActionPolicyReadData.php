@@ -254,9 +254,6 @@ class ActionPolicyReadData implements ModelInterface, ArrayAccess, \JsonSerializ
 
     public const EXECUTION_MODE_ASK = 'ask';
     public const EXECUTION_MODE_FULL = 'full';
-    public const EXECUTION_MODE_SUGGEST_ONLY = 'suggest_only';
-    public const EXECUTION_MODE_AUTO_WITH_LIMITS = 'auto_with_limits';
-    public const EXECUTION_MODE_FULL_AUTO = 'full_auto';
 
     /**
      * Gets allowable values of the enum
@@ -268,9 +265,6 @@ class ActionPolicyReadData implements ModelInterface, ArrayAccess, \JsonSerializ
         return [
             self::EXECUTION_MODE_ASK,
             self::EXECUTION_MODE_FULL,
-            self::EXECUTION_MODE_SUGGEST_ONLY,
-            self::EXECUTION_MODE_AUTO_WITH_LIMITS,
-            self::EXECUTION_MODE_FULL_AUTO,
         ];
     }
 

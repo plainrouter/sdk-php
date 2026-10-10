@@ -57,6 +57,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @var string[]
      */
     protected static $openAPITypes = [
+        'review_version' => 'string',
         'intent_key' => 'string'
     ];
 
@@ -68,6 +69,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'review_version' => null,
         'intent_key' => null
     ];
 
@@ -77,6 +79,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'review_version' => false,
         'intent_key' => true
     ];
 
@@ -166,6 +169,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @var string[]
      */
     protected static $attributeMap = [
+        'review_version' => 'review_version',
         'intent_key' => 'intent_key'
     ];
 
@@ -175,6 +179,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @var string[]
      */
     protected static $setters = [
+        'review_version' => 'setReviewVersion',
         'intent_key' => 'setIntentKey'
     ];
 
@@ -184,6 +189,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      * @var string[]
      */
     protected static $getters = [
+        'review_version' => 'getReviewVersion',
         'intent_key' => 'getIntentKey'
     ];
 
@@ -244,6 +250,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('review_version', $data ?? [], null);
         $this->setIfExists('intent_key', $data ?? [], null);
     }
 
@@ -274,6 +281,13 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
     {
         $invalidProperties = [];
 
+        if ($this->container['review_version'] === null) {
+            $invalidProperties[] = "'review_version' can't be null";
+        }
+        if (!preg_match("/^[a-f0-9]{64}$/", $this->container['review_version'])) {
+            $invalidProperties[] = "invalid value for 'review_version', must be conform to the pattern /^[a-f0-9]{64}$/.";
+        }
+
         if (!is_null($this->container['intent_key']) && (mb_strlen($this->container['intent_key']) > 240)) {
             $invalidProperties[] = "invalid value for 'intent_key', the character length must be smaller than or equal to 240.";
         }
@@ -292,6 +306,38 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets review_version
+     *
+     * @return string
+     */
+    public function getReviewVersion()
+    {
+        return $this->container['review_version'];
+    }
+
+    /**
+     * Sets review_version
+     *
+     * @param string $review_version review_version
+     *
+     * @return self
+     */
+    public function setReviewVersion($review_version)
+    {
+        if (is_null($review_version)) {
+            throw new \InvalidArgumentException('non-nullable review_version cannot be null');
+        }
+
+        if ((!preg_match("/^[a-f0-9]{64}$/", ObjectSerializer::toString($review_version)))) {
+            throw new \InvalidArgumentException("invalid value for \$review_version when calling ExecuteDeploymentPlanRequest., must conform to the pattern /^[a-f0-9]{64}$/.");
+        }
+
+        $this->container['review_version'] = $review_version;
+
+        return $this;
+    }
 
     /**
      * Gets intent_key

@@ -234,10 +234,12 @@ class PlanExecuteRejectedError implements ModelInterface, ArrayAccess, \JsonSeri
         return self::$openAPIModelName;
     }
 
+    public const CODE_PLAN_CHANGED_SINCE_REVIEW = 'plan_changed_since_review';
     public const CODE_DEPLOYMENT_PLAN_NOT_EXECUTABLE = 'deployment_plan_not_executable';
     public const CODE_CREATIVE_NOT_READY = 'creative_not_ready';
     public const CODE_CREATIVE_BYTES_UNAVAILABLE = 'creative_bytes_unavailable';
     public const CODE_AD_SET_DAILY_BUDGET_INVALID = 'ad_set_daily_budget_invalid';
+    public const CODE_AD_SET_BID_AMOUNT_INVALID = 'ad_set_bid_amount_invalid';
     public const CODE_CURRENCY_MISMATCH = 'currency_mismatch';
     public const CODE_CURRENCY_UNSUPPORTED = 'currency_unsupported';
     public const CODE_BUDGET_INVALID = 'budget_invalid';
@@ -251,10 +253,12 @@ class PlanExecuteRejectedError implements ModelInterface, ArrayAccess, \JsonSeri
     public function getCodeAllowableValues()
     {
         return [
+            self::CODE_PLAN_CHANGED_SINCE_REVIEW,
             self::CODE_DEPLOYMENT_PLAN_NOT_EXECUTABLE,
             self::CODE_CREATIVE_NOT_READY,
             self::CODE_CREATIVE_BYTES_UNAVAILABLE,
             self::CODE_AD_SET_DAILY_BUDGET_INVALID,
+            self::CODE_AD_SET_BID_AMOUNT_INVALID,
             self::CODE_CURRENCY_MISMATCH,
             self::CODE_CURRENCY_UNSUPPORTED,
             self::CODE_BUDGET_INVALID,

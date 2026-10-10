@@ -241,6 +241,7 @@ class CreateEvent202ResponseWarningsInner implements ModelInterface, ArrayAccess
     }
 
     public const FIELD_CONSENT_CAPTURED_AT = 'consent.captured_at';
+    public const FIELD_EVENT_SOURCE = 'event_source';
 
     /**
      * Gets allowable values of the enum
@@ -251,6 +252,7 @@ class CreateEvent202ResponseWarningsInner implements ModelInterface, ArrayAccess
     {
         return [
             self::FIELD_CONSENT_CAPTURED_AT,
+            self::FIELD_EVENT_SOURCE,
         ];
     }
 

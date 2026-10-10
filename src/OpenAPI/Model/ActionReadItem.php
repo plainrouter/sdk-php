@@ -66,11 +66,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => 'string',
         'params' => '\Plainrouter\OpenAPI\Model\ActionProposalReadProposalActionsInnerParams',
         'rationale' => 'string',
+        'proposer' => '\Plainrouter\OpenAPI\Model\ActionReadItemProposer',
+        'evidence' => '\Plainrouter\OpenAPI\Model\ActionReadItemEvidence',
         'status' => 'string',
         'batch_status' => 'string',
         'disposition' => '\Plainrouter\OpenAPI\Model\ActionCurrentDisposition',
         'policy_decision' => 'string',
-        'policy_reasons' => 'string[]'
+        'policy_reasons' => 'string[]',
+        'policy_result' => '\Plainrouter\OpenAPI\Model\ActionPolicyResult',
+        'policy_results' => '\Plainrouter\OpenAPI\Model\ActionPolicyResult[]'
     ];
 
     /**
@@ -90,11 +94,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => null,
         'params' => null,
         'rationale' => null,
+        'proposer' => null,
+        'evidence' => null,
         'status' => null,
         'batch_status' => null,
         'disposition' => null,
         'policy_decision' => null,
-        'policy_reasons' => null
+        'policy_reasons' => null,
+        'policy_result' => null,
+        'policy_results' => null
     ];
 
     /**
@@ -112,11 +120,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => true,
         'params' => false,
         'rationale' => false,
+        'proposer' => false,
+        'evidence' => false,
         'status' => false,
         'batch_status' => false,
         'disposition' => false,
         'policy_decision' => true,
-        'policy_reasons' => false
+        'policy_reasons' => false,
+        'policy_result' => true,
+        'policy_results' => false
     ];
 
     /**
@@ -214,11 +226,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => 'target_entity_name',
         'params' => 'params',
         'rationale' => 'rationale',
+        'proposer' => 'proposer',
+        'evidence' => 'evidence',
         'status' => 'status',
         'batch_status' => 'batch_status',
         'disposition' => 'disposition',
         'policy_decision' => 'policy_decision',
-        'policy_reasons' => 'policy_reasons'
+        'policy_reasons' => 'policy_reasons',
+        'policy_result' => 'policy_result',
+        'policy_results' => 'policy_results'
     ];
 
     /**
@@ -236,11 +252,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => 'setTargetEntityName',
         'params' => 'setParams',
         'rationale' => 'setRationale',
+        'proposer' => 'setProposer',
+        'evidence' => 'setEvidence',
         'status' => 'setStatus',
         'batch_status' => 'setBatchStatus',
         'disposition' => 'setDisposition',
         'policy_decision' => 'setPolicyDecision',
-        'policy_reasons' => 'setPolicyReasons'
+        'policy_reasons' => 'setPolicyReasons',
+        'policy_result' => 'setPolicyResult',
+        'policy_results' => 'setPolicyResults'
     ];
 
     /**
@@ -258,11 +278,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_name' => 'getTargetEntityName',
         'params' => 'getParams',
         'rationale' => 'getRationale',
+        'proposer' => 'getProposer',
+        'evidence' => 'getEvidence',
         'status' => 'getStatus',
         'batch_status' => 'getBatchStatus',
         'disposition' => 'getDisposition',
         'policy_decision' => 'getPolicyDecision',
-        'policy_reasons' => 'getPolicyReasons'
+        'policy_reasons' => 'getPolicyReasons',
+        'policy_result' => 'getPolicyResult',
+        'policy_results' => 'getPolicyResults'
     ];
 
     /**
@@ -467,11 +491,15 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('target_entity_name', $data ?? [], null);
         $this->setIfExists('params', $data ?? [], null);
         $this->setIfExists('rationale', $data ?? [], null);
+        $this->setIfExists('proposer', $data ?? [], null);
+        $this->setIfExists('evidence', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('batch_status', $data ?? [], null);
         $this->setIfExists('disposition', $data ?? [], null);
         $this->setIfExists('policy_decision', $data ?? [], null);
         $this->setIfExists('policy_reasons', $data ?? [], null);
+        $this->setIfExists('policy_result', $data ?? [], null);
+        $this->setIfExists('policy_results', $data ?? [], null);
     }
 
     /**
@@ -578,6 +606,12 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ($this->container['policy_reasons'] === null) {
             $invalidProperties[] = "'policy_reasons' can't be null";
+        }
+        if ($this->container['policy_result'] === null && !$this->isNullableSetToNull('policy_result')) {
+            $invalidProperties[] = "'policy_result' is required";
+        }
+        if ($this->container['policy_results'] === null) {
+            $invalidProperties[] = "'policy_results' can't be null";
         }
         return $invalidProperties;
     }
@@ -855,6 +889,60 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets proposer
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionReadItemProposer|null
+     */
+    public function getProposer()
+    {
+        return $this->container['proposer'];
+    }
+
+    /**
+     * Sets proposer
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionReadItemProposer|null $proposer proposer
+     *
+     * @return self
+     */
+    public function setProposer($proposer)
+    {
+        if (is_null($proposer)) {
+            throw new \InvalidArgumentException('non-nullable proposer cannot be null');
+        }
+        $this->container['proposer'] = $proposer;
+
+        return $this;
+    }
+
+    /**
+     * Gets evidence
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionReadItemEvidence|null
+     */
+    public function getEvidence()
+    {
+        return $this->container['evidence'];
+    }
+
+    /**
+     * Sets evidence
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionReadItemEvidence|null $evidence evidence
+     *
+     * @return self
+     */
+    public function setEvidence($evidence)
+    {
+        if (is_null($evidence)) {
+            throw new \InvalidArgumentException('non-nullable evidence cannot be null');
+        }
+        $this->container['evidence'] = $evidence;
+
+        return $this;
+    }
+
+    /**
      * Gets status
      *
      * @return string
@@ -1022,6 +1110,67 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable policy_reasons cannot be null');
         }
         $this->container['policy_reasons'] = $policy_reasons;
+
+        return $this;
+    }
+
+    /**
+     * Gets policy_result
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionPolicyResult|null
+     */
+    public function getPolicyResult()
+    {
+        return $this->container['policy_result'];
+    }
+
+    /**
+     * Sets policy_result
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionPolicyResult|null $policy_result policy_result
+     *
+     * @return self
+     */
+    public function setPolicyResult($policy_result)
+    {
+        if (is_null($policy_result)) {
+            array_push($this->openAPINullablesSetToNull, 'policy_result');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('policy_result', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['policy_result'] = $policy_result;
+
+        return $this;
+    }
+
+    /**
+     * Gets policy_results
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionPolicyResult[]
+     */
+    public function getPolicyResults()
+    {
+        return $this->container['policy_results'];
+    }
+
+    /**
+     * Sets policy_results
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionPolicyResult[] $policy_results policy_results
+     *
+     * @return self
+     */
+    public function setPolicyResults($policy_results)
+    {
+        if (is_null($policy_results)) {
+            throw new \InvalidArgumentException('non-nullable policy_results cannot be null');
+        }
+        $this->container['policy_results'] = $policy_results;
 
         return $this;
     }

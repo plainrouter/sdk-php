@@ -33,7 +33,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * IngestionWarningCode Class Doc Comment
  *
  * @category Class
- * @description The closed set of non-rejection warnings returned by authenticated ingestion.
+ * @description The closed set of non-rejection warnings returned by POST /events.
  * @package  Plainrouter\OpenAPI
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -45,6 +45,8 @@ class IngestionWarningCode
      */
     public const CONSENT_CAPTURED_AT_INVALID = 'consent_captured_at_invalid';
 
+    public const EVENT_SOURCE_INVALID = 'event_source_invalid';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -52,7 +54,8 @@ class IngestionWarningCode
     public static function getAllowableEnumValues()
     {
         return [
-            self::CONSENT_CAPTURED_AT_INVALID
+            self::CONSENT_CAPTURED_AT_INVALID,
+            self::EVENT_SOURCE_INVALID
         ];
     }
 }

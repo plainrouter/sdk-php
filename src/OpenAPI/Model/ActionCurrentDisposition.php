@@ -58,6 +58,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $openAPITypes = [
         'receipt_status' => 'string',
+        'outcome_payload' => '\Plainrouter\OpenAPI\Model\ActionCurrentDispositionOutcomePayload',
         'outcome_status' => 'string',
         'outcome_reason_code' => 'string',
         'outcome_checked_at' => '\DateTime',
@@ -75,6 +76,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $openAPIFormats = [
         'receipt_status' => null,
+        'outcome_payload' => null,
         'outcome_status' => null,
         'outcome_reason_code' => null,
         'outcome_checked_at' => 'date-time',
@@ -90,6 +92,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static array $openAPINullables = [
         'receipt_status' => true,
+        'outcome_payload' => true,
         'outcome_status' => true,
         'outcome_reason_code' => true,
         'outcome_checked_at' => true,
@@ -185,6 +188,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $attributeMap = [
         'receipt_status' => 'receipt_status',
+        'outcome_payload' => 'outcome_payload',
         'outcome_status' => 'outcome_status',
         'outcome_reason_code' => 'outcome_reason_code',
         'outcome_checked_at' => 'outcome_checked_at',
@@ -200,6 +204,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $setters = [
         'receipt_status' => 'setReceiptStatus',
+        'outcome_payload' => 'setOutcomePayload',
         'outcome_status' => 'setOutcomeStatus',
         'outcome_reason_code' => 'setOutcomeReasonCode',
         'outcome_checked_at' => 'setOutcomeCheckedAt',
@@ -215,6 +220,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $getters = [
         'receipt_status' => 'getReceiptStatus',
+        'outcome_payload' => 'getOutcomePayload',
         'outcome_status' => 'getOutcomeStatus',
         'outcome_reason_code' => 'getOutcomeReasonCode',
         'outcome_checked_at' => 'getOutcomeCheckedAt',
@@ -358,6 +364,7 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
     public function __construct(?array $data = null)
     {
         $this->setIfExists('receipt_status', $data ?? [], null);
+        $this->setIfExists('outcome_payload', $data ?? [], null);
         $this->setIfExists('outcome_status', $data ?? [], null);
         $this->setIfExists('outcome_reason_code', $data ?? [], null);
         $this->setIfExists('outcome_checked_at', $data ?? [], null);
@@ -405,6 +412,9 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
 
+        if ($this->container['outcome_payload'] === null && !$this->isNullableSetToNull('outcome_payload')) {
+            $invalidProperties[] = "'outcome_payload' is required";
+        }
         if ($this->container['outcome_status'] === null && !$this->isNullableSetToNull('outcome_status')) {
             $invalidProperties[] = "'outcome_status' is required";
         }
@@ -496,6 +506,40 @@ class ActionCurrentDisposition implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
         $this->container['receipt_status'] = $receipt_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets outcome_payload
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionCurrentDispositionOutcomePayload|null
+     */
+    public function getOutcomePayload()
+    {
+        return $this->container['outcome_payload'];
+    }
+
+    /**
+     * Sets outcome_payload
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionCurrentDispositionOutcomePayload|null $outcome_payload outcome_payload
+     *
+     * @return self
+     */
+    public function setOutcomePayload($outcome_payload)
+    {
+        if (is_null($outcome_payload)) {
+            array_push($this->openAPINullablesSetToNull, 'outcome_payload');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('outcome_payload', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['outcome_payload'] = $outcome_payload;
 
         return $this;
     }

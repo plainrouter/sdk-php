@@ -62,7 +62,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => 'string',
         'evidence' => '\Plainrouter\OpenAPI\Model\ActionProposalInputEvidenceInner[]',
         'target_source' => 'string',
-        'account_id' => 'int'
+        'account_id' => 'int',
+        'workspace_id' => 'int'
     ];
 
     /**
@@ -78,7 +79,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => null,
         'evidence' => null,
         'target_source' => null,
-        'account_id' => null
+        'account_id' => null,
+        'workspace_id' => null
     ];
 
     /**
@@ -92,7 +94,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => false,
         'evidence' => false,
         'target_source' => false,
-        'account_id' => false
+        'account_id' => false,
+        'workspace_id' => false
     ];
 
     /**
@@ -186,7 +189,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => 'idempotency_key',
         'evidence' => 'evidence',
         'target_source' => 'target_source',
-        'account_id' => 'account_id'
+        'account_id' => 'account_id',
+        'workspace_id' => 'workspace_id'
     ];
 
     /**
@@ -200,7 +204,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => 'setIdempotencyKey',
         'evidence' => 'setEvidence',
         'target_source' => 'setTargetSource',
-        'account_id' => 'setAccountId'
+        'account_id' => 'setAccountId',
+        'workspace_id' => 'setWorkspaceId'
     ];
 
     /**
@@ -214,7 +219,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         'idempotency_key' => 'getIdempotencyKey',
         'evidence' => 'getEvidence',
         'target_source' => 'getTargetSource',
-        'account_id' => 'getAccountId'
+        'account_id' => 'getAccountId',
+        'workspace_id' => 'getWorkspaceId'
     ];
 
     /**
@@ -293,6 +299,7 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('evidence', $data ?? [], null);
         $this->setIfExists('target_source', $data ?? [], null);
         $this->setIfExists('account_id', $data ?? [], null);
+        $this->setIfExists('workspace_id', $data ?? [], null);
     }
 
     /**
@@ -372,6 +379,10 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
 
         if (!is_null($this->container['account_id']) && ($this->container['account_id'] < 1)) {
             $invalidProperties[] = "invalid value for 'account_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['workspace_id']) && ($this->container['workspace_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'workspace_id', must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -581,6 +592,37 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         }
 
         $this->container['account_id'] = $account_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets workspace_id
+     *
+     * @return int|null
+     */
+    public function getWorkspaceId()
+    {
+        return $this->container['workspace_id'];
+    }
+
+    /**
+     * Sets workspace_id
+     *
+     * @param int|null $workspace_id workspace_id
+     *
+     * @return self
+     */
+    public function setWorkspaceId($workspace_id)
+    {
+        if (is_null($workspace_id)) {
+            throw new \InvalidArgumentException('non-nullable workspace_id cannot be null');
+        }
+        if (($workspace_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $workspace_id when calling ActionProposalInput., must be bigger than or equal to 1.');
+        }
+
+        $this->container['workspace_id'] = $workspace_id;
 
         return $this;
     }
