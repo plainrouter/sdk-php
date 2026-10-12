@@ -136,7 +136,7 @@ class ActionProposalApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
+     * @return \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ProposalUnavailable
      */
     public function actionsApiPropose($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiPropose'][0])
     {
@@ -155,7 +155,7 @@ class ActionProposalApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionProposalRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ProposalReplayConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ProposalUnavailable, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiProposeWithHttpInfo($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiPropose'][0])
     {
@@ -247,7 +247,7 @@ class ActionProposalApiApi
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
                         $request,
                         $response,
                     );
@@ -358,7 +358,7 @@ class ActionProposalApiApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

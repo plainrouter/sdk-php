@@ -35,6 +35,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * ActionListReadMeta Class Doc Comment
  *
  * @category Class
+ * @description Complete projection rows are paged within 80,000 JSON bytes, accounting for both MCP representations. Defaults are bounded. Follow next_cursor with the same scope and filters. One oversized row is explicitly refused; fields are never silently clipped.
  * @package  Plainrouter\OpenAPI
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,7 +61,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => 'int',
         'last_page' => 'int',
         'per_page' => 'int',
-        'total' => 'int'
+        'total' => 'int',
+        'next_cursor' => 'int',
+        'truncated' => 'bool',
+        'continuation' => 'string'
     ];
 
     /**
@@ -74,7 +78,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => null,
         'last_page' => null,
         'per_page' => null,
-        'total' => null
+        'total' => null,
+        'next_cursor' => null,
+        'truncated' => null,
+        'continuation' => null
     ];
 
     /**
@@ -86,7 +93,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => false,
         'last_page' => false,
         'per_page' => false,
-        'total' => false
+        'total' => false,
+        'next_cursor' => true,
+        'truncated' => false,
+        'continuation' => false
     ];
 
     /**
@@ -178,7 +188,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => 'current_page',
         'last_page' => 'last_page',
         'per_page' => 'per_page',
-        'total' => 'total'
+        'total' => 'total',
+        'next_cursor' => 'next_cursor',
+        'truncated' => 'truncated',
+        'continuation' => 'continuation'
     ];
 
     /**
@@ -190,7 +203,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => 'setCurrentPage',
         'last_page' => 'setLastPage',
         'per_page' => 'setPerPage',
-        'total' => 'setTotal'
+        'total' => 'setTotal',
+        'next_cursor' => 'setNextCursor',
+        'truncated' => 'setTruncated',
+        'continuation' => 'setContinuation'
     ];
 
     /**
@@ -202,7 +218,10 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         'current_page' => 'getCurrentPage',
         'last_page' => 'getLastPage',
         'per_page' => 'getPerPage',
-        'total' => 'getTotal'
+        'total' => 'getTotal',
+        'next_cursor' => 'getNextCursor',
+        'truncated' => 'getTruncated',
+        'continuation' => 'getContinuation'
     ];
 
     /**
@@ -266,6 +285,9 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('last_page', $data ?? [], null);
         $this->setIfExists('per_page', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('next_cursor', $data ?? [], null);
+        $this->setIfExists('truncated', $data ?? [], null);
+        $this->setIfExists('continuation', $data ?? [], null);
     }
 
     /**
@@ -426,6 +448,94 @@ class ActionListReadMeta implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
         $this->container['total'] = $total;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_cursor
+     *
+     * @return int|null
+     */
+    public function getNextCursor()
+    {
+        return $this->container['next_cursor'];
+    }
+
+    /**
+     * Sets next_cursor
+     *
+     * @param int|null $next_cursor next_cursor
+     *
+     * @return self
+     */
+    public function setNextCursor($next_cursor)
+    {
+        if (is_null($next_cursor)) {
+            array_push($this->openAPINullablesSetToNull, 'next_cursor');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_cursor', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_cursor'] = $next_cursor;
+
+        return $this;
+    }
+
+    /**
+     * Gets truncated
+     *
+     * @return bool|null
+     */
+    public function getTruncated()
+    {
+        return $this->container['truncated'];
+    }
+
+    /**
+     * Sets truncated
+     *
+     * @param bool|null $truncated truncated
+     *
+     * @return self
+     */
+    public function setTruncated($truncated)
+    {
+        if (is_null($truncated)) {
+            throw new \InvalidArgumentException('non-nullable truncated cannot be null');
+        }
+        $this->container['truncated'] = $truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets continuation
+     *
+     * @return string|null
+     */
+    public function getContinuation()
+    {
+        return $this->container['continuation'];
+    }
+
+    /**
+     * Sets continuation
+     *
+     * @param string|null $continuation continuation
+     *
+     * @return self
+     */
+    public function setContinuation($continuation)
+    {
+        if (is_null($continuation)) {
+            throw new \InvalidArgumentException('non-nullable continuation cannot be null');
+        }
+        $this->container['continuation'] = $continuation;
 
         return $this;
     }

@@ -57,7 +57,7 @@ class CreativeIntakeRead implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $openAPITypes = [
-        'creative' => '\Plainrouter\OpenAPI\Model\CreativeIntakeReadCreative'
+        'creative' => '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInner'
     ];
 
     /**
@@ -295,7 +295,7 @@ class CreativeIntakeRead implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets creative
      *
-     * @return \Plainrouter\OpenAPI\Model\CreativeIntakeReadCreative
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInner
      */
     public function getCreative()
     {
@@ -305,7 +305,7 @@ class CreativeIntakeRead implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets creative
      *
-     * @param \Plainrouter\OpenAPI\Model\CreativeIntakeReadCreative $creative creative
+     * @param \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInner $creative creative
      *
      * @return self
      */

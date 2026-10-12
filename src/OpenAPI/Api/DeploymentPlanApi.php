@@ -554,7 +554,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\LaunchIntentRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\PlanExecuteConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansExecute422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
+     * @return \Plainrouter\OpenAPI\Model\LaunchIntentRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\PlanExecuteConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansExecute422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ProposalUnavailable
      */
     public function launchPlansExecute($workspace, $deployment_plan, $execute_deployment_plan_request, string $contentType = self::contentTypes['launchPlansExecute'][0])
     {
@@ -574,7 +574,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\LaunchIntentRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\PlanExecuteConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansExecute422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchIntentRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\PlanExecuteConflict|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansExecute422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ProposalUnavailable, HTTP status code, HTTP response headers (array of strings)
      */
     public function launchPlansExecuteWithHttpInfo($workspace, $deployment_plan, $execute_deployment_plan_request, string $contentType = self::contentTypes['launchPlansExecute'][0])
     {
@@ -660,7 +660,7 @@ class DeploymentPlanApi
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
                         $request,
                         $response,
                     );
@@ -763,7 +763,7 @@ class DeploymentPlanApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -993,16 +993,18 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $per_page per_page (optional, default to 25)
+     * @param  int|null $page page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound
      */
-    public function launchPlansIndex($workspace, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
-        list($response) = $this->launchPlansIndexWithHttpInfo($workspace, $per_page, $contentType);
+        list($response) = $this->launchPlansIndexWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType);
         return $response;
     }
 
@@ -1012,16 +1014,18 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $per_page (optional, default to 25)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound, HTTP status code, HTTP response headers (array of strings)
      */
-    public function launchPlansIndexWithHttpInfo($workspace, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
-        $request = $this->launchPlansIndexRequest($workspace, $per_page, $contentType);
+        $request = $this->launchPlansIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1140,15 +1144,17 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $per_page (optional, default to 25)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansIndexAsync($workspace, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexAsync($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
-        return $this->launchPlansIndexAsyncWithHttpInfo($workspace, $per_page, $contentType)
+        return $this->launchPlansIndexAsyncWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1162,16 +1168,18 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $per_page (optional, default to 25)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansIndexAsyncWithHttpInfo($workspace, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexAsyncWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response';
-        $request = $this->launchPlansIndexRequest($workspace, $per_page, $contentType);
+        $request = $this->launchPlansIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1213,13 +1221,15 @@ class DeploymentPlanApi
      * Create request for operation 'launchPlansIndex'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $per_page (optional, default to 25)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function launchPlansIndexRequest($workspace, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -1227,6 +1237,11 @@ class DeploymentPlanApi
             throw new \InvalidArgumentException(
                 'Missing the required parameter $workspace when calling launchPlansIndex'
             );
+        }
+
+
+        if ($cursor !== null && $cursor < 0) {
+            throw new \InvalidArgumentException('invalid value for "$cursor" when calling DeploymentPlanApi.launchPlansIndex, must be bigger than or equal to 0.');
         }
 
 
@@ -1238,6 +1253,24 @@ class DeploymentPlanApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $per_page,
@@ -1327,15 +1360,17 @@ class DeploymentPlanApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $deployment_plan deployment_plan (required)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 5. (optional, default to 5)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound
      */
-    public function launchPlansShow($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansShow'][0])
+    public function launchPlansShow($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
-        list($response) = $this->launchPlansShowWithHttpInfo($workspace, $deployment_plan, $contentType);
+        list($response) = $this->launchPlansShowWithHttpInfo($workspace, $deployment_plan, $cursor, $limit, $contentType);
         return $response;
     }
 
@@ -1346,15 +1381,17 @@ class DeploymentPlanApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $deployment_plan (required)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 5. (optional, default to 5)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound, HTTP status code, HTTP response headers (array of strings)
      */
-    public function launchPlansShowWithHttpInfo($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansShow'][0])
+    public function launchPlansShowWithHttpInfo($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
-        $request = $this->launchPlansShowRequest($workspace, $deployment_plan, $contentType);
+        $request = $this->launchPlansShowRequest($workspace, $deployment_plan, $cursor, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1474,14 +1511,16 @@ class DeploymentPlanApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $deployment_plan (required)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 5. (optional, default to 5)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansShowAsync($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansShow'][0])
+    public function launchPlansShowAsync($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
-        return $this->launchPlansShowAsyncWithHttpInfo($workspace, $deployment_plan, $contentType)
+        return $this->launchPlansShowAsyncWithHttpInfo($workspace, $deployment_plan, $cursor, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1496,15 +1535,17 @@ class DeploymentPlanApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $deployment_plan (required)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 5. (optional, default to 5)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansShowAsyncWithHttpInfo($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansShow'][0])
+    public function launchPlansShowAsyncWithHttpInfo($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansShow200Response';
-        $request = $this->launchPlansShowRequest($workspace, $deployment_plan, $contentType);
+        $request = $this->launchPlansShowRequest($workspace, $deployment_plan, $cursor, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1547,12 +1588,14 @@ class DeploymentPlanApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $deployment_plan (required)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 5. (optional, default to 5)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function launchPlansShowRequest($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansShow'][0])
+    public function launchPlansShowRequest($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -1569,6 +1612,17 @@ class DeploymentPlanApi
             );
         }
 
+        if ($cursor !== null && $cursor < 0) {
+            throw new \InvalidArgumentException('invalid value for "$cursor" when calling DeploymentPlanApi.launchPlansShow, must be bigger than or equal to 0.');
+        }
+
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling DeploymentPlanApi.launchPlansShow, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling DeploymentPlanApi.launchPlansShow, must be bigger than or equal to 1.');
+        }
+
 
         $resourcePath = '/workspaces/{workspace}/admin/plans/{deployment_plan}';
         $formParams = [];
@@ -1577,6 +1631,24 @@ class DeploymentPlanApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params

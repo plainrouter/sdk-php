@@ -66,7 +66,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => 'mixed[]',
         'status' => '\Plainrouter\OpenAPI\Model\DestinationStatus',
         'created_at' => '\DateTime',
-        'updated_at' => '\DateTime'
+        'updated_at' => '\DateTime',
+        'attention_reason' => 'string',
+        'held_count' => 'string',
+        'notices' => 'string'
     ];
 
     /**
@@ -86,7 +89,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => null,
         'status' => null,
         'created_at' => 'date-time',
-        'updated_at' => 'date-time'
+        'updated_at' => 'date-time',
+        'attention_reason' => null,
+        'held_count' => null,
+        'notices' => null
     ];
 
     /**
@@ -104,7 +110,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => false,
         'status' => false,
         'created_at' => true,
-        'updated_at' => true
+        'updated_at' => true,
+        'attention_reason' => false,
+        'held_count' => false,
+        'notices' => false
     ];
 
     /**
@@ -202,7 +211,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => 'config',
         'status' => 'status',
         'created_at' => 'created_at',
-        'updated_at' => 'updated_at'
+        'updated_at' => 'updated_at',
+        'attention_reason' => 'attention_reason',
+        'held_count' => 'held_count',
+        'notices' => 'notices'
     ];
 
     /**
@@ -220,7 +232,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => 'setConfig',
         'status' => 'setStatus',
         'created_at' => 'setCreatedAt',
-        'updated_at' => 'setUpdatedAt'
+        'updated_at' => 'setUpdatedAt',
+        'attention_reason' => 'setAttentionReason',
+        'held_count' => 'setHeldCount',
+        'notices' => 'setNotices'
     ];
 
     /**
@@ -238,7 +253,10 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'config' => 'getConfig',
         'status' => 'getStatus',
         'created_at' => 'getCreatedAt',
-        'updated_at' => 'getUpdatedAt'
+        'updated_at' => 'getUpdatedAt',
+        'attention_reason' => 'getAttentionReason',
+        'held_count' => 'getHeldCount',
+        'notices' => 'getNotices'
     ];
 
     /**
@@ -308,6 +326,9 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('attention_reason', $data ?? [], null);
+        $this->setIfExists('held_count', $data ?? [], null);
+        $this->setIfExists('notices', $data ?? [], null);
     }
 
     /**
@@ -366,6 +387,15 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['updated_at'] === null && !$this->isNullableSetToNull('updated_at')) {
             $invalidProperties[] = "'updated_at' is required";
+        }
+        if ($this->container['attention_reason'] === null) {
+            $invalidProperties[] = "'attention_reason' can't be null";
+        }
+        if ($this->container['held_count'] === null) {
+            $invalidProperties[] = "'held_count' can't be null";
+        }
+        if ($this->container['notices'] === null) {
+            $invalidProperties[] = "'notices' can't be null";
         }
         return $invalidProperties;
     }
@@ -671,6 +701,87 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['updated_at'] = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets attention_reason
+     *
+     * @return string
+     */
+    public function getAttentionReason()
+    {
+        return $this->container['attention_reason'];
+    }
+
+    /**
+     * Sets attention_reason
+     *
+     * @param string $attention_reason attention_reason
+     *
+     * @return self
+     */
+    public function setAttentionReason($attention_reason)
+    {
+        if (is_null($attention_reason)) {
+            throw new \InvalidArgumentException('non-nullable attention_reason cannot be null');
+        }
+        $this->container['attention_reason'] = $attention_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets held_count
+     *
+     * @return string
+     */
+    public function getHeldCount()
+    {
+        return $this->container['held_count'];
+    }
+
+    /**
+     * Sets held_count
+     *
+     * @param string $held_count held_count
+     *
+     * @return self
+     */
+    public function setHeldCount($held_count)
+    {
+        if (is_null($held_count)) {
+            throw new \InvalidArgumentException('non-nullable held_count cannot be null');
+        }
+        $this->container['held_count'] = $held_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets notices
+     *
+     * @return string
+     */
+    public function getNotices()
+    {
+        return $this->container['notices'];
+    }
+
+    /**
+     * Sets notices
+     *
+     * @param string $notices notices
+     *
+     * @return self
+     */
+    public function setNotices($notices)
+    {
+        if (is_null($notices)) {
+            throw new \InvalidArgumentException('non-nullable notices cannot be null');
+        }
+        $this->container['notices'] = $notices;
 
         return $this;
     }

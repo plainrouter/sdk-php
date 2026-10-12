@@ -1,6 +1,6 @@
 <?php
 /**
- * CreativeIntakeReadCreative
+ * LaunchCreativesIndex200ResponseCreativesDataInner
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * CreativeIntakeReadCreative Class Doc Comment
+ * LaunchCreativesIndex200ResponseCreativesDataInner Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSerializable
+class LaunchCreativesIndex200ResponseCreativesDataInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSe
      *
      * @var string
      */
-    protected static $openAPIModelName = 'CreativeIntakeRead_creative';
+    protected static $openAPIModelName = 'launch_creatives_index_200_response_creatives_data_inner';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -68,7 +68,7 @@ class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSe
         'duration_ms' => 'int',
         'original_filename' => 'string',
         'source_ref' => 'string',
-        'tags' => '\Plainrouter\OpenAPI\Model\CreativeIntakeReadCreativeTags',
+        'tags' => '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInnerTags',
         'status' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
@@ -507,7 +507,7 @@ class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSe
         }
 
         if ((!preg_match("/^[0-7][0-9a-hjkmnp-tv-z]{25}$/", ObjectSerializer::toString($id)))) {
-            throw new \InvalidArgumentException("invalid value for \$id when calling CreativeIntakeReadCreative., must conform to the pattern /^[0-7][0-9a-hjkmnp-tv-z]{25}$/.");
+            throw new \InvalidArgumentException("invalid value for \$id when calling LaunchCreativesIndex200ResponseCreativesDataInner., must conform to the pattern /^[0-7][0-9a-hjkmnp-tv-z]{25}$/.");
         }
 
         $this->container['id'] = $id;
@@ -840,7 +840,7 @@ class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets tags
      *
-     * @return \Plainrouter\OpenAPI\Model\CreativeIntakeReadCreativeTags
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInnerTags
      */
     public function getTags()
     {
@@ -850,7 +850,7 @@ class CreativeIntakeReadCreative implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets tags
      *
-     * @param \Plainrouter\OpenAPI\Model\CreativeIntakeReadCreativeTags $tags tags
+     * @param \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200ResponseCreativesDataInnerTags $tags tags
      *
      * @return self
      */

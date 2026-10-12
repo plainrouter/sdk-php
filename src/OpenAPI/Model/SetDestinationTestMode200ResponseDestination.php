@@ -63,6 +63,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => 'int',
         'type' => '\Plainrouter\OpenAPI\Model\DestinationType',
         'credential_source' => '\Plainrouter\OpenAPI\Model\DestinationCredentialSource',
+        'attention_reason' => '\Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent',
+        'held_count' => 'int',
+        'notices' => 'array<string,mixed>[]',
         'config' => '\Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent',
         'status' => '\Plainrouter\OpenAPI\Model\DestinationStatus',
         'created_at' => 'string',
@@ -83,6 +86,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => null,
         'type' => null,
         'credential_source' => null,
+        'attention_reason' => null,
+        'held_count' => null,
+        'notices' => null,
         'config' => null,
         'status' => null,
         'created_at' => null,
@@ -101,6 +107,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => true,
         'type' => false,
         'credential_source' => false,
+        'attention_reason' => true,
+        'held_count' => false,
+        'notices' => false,
         'config' => true,
         'status' => false,
         'created_at' => true,
@@ -199,6 +208,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => 'platform_ad_account_id',
         'type' => 'type',
         'credential_source' => 'credential_source',
+        'attention_reason' => 'attention_reason',
+        'held_count' => 'held_count',
+        'notices' => 'notices',
         'config' => 'config',
         'status' => 'status',
         'created_at' => 'created_at',
@@ -217,6 +229,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => 'setPlatformAdAccountId',
         'type' => 'setType',
         'credential_source' => 'setCredentialSource',
+        'attention_reason' => 'setAttentionReason',
+        'held_count' => 'setHeldCount',
+        'notices' => 'setNotices',
         'config' => 'setConfig',
         'status' => 'setStatus',
         'created_at' => 'setCreatedAt',
@@ -235,6 +250,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         'platform_ad_account_id' => 'getPlatformAdAccountId',
         'type' => 'getType',
         'credential_source' => 'getCredentialSource',
+        'attention_reason' => 'getAttentionReason',
+        'held_count' => 'getHeldCount',
+        'notices' => 'getNotices',
         'config' => 'getConfig',
         'status' => 'getStatus',
         'created_at' => 'getCreatedAt',
@@ -304,6 +322,9 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         $this->setIfExists('platform_ad_account_id', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('credential_source', $data ?? [], null);
+        $this->setIfExists('attention_reason', $data ?? [], null);
+        $this->setIfExists('held_count', $data ?? [], null);
+        $this->setIfExists('notices', $data ?? [], null);
         $this->setIfExists('config', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
@@ -354,6 +375,15 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
         }
         if ($this->container['credential_source'] === null) {
             $invalidProperties[] = "'credential_source' can't be null";
+        }
+        if ($this->container['attention_reason'] === null && !$this->isNullableSetToNull('attention_reason')) {
+            $invalidProperties[] = "'attention_reason' is required";
+        }
+        if ($this->container['held_count'] === null) {
+            $invalidProperties[] = "'held_count' can't be null";
+        }
+        if ($this->container['notices'] === null) {
+            $invalidProperties[] = "'notices' can't be null";
         }
         if ($this->container['config'] === null && !$this->isNullableSetToNull('config')) {
             $invalidProperties[] = "'config' is required";
@@ -549,6 +579,94 @@ class SetDestinationTestMode200ResponseDestination implements ModelInterface, Ar
             throw new \InvalidArgumentException('non-nullable credential_source cannot be null');
         }
         $this->container['credential_source'] = $credential_source;
+
+        return $this;
+    }
+
+    /**
+     * Gets attention_reason
+     *
+     * @return \Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent|null
+     */
+    public function getAttentionReason()
+    {
+        return $this->container['attention_reason'];
+    }
+
+    /**
+     * Sets attention_reason
+     *
+     * @param \Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent|null $attention_reason attention_reason
+     *
+     * @return self
+     */
+    public function setAttentionReason($attention_reason)
+    {
+        if (is_null($attention_reason)) {
+            array_push($this->openAPINullablesSetToNull, 'attention_reason');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attention_reason', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attention_reason'] = $attention_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets held_count
+     *
+     * @return int
+     */
+    public function getHeldCount()
+    {
+        return $this->container['held_count'];
+    }
+
+    /**
+     * Sets held_count
+     *
+     * @param int $held_count held_count
+     *
+     * @return self
+     */
+    public function setHeldCount($held_count)
+    {
+        if (is_null($held_count)) {
+            throw new \InvalidArgumentException('non-nullable held_count cannot be null');
+        }
+        $this->container['held_count'] = $held_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets notices
+     *
+     * @return array<string,mixed>[]
+     */
+    public function getNotices()
+    {
+        return $this->container['notices'];
+    }
+
+    /**
+     * Sets notices
+     *
+     * @param array<string,mixed>[] $notices notices
+     *
+     * @return self
+     */
+    public function setNotices($notices)
+    {
+        if (is_null($notices)) {
+            throw new \InvalidArgumentException('non-nullable notices cannot be null');
+        }
+        $this->container['notices'] = $notices;
 
         return $this;
     }

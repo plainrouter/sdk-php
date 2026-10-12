@@ -57,6 +57,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $openAPITypes = [
+        'limit' => 'int',
+        'cursor' => 'int',
         'actions' => '\Plainrouter\OpenAPI\Model\ActionProposalInputActionsInner[]',
         'rationale' => 'string',
         'idempotency_key' => 'string',
@@ -74,6 +76,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'limit' => null,
+        'cursor' => null,
         'actions' => null,
         'rationale' => null,
         'idempotency_key' => null,
@@ -89,6 +93,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'limit' => false,
+        'cursor' => false,
         'actions' => false,
         'rationale' => false,
         'idempotency_key' => false,
@@ -184,6 +190,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $attributeMap = [
+        'limit' => 'limit',
+        'cursor' => 'cursor',
         'actions' => 'actions',
         'rationale' => 'rationale',
         'idempotency_key' => 'idempotency_key',
@@ -199,6 +207,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $setters = [
+        'limit' => 'setLimit',
+        'cursor' => 'setCursor',
         'actions' => 'setActions',
         'rationale' => 'setRationale',
         'idempotency_key' => 'setIdempotencyKey',
@@ -214,6 +224,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $getters = [
+        'limit' => 'getLimit',
+        'cursor' => 'getCursor',
         'actions' => 'getActions',
         'rationale' => 'getRationale',
         'idempotency_key' => 'getIdempotencyKey',
@@ -293,6 +305,8 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('limit', $data ?? [], 25);
+        $this->setIfExists('cursor', $data ?? [], null);
         $this->setIfExists('actions', $data ?? [], null);
         $this->setIfExists('rationale', $data ?? [], null);
         $this->setIfExists('idempotency_key', $data ?? [], null);
@@ -328,6 +342,18 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['limit']) && ($this->container['limit'] > 100)) {
+            $invalidProperties[] = "invalid value for 'limit', must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['limit']) && ($this->container['limit'] < 1)) {
+            $invalidProperties[] = "invalid value for 'limit', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['cursor']) && ($this->container['cursor'] < 0)) {
+            $invalidProperties[] = "invalid value for 'cursor', must be bigger than or equal to 0.";
+        }
 
         if ($this->container['actions'] === null) {
             $invalidProperties[] = "'actions' can't be null";
@@ -399,6 +425,71 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets limit
+     *
+     * @return int|null
+     */
+    public function getLimit()
+    {
+        return $this->container['limit'];
+    }
+
+    /**
+     * Sets limit
+     *
+     * @param int|null $limit Maximum complete result actions; the shared JSON byte budget can return fewer.
+     *
+     * @return self
+     */
+    public function setLimit($limit)
+    {
+        if (is_null($limit)) {
+            throw new \InvalidArgumentException('non-nullable limit cannot be null');
+        }
+        if (($limit > 100)) {
+            throw new \InvalidArgumentException('invalid value for $limit when calling ActionProposalInput., must be smaller than or equal to 100.');
+        }
+        if (($limit < 1)) {
+            throw new \InvalidArgumentException('invalid value for $limit when calling ActionProposalInput., must be bigger than or equal to 1.');
+        }
+
+        $this->container['limit'] = $limit;
+
+        return $this;
+    }
+
+    /**
+     * Gets cursor
+     *
+     * @return int|null
+     */
+    public function getCursor()
+    {
+        return $this->container['cursor'];
+    }
+
+    /**
+     * Sets cursor
+     *
+     * @param int|null $cursor Continue using next_cursor. Read saved proposal actions with get_action_batch to avoid another write; dry runs repeat the same inputs.
+     *
+     * @return self
+     */
+    public function setCursor($cursor)
+    {
+        if (is_null($cursor)) {
+            throw new \InvalidArgumentException('non-nullable cursor cannot be null');
+        }
+        if (($cursor < 0)) {
+            throw new \InvalidArgumentException('invalid value for $cursor when calling ActionProposalInput., must be bigger than or equal to 0.');
+        }
+
+        $this->container['cursor'] = $cursor;
+
+        return $this;
+    }
 
     /**
      * Gets actions

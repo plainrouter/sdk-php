@@ -64,6 +64,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => 'string',
         'target_entity_id' => 'string',
         'target_entity_name' => 'string',
+        'counted_evidence' => '\Plainrouter\OpenAPI\Model\ActionReadItemCountedEvidence',
         'params' => '\Plainrouter\OpenAPI\Model\ActionProposalReadProposalActionsInnerParams',
         'rationale' => 'string',
         'proposer' => '\Plainrouter\OpenAPI\Model\ActionReadItemProposer',
@@ -92,6 +93,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => null,
         'target_entity_id' => null,
         'target_entity_name' => null,
+        'counted_evidence' => null,
         'params' => null,
         'rationale' => null,
         'proposer' => null,
@@ -118,6 +120,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => false,
         'target_entity_id' => false,
         'target_entity_name' => true,
+        'counted_evidence' => true,
         'params' => false,
         'rationale' => false,
         'proposer' => false,
@@ -224,6 +227,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => 'target_entity_type',
         'target_entity_id' => 'target_entity_id',
         'target_entity_name' => 'target_entity_name',
+        'counted_evidence' => 'counted_evidence',
         'params' => 'params',
         'rationale' => 'rationale',
         'proposer' => 'proposer',
@@ -250,6 +254,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => 'setTargetEntityType',
         'target_entity_id' => 'setTargetEntityId',
         'target_entity_name' => 'setTargetEntityName',
+        'counted_evidence' => 'setCountedEvidence',
         'params' => 'setParams',
         'rationale' => 'setRationale',
         'proposer' => 'setProposer',
@@ -276,6 +281,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'target_entity_type' => 'getTargetEntityType',
         'target_entity_id' => 'getTargetEntityId',
         'target_entity_name' => 'getTargetEntityName',
+        'counted_evidence' => 'getCountedEvidence',
         'params' => 'getParams',
         'rationale' => 'getRationale',
         'proposer' => 'getProposer',
@@ -489,6 +495,7 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('target_entity_type', $data ?? [], null);
         $this->setIfExists('target_entity_id', $data ?? [], null);
         $this->setIfExists('target_entity_name', $data ?? [], null);
+        $this->setIfExists('counted_evidence', $data ?? [], null);
         $this->setIfExists('params', $data ?? [], null);
         $this->setIfExists('rationale', $data ?? [], null);
         $this->setIfExists('proposer', $data ?? [], null);
@@ -830,6 +837,40 @@ class ActionReadItem implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['target_entity_name'] = $target_entity_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets counted_evidence
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionReadItemCountedEvidence|null
+     */
+    public function getCountedEvidence()
+    {
+        return $this->container['counted_evidence'];
+    }
+
+    /**
+     * Sets counted_evidence
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionReadItemCountedEvidence|null $counted_evidence counted_evidence
+     *
+     * @return self
+     */
+    public function setCountedEvidence($counted_evidence)
+    {
+        if (is_null($counted_evidence)) {
+            array_push($this->openAPINullablesSetToNull, 'counted_evidence');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('counted_evidence', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['counted_evidence'] = $counted_evidence;
 
         return $this;
     }

@@ -74,6 +74,9 @@ class CreativeApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'launchCreativesIndex' => [
+            'application/json',
+        ],
         'storeCreative' => [
             'multipart/form-data',
         ],
@@ -126,6 +129,350 @@ class CreativeApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation launchCreativesIndex
+     *
+     * List workspace creatives
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  int|null $page page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage
+     */
+    public function launchCreativesIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    {
+        list($response) = $this->launchCreativesIndexWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchCreativesIndexWithHttpInfo
+     *
+     * List workspace creatives
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchCreativesIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    {
+        $request = $this->launchCreativesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchCreativesIndexAsync
+     *
+     * List workspace creatives
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesIndexAsync($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    {
+        return $this->launchCreativesIndexAsyncWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchCreativesIndexAsyncWithHttpInfo
+     *
+     * List workspace creatives
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesIndexAsyncWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response';
+        $request = $this->launchCreativesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchCreativesIndex'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchCreativesIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchCreativesIndex'
+            );
+        }
+
+
+        if ($cursor !== null && $cursor < 0) {
+            throw new \InvalidArgumentException('invalid value for "$cursor" when calling CreativeApi.launchCreativesIndex, must be bigger than or equal to 0.');
+        }
+
+        if ($per_page !== null && $per_page > 100) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling CreativeApi.launchCreativesIndex, must be smaller than or equal to 100.');
+        }
+        if ($per_page !== null && $per_page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling CreativeApi.launchCreativesIndex, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/creatives';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $per_page,
+            'per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**

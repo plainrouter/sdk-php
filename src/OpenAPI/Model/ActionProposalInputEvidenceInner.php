@@ -243,6 +243,7 @@ class ActionProposalInputEvidenceInner implements ModelInterface, ArrayAccess, \
     public const SOURCE_TOOL_GET_ACCOUNT_STATE = 'get_account_state';
     public const SOURCE_TOOL_GET_SIGNAL_HEALTH = 'get_signal_health';
     public const SOURCE_TOOL_GET_PERFORMANCE = 'get_performance';
+    public const SOURCE_TOOL_GET_INVENTORY_METRICS = 'get_inventory_metrics';
     public const SOURCE_TOOL_GET_CREATIVE_LIBRARY = 'get-creative-library';
     public const SOURCE_TOOL_STAGED_ASSET_MANIFEST = 'staged-asset-manifest';
 
@@ -257,6 +258,7 @@ class ActionProposalInputEvidenceInner implements ModelInterface, ArrayAccess, \
             self::SOURCE_TOOL_GET_ACCOUNT_STATE,
             self::SOURCE_TOOL_GET_SIGNAL_HEALTH,
             self::SOURCE_TOOL_GET_PERFORMANCE,
+            self::SOURCE_TOOL_GET_INVENTORY_METRICS,
             self::SOURCE_TOOL_GET_CREATIVE_LIBRARY,
             self::SOURCE_TOOL_STAGED_ASSET_MANIFEST,
         ];

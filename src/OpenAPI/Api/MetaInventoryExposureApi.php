@@ -74,6 +74,9 @@ class MetaInventoryExposureApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'getAccountInventory' => [
+            'application/json',
+        ],
         'getInventoryMetrics' => [
             'application/json',
         ],
@@ -126,6 +129,438 @@ class MetaInventoryExposureApi
     }
 
     /**
+     * Operation getAccountInventory
+     *
+     * Read account inventory
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $account_id account_id (required)
+     * @param  string|null $level level (optional)
+     * @param  string|null $effective_status effective_status (optional)
+     * @param  string|null $campaign_id campaign_id (optional)
+     * @param  string|null $adset_id adset_id (optional)
+     * @param  int|null $after_id Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountInventory'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\GetAccountInventory200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\GetAccountInventory404Response
+     */
+    public function getAccountInventory($workspace, $account_id, $level = null, $effective_status = null, $campaign_id = null, $adset_id = null, $after_id = null, $limit = 25, string $contentType = self::contentTypes['getAccountInventory'][0])
+    {
+        list($response) = $this->getAccountInventoryWithHttpInfo($workspace, $account_id, $level, $effective_status, $campaign_id, $adset_id, $after_id, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAccountInventoryWithHttpInfo
+     *
+     * Read account inventory
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $account_id (required)
+     * @param  string|null $level (optional)
+     * @param  string|null $effective_status (optional)
+     * @param  string|null $campaign_id (optional)
+     * @param  string|null $adset_id (optional)
+     * @param  int|null $after_id Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountInventory'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\GetAccountInventory200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\GetAccountInventory404Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAccountInventoryWithHttpInfo($workspace, $account_id, $level = null, $effective_status = null, $campaign_id = null, $adset_id = null, $after_id = null, $limit = 25, string $contentType = self::contentTypes['getAccountInventory'][0])
+    {
+        $request = $this->getAccountInventoryRequest($workspace, $account_id, $level, $effective_status, $campaign_id, $adset_id, $after_id, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\GetAccountInventory200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\GetAccountInventory404Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\GetAccountInventory200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\GetAccountInventory200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\GetAccountInventory404Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAccountInventoryAsync
+     *
+     * Read account inventory
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $account_id (required)
+     * @param  string|null $level (optional)
+     * @param  string|null $effective_status (optional)
+     * @param  string|null $campaign_id (optional)
+     * @param  string|null $adset_id (optional)
+     * @param  int|null $after_id Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountInventory'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAccountInventoryAsync($workspace, $account_id, $level = null, $effective_status = null, $campaign_id = null, $adset_id = null, $after_id = null, $limit = 25, string $contentType = self::contentTypes['getAccountInventory'][0])
+    {
+        return $this->getAccountInventoryAsyncWithHttpInfo($workspace, $account_id, $level, $effective_status, $campaign_id, $adset_id, $after_id, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAccountInventoryAsyncWithHttpInfo
+     *
+     * Read account inventory
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $account_id (required)
+     * @param  string|null $level (optional)
+     * @param  string|null $effective_status (optional)
+     * @param  string|null $campaign_id (optional)
+     * @param  string|null $adset_id (optional)
+     * @param  int|null $after_id Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountInventory'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAccountInventoryAsyncWithHttpInfo($workspace, $account_id, $level = null, $effective_status = null, $campaign_id = null, $adset_id = null, $after_id = null, $limit = 25, string $contentType = self::contentTypes['getAccountInventory'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\GetAccountInventory200Response';
+        $request = $this->getAccountInventoryRequest($workspace, $account_id, $level, $effective_status, $campaign_id, $adset_id, $after_id, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAccountInventory'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $account_id (required)
+     * @param  string|null $level (optional)
+     * @param  string|null $effective_status (optional)
+     * @param  string|null $campaign_id (optional)
+     * @param  string|null $adset_id (optional)
+     * @param  int|null $after_id Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountInventory'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAccountInventoryRequest($workspace, $account_id, $level = null, $effective_status = null, $campaign_id = null, $adset_id = null, $after_id = null, $limit = 25, string $contentType = self::contentTypes['getAccountInventory'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling getAccountInventory'
+            );
+        }
+
+        // verify the required parameter 'account_id' is set
+        if ($account_id === null || (is_array($account_id) && count($account_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_id when calling getAccountInventory'
+            );
+        }
+
+
+        if ($effective_status !== null && strlen($effective_status) > 50) {
+            throw new \InvalidArgumentException('invalid length for "$effective_status" when calling MetaInventoryExposureApi.getAccountInventory, must be smaller than or equal to 50.');
+        }
+
+        if ($campaign_id !== null && strlen($campaign_id) > 128) {
+            throw new \InvalidArgumentException('invalid length for "$campaign_id" when calling MetaInventoryExposureApi.getAccountInventory, must be smaller than or equal to 128.');
+        }
+
+        if ($adset_id !== null && strlen($adset_id) > 128) {
+            throw new \InvalidArgumentException('invalid length for "$adset_id" when calling MetaInventoryExposureApi.getAccountInventory, must be smaller than or equal to 128.');
+        }
+
+        if ($after_id !== null && $after_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$after_id" when calling MetaInventoryExposureApi.getAccountInventory, must be bigger than or equal to 1.');
+        }
+
+        if ($limit !== null && $limit > 200) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling MetaInventoryExposureApi.getAccountInventory, must be smaller than or equal to 200.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling MetaInventoryExposureApi.getAccountInventory, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $level,
+            'level', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $effective_status,
+            'effective_status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $campaign_id,
+            'campaign_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $adset_id,
+            'adset_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $after_id,
+            'after_id', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($account_id !== null) {
+            $resourcePath = str_replace(
+                '{account_id}',
+                ObjectSerializer::toPathValue($account_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getInventoryMetrics
      *
      * Compare Meta metrics with counted arrivals
@@ -138,15 +573,17 @@ class MetaInventoryExposureApi
      * @param  string|null $adset_id adset_id (optional)
      * @param  string|null $ad_id ad_id (optional)
      * @param  bool|null $include_changes include_changes (optional)
+     * @param  int|null $limit limit (optional)
+     * @param  string|null $cursor cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInventoryMetrics'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
      */
-    public function getInventoryMetrics($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
+    public function getInventoryMetrics($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
-        list($response) = $this->getInventoryMetricsWithHttpInfo($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $contentType);
+        list($response) = $this->getInventoryMetricsWithHttpInfo($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $limit, $cursor, $contentType);
         return $response;
     }
 
@@ -163,15 +600,17 @@ class MetaInventoryExposureApi
      * @param  string|null $adset_id (optional)
      * @param  string|null $ad_id (optional)
      * @param  bool|null $include_changes (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInventoryMetrics'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getInventoryMetricsWithHttpInfo($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
+    public function getInventoryMetricsWithHttpInfo($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
-        $request = $this->getInventoryMetricsRequest($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $contentType);
+        $request = $this->getInventoryMetricsRequest($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $limit, $cursor, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -311,14 +750,16 @@ class MetaInventoryExposureApi
      * @param  string|null $adset_id (optional)
      * @param  string|null $ad_id (optional)
      * @param  bool|null $include_changes (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInventoryMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInventoryMetricsAsync($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
+    public function getInventoryMetricsAsync($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
-        return $this->getInventoryMetricsAsyncWithHttpInfo($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $contentType)
+        return $this->getInventoryMetricsAsyncWithHttpInfo($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $limit, $cursor, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -339,15 +780,17 @@ class MetaInventoryExposureApi
      * @param  string|null $adset_id (optional)
      * @param  string|null $ad_id (optional)
      * @param  bool|null $include_changes (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInventoryMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInventoryMetricsAsyncWithHttpInfo($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
+    public function getInventoryMetricsAsyncWithHttpInfo($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response';
-        $request = $this->getInventoryMetricsRequest($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $contentType);
+        $request = $this->getInventoryMetricsRequest($workspace, $account_id, $start_date, $end_date, $campaign_id, $adset_id, $ad_id, $include_changes, $limit, $cursor, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -396,12 +839,14 @@ class MetaInventoryExposureApi
      * @param  string|null $adset_id (optional)
      * @param  string|null $ad_id (optional)
      * @param  bool|null $include_changes (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInventoryMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getInventoryMetricsRequest($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
+    public function getInventoryMetricsRequest($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -432,6 +877,17 @@ class MetaInventoryExposureApi
             throw new \InvalidArgumentException('invalid length for "$ad_id" when calling MetaInventoryExposureApi.getInventoryMetrics, must be smaller than or equal to 128.');
         }
 
+
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling MetaInventoryExposureApi.getInventoryMetrics, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling MetaInventoryExposureApi.getInventoryMetrics, must be bigger than or equal to 1.');
+        }
+
+        if ($cursor !== null && strlen($cursor) > 500) {
+            throw new \InvalidArgumentException('invalid length for "$cursor" when calling MetaInventoryExposureApi.getInventoryMetrics, must be smaller than or equal to 500.');
+        }
 
 
         $resourcePath = '/workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory/metrics';
@@ -491,6 +947,24 @@ class MetaInventoryExposureApi
             $include_changes,
             'include_changes', // param base name
             'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required

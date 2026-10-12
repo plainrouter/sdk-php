@@ -1,6 +1,6 @@
 <?php
 /**
- * CreativeIntakeReadCreativeTags
+ * ActionsRulesIndex200ResponseRules
  *
  * PHP version 8.1
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * CreativeIntakeReadCreativeTags Class Doc Comment
+ * ActionsRulesIndex200ResponseRules Class Doc Comment
  *
  * @category Class
- * @description Stored tags, including provenance when supplied. An empty map is returned as an empty array. Existing creatives keep their original tags.
+ * @description Complete projection rows are paged within 80,000 JSON bytes, accounting for both MCP representations. Defaults are bounded. Follow next_cursor with the same scope and filters. One oversized row is explicitly refused; fields are never silently clipped.
  * @package  Plainrouter\OpenAPI
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \JsonSerializable
+class ActionsRulesIndex200ResponseRules implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      *
      * @var string
      */
-    protected static $openAPIModelName = 'CreativeIntakeRead_creative_tags';
+    protected static $openAPIModelName = 'actions_rules_index_200_response_rules';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +58,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $openAPITypes = [
-
+        'data' => '\Plainrouter\OpenAPI\Model\ActionsRulesIndex200ResponseRulesDataInner[]',
+        'total' => 'int',
+        'per_page' => 'int',
+        'next_cursor' => 'string',
+        'truncated' => 'bool',
+        'continuation' => 'string'
     ];
 
     /**
@@ -69,7 +74,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-
+        'data' => null,
+        'total' => null,
+        'per_page' => null,
+        'next_cursor' => null,
+        'truncated' => null,
+        'continuation' => null
     ];
 
     /**
@@ -78,7 +88,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-
+        'data' => false,
+        'total' => false,
+        'per_page' => false,
+        'next_cursor' => true,
+        'truncated' => false,
+        'continuation' => false
     ];
 
     /**
@@ -167,7 +182,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $attributeMap = [
-
+        'data' => 'data',
+        'total' => 'total',
+        'per_page' => 'per_page',
+        'next_cursor' => 'next_cursor',
+        'truncated' => 'truncated',
+        'continuation' => 'continuation'
     ];
 
     /**
@@ -176,7 +196,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $setters = [
-
+        'data' => 'setData',
+        'total' => 'setTotal',
+        'per_page' => 'setPerPage',
+        'next_cursor' => 'setNextCursor',
+        'truncated' => 'setTruncated',
+        'continuation' => 'setContinuation'
     ];
 
     /**
@@ -185,7 +210,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $getters = [
-
+        'data' => 'getData',
+        'total' => 'getTotal',
+        'per_page' => 'getPerPage',
+        'next_cursor' => 'getNextCursor',
+        'truncated' => 'getTruncated',
+        'continuation' => 'getContinuation'
     ];
 
     /**
@@ -245,6 +275,12 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('data', $data ?? [], null);
+        $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('per_page', $data ?? [], null);
+        $this->setIfExists('next_cursor', $data ?? [], null);
+        $this->setIfExists('truncated', $data ?? [], null);
+        $this->setIfExists('continuation', $data ?? [], null);
     }
 
     /**
@@ -288,6 +324,175 @@ class CreativeIntakeReadCreativeTags implements ModelInterface, ArrayAccess, \Js
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets data
+     *
+     * @return \Plainrouter\OpenAPI\Model\ActionsRulesIndex200ResponseRulesDataInner[]|null
+     */
+    public function getData()
+    {
+        return $this->container['data'];
+    }
+
+    /**
+     * Sets data
+     *
+     * @param \Plainrouter\OpenAPI\Model\ActionsRulesIndex200ResponseRulesDataInner[]|null $data data
+     *
+     * @return self
+     */
+    public function setData($data)
+    {
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
+        }
+        $this->container['data'] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Gets total
+     *
+     * @return int|null
+     */
+    public function getTotal()
+    {
+        return $this->container['total'];
+    }
+
+    /**
+     * Sets total
+     *
+     * @param int|null $total total
+     *
+     * @return self
+     */
+    public function setTotal($total)
+    {
+        if (is_null($total)) {
+            throw new \InvalidArgumentException('non-nullable total cannot be null');
+        }
+        $this->container['total'] = $total;
+
+        return $this;
+    }
+
+    /**
+     * Gets per_page
+     *
+     * @return int|null
+     */
+    public function getPerPage()
+    {
+        return $this->container['per_page'];
+    }
+
+    /**
+     * Sets per_page
+     *
+     * @param int|null $per_page per_page
+     *
+     * @return self
+     */
+    public function setPerPage($per_page)
+    {
+        if (is_null($per_page)) {
+            throw new \InvalidArgumentException('non-nullable per_page cannot be null');
+        }
+        $this->container['per_page'] = $per_page;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_cursor
+     *
+     * @return string|null
+     */
+    public function getNextCursor()
+    {
+        return $this->container['next_cursor'];
+    }
+
+    /**
+     * Sets next_cursor
+     *
+     * @param string|null $next_cursor next_cursor
+     *
+     * @return self
+     */
+    public function setNextCursor($next_cursor)
+    {
+        if (is_null($next_cursor)) {
+            array_push($this->openAPINullablesSetToNull, 'next_cursor');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_cursor', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_cursor'] = $next_cursor;
+
+        return $this;
+    }
+
+    /**
+     * Gets truncated
+     *
+     * @return bool|null
+     */
+    public function getTruncated()
+    {
+        return $this->container['truncated'];
+    }
+
+    /**
+     * Sets truncated
+     *
+     * @param bool|null $truncated truncated
+     *
+     * @return self
+     */
+    public function setTruncated($truncated)
+    {
+        if (is_null($truncated)) {
+            throw new \InvalidArgumentException('non-nullable truncated cannot be null');
+        }
+        $this->container['truncated'] = $truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets continuation
+     *
+     * @return string|null
+     */
+    public function getContinuation()
+    {
+        return $this->container['continuation'];
+    }
+
+    /**
+     * Sets continuation
+     *
+     * @param string|null $continuation continuation
+     *
+     * @return self
+     */
+    public function setContinuation($continuation)
+    {
+        if (is_null($continuation)) {
+            throw new \InvalidArgumentException('non-nullable continuation cannot be null');
+        }
+        $this->container['continuation'] = $continuation;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *

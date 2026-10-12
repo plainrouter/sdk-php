@@ -35,6 +35,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * DeploymentPlanRead Class Doc Comment
  *
  * @category Class
+ * @description Complete projection rows are paged within 80,000 JSON bytes, accounting for both MCP representations. Defaults are bounded. Follow next_cursor with the same scope and filters. One oversized row is explicitly refused; fields are never silently clipped.
  * @package  Plainrouter\OpenAPI
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -63,7 +64,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => 'string',
         'copy' => '\Plainrouter\OpenAPI\Model\DeploymentPlanReadCopy',
         'landing_page' => 'string',
-        'creatives' => '\Plainrouter\OpenAPI\Model\DeploymentPlanReadCreativesInner[]'
+        'creatives' => '\Plainrouter\OpenAPI\Model\DeploymentPlanReadCreativesInner[]',
+        'next_cursor' => 'int',
+        'truncated' => 'bool',
+        'continuation' => 'string',
+        'creative_count' => 'int'
     ];
 
     /**
@@ -80,7 +85,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => null,
         'copy' => null,
         'landing_page' => null,
-        'creatives' => null
+        'creatives' => null,
+        'next_cursor' => null,
+        'truncated' => null,
+        'continuation' => null,
+        'creative_count' => null
     ];
 
     /**
@@ -95,7 +104,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => false,
         'copy' => true,
         'landing_page' => false,
-        'creatives' => false
+        'creatives' => false,
+        'next_cursor' => true,
+        'truncated' => false,
+        'continuation' => false,
+        'creative_count' => false
     ];
 
     /**
@@ -190,7 +203,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => 'review_version',
         'copy' => 'copy',
         'landing_page' => 'landing_page',
-        'creatives' => 'creatives'
+        'creatives' => 'creatives',
+        'next_cursor' => 'next_cursor',
+        'truncated' => 'truncated',
+        'continuation' => 'continuation',
+        'creative_count' => 'creative_count'
     ];
 
     /**
@@ -205,7 +222,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => 'setReviewVersion',
         'copy' => 'setCopy',
         'landing_page' => 'setLandingPage',
-        'creatives' => 'setCreatives'
+        'creatives' => 'setCreatives',
+        'next_cursor' => 'setNextCursor',
+        'truncated' => 'setTruncated',
+        'continuation' => 'setContinuation',
+        'creative_count' => 'setCreativeCount'
     ];
 
     /**
@@ -220,7 +241,11 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         'review_version' => 'getReviewVersion',
         'copy' => 'getCopy',
         'landing_page' => 'getLandingPage',
-        'creatives' => 'getCreatives'
+        'creatives' => 'getCreatives',
+        'next_cursor' => 'getNextCursor',
+        'truncated' => 'getTruncated',
+        'continuation' => 'getContinuation',
+        'creative_count' => 'getCreativeCount'
     ];
 
     /**
@@ -287,6 +312,10 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('copy', $data ?? [], null);
         $this->setIfExists('landing_page', $data ?? [], null);
         $this->setIfExists('creatives', $data ?? [], null);
+        $this->setIfExists('next_cursor', $data ?? [], null);
+        $this->setIfExists('truncated', $data ?? [], null);
+        $this->setIfExists('continuation', $data ?? [], null);
+        $this->setIfExists('creative_count', $data ?? [], null);
     }
 
     /**
@@ -548,6 +577,121 @@ class DeploymentPlanRead implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable creatives cannot be null');
         }
         $this->container['creatives'] = $creatives;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_cursor
+     *
+     * @return int|null
+     */
+    public function getNextCursor()
+    {
+        return $this->container['next_cursor'];
+    }
+
+    /**
+     * Sets next_cursor
+     *
+     * @param int|null $next_cursor next_cursor
+     *
+     * @return self
+     */
+    public function setNextCursor($next_cursor)
+    {
+        if (is_null($next_cursor)) {
+            array_push($this->openAPINullablesSetToNull, 'next_cursor');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_cursor', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_cursor'] = $next_cursor;
+
+        return $this;
+    }
+
+    /**
+     * Gets truncated
+     *
+     * @return bool|null
+     */
+    public function getTruncated()
+    {
+        return $this->container['truncated'];
+    }
+
+    /**
+     * Sets truncated
+     *
+     * @param bool|null $truncated truncated
+     *
+     * @return self
+     */
+    public function setTruncated($truncated)
+    {
+        if (is_null($truncated)) {
+            throw new \InvalidArgumentException('non-nullable truncated cannot be null');
+        }
+        $this->container['truncated'] = $truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets continuation
+     *
+     * @return string|null
+     */
+    public function getContinuation()
+    {
+        return $this->container['continuation'];
+    }
+
+    /**
+     * Sets continuation
+     *
+     * @param string|null $continuation continuation
+     *
+     * @return self
+     */
+    public function setContinuation($continuation)
+    {
+        if (is_null($continuation)) {
+            throw new \InvalidArgumentException('non-nullable continuation cannot be null');
+        }
+        $this->container['continuation'] = $continuation;
+
+        return $this;
+    }
+
+    /**
+     * Gets creative_count
+     *
+     * @return int|null
+     */
+    public function getCreativeCount()
+    {
+        return $this->container['creative_count'];
+    }
+
+    /**
+     * Sets creative_count
+     *
+     * @param int|null $creative_count creative_count
+     *
+     * @return self
+     */
+    public function setCreativeCount($creative_count)
+    {
+        if (is_null($creative_count)) {
+            throw new \InvalidArgumentException('non-nullable creative_count cannot be null');
+        }
+        $this->container['creative_count'] = $creative_count;
 
         return $this;
     }

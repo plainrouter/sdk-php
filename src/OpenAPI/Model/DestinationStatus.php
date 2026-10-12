@@ -44,6 +44,8 @@ class DestinationStatus
      */
     public const ACTIVE = 'active';
 
+    public const NEEDS_ATTENTION = 'needs_attention';
+
     public const INACTIVE = 'inactive';
 
     /**
@@ -54,6 +56,7 @@ class DestinationStatus
     {
         return [
             self::ACTIVE,
+            self::NEEDS_ATTENTION,
             self::INACTIVE
         ];
     }

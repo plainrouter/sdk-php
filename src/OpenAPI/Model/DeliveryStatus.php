@@ -46,6 +46,8 @@ class DeliveryStatus
 
     public const SENT = 'sent';
 
+    public const HELD = 'held';
+
     public const ACCEPTED = 'accepted';
 
     public const RETRYING = 'retrying';
@@ -73,6 +75,7 @@ class DeliveryStatus
         return [
             self::QUEUED,
             self::SENT,
+            self::HELD,
             self::ACCEPTED,
             self::RETRYING,
             self::FAILED_AUTH,

@@ -69,6 +69,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => '\Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent',
         'platform_trace_id' => 'string',
         'next_attempt_at' => 'string',
+        'upload_deadline_at' => 'string',
+        'freshness_basis' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     ];
@@ -93,6 +95,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => null,
         'platform_trace_id' => null,
         'next_attempt_at' => null,
+        'upload_deadline_at' => null,
+        'freshness_basis' => null,
         'created_at' => null,
         'updated_at' => null
     ];
@@ -115,6 +119,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => true,
         'platform_trace_id' => true,
         'next_attempt_at' => true,
+        'upload_deadline_at' => true,
+        'freshness_basis' => true,
         'created_at' => false,
         'updated_at' => true
     ];
@@ -217,6 +223,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => 'platform_response',
         'platform_trace_id' => 'platform_trace_id',
         'next_attempt_at' => 'next_attempt_at',
+        'upload_deadline_at' => 'upload_deadline_at',
+        'freshness_basis' => 'freshness_basis',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     ];
@@ -239,6 +247,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => 'setPlatformResponse',
         'platform_trace_id' => 'setPlatformTraceId',
         'next_attempt_at' => 'setNextAttemptAt',
+        'upload_deadline_at' => 'setUploadDeadlineAt',
+        'freshness_basis' => 'setFreshnessBasis',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     ];
@@ -261,6 +271,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         'platform_response' => 'getPlatformResponse',
         'platform_trace_id' => 'getPlatformTraceId',
         'next_attempt_at' => 'getNextAttemptAt',
+        'upload_deadline_at' => 'getUploadDeadlineAt',
+        'freshness_basis' => 'getFreshnessBasis',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     ];
@@ -334,6 +346,8 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         $this->setIfExists('platform_response', $data ?? [], null);
         $this->setIfExists('platform_trace_id', $data ?? [], null);
         $this->setIfExists('next_attempt_at', $data ?? [], null);
+        $this->setIfExists('upload_deadline_at', $data ?? [], null);
+        $this->setIfExists('freshness_basis', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
     }
@@ -400,6 +414,12 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
         }
         if ($this->container['next_attempt_at'] === null && !$this->isNullableSetToNull('next_attempt_at')) {
             $invalidProperties[] = "'next_attempt_at' is required";
+        }
+        if ($this->container['upload_deadline_at'] === null && !$this->isNullableSetToNull('upload_deadline_at')) {
+            $invalidProperties[] = "'upload_deadline_at' is required";
+        }
+        if ($this->container['freshness_basis'] === null && !$this->isNullableSetToNull('freshness_basis')) {
+            $invalidProperties[] = "'freshness_basis' is required";
         }
         if ($this->container['created_at'] === null) {
             $invalidProperties[] = "'created_at' can't be null";
@@ -779,6 +799,74 @@ class GetEvent200ResponseEventDeliveriesInner implements ModelInterface, ArrayAc
             }
         }
         $this->container['next_attempt_at'] = $next_attempt_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets upload_deadline_at
+     *
+     * @return string|null
+     */
+    public function getUploadDeadlineAt()
+    {
+        return $this->container['upload_deadline_at'];
+    }
+
+    /**
+     * Sets upload_deadline_at
+     *
+     * @param string|null $upload_deadline_at upload_deadline_at
+     *
+     * @return self
+     */
+    public function setUploadDeadlineAt($upload_deadline_at)
+    {
+        if (is_null($upload_deadline_at)) {
+            array_push($this->openAPINullablesSetToNull, 'upload_deadline_at');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('upload_deadline_at', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['upload_deadline_at'] = $upload_deadline_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets freshness_basis
+     *
+     * @return string|null
+     */
+    public function getFreshnessBasis()
+    {
+        return $this->container['freshness_basis'];
+    }
+
+    /**
+     * Sets freshness_basis
+     *
+     * @param string|null $freshness_basis freshness_basis
+     *
+     * @return self
+     */
+    public function setFreshnessBasis($freshness_basis)
+    {
+        if (is_null($freshness_basis)) {
+            array_push($this->openAPINullablesSetToNull, 'freshness_basis');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('freshness_basis', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['freshness_basis'] = $freshness_basis;
 
         return $this;
     }

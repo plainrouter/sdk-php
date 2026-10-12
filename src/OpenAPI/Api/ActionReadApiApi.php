@@ -145,15 +145,17 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch action_batch (required)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
      */
-    public function actionsApiBatch($workspace, $action_batch, $account_id = null, string $contentType = self::contentTypes['actionsApiBatch'][0])
+    public function actionsApiBatch($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
-        list($response) = $this->actionsApiBatchWithHttpInfo($workspace, $action_batch, $account_id, $contentType);
+        list($response) = $this->actionsApiBatchWithHttpInfo($workspace, $action_batch, $account_id, $cursor, $limit, $contentType);
         return $response;
     }
 
@@ -165,15 +167,17 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function actionsApiBatchWithHttpInfo($workspace, $action_batch, $account_id = null, string $contentType = self::contentTypes['actionsApiBatch'][0])
+    public function actionsApiBatchWithHttpInfo($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
-        $request = $this->actionsApiBatchRequest($workspace, $action_batch, $account_id, $contentType);
+        $request = $this->actionsApiBatchRequest($workspace, $action_batch, $account_id, $cursor, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -308,14 +312,16 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsApiBatchAsync($workspace, $action_batch, $account_id = null, string $contentType = self::contentTypes['actionsApiBatch'][0])
+    public function actionsApiBatchAsync($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
-        return $this->actionsApiBatchAsyncWithHttpInfo($workspace, $action_batch, $account_id, $contentType)
+        return $this->actionsApiBatchAsyncWithHttpInfo($workspace, $action_batch, $account_id, $cursor, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -331,15 +337,17 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsApiBatchAsyncWithHttpInfo($workspace, $action_batch, $account_id = null, string $contentType = self::contentTypes['actionsApiBatch'][0])
+    public function actionsApiBatchAsyncWithHttpInfo($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\ActionBatchRead';
-        $request = $this->actionsApiBatchRequest($workspace, $action_batch, $account_id, $contentType);
+        $request = $this->actionsApiBatchRequest($workspace, $action_batch, $account_id, $cursor, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -383,12 +391,14 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function actionsApiBatchRequest($workspace, $action_batch, $account_id = null, string $contentType = self::contentTypes['actionsApiBatch'][0])
+    public function actionsApiBatchRequest($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -409,6 +419,17 @@ class ActionReadApiApi
             throw new \InvalidArgumentException('invalid value for "$account_id" when calling ActionReadApiApi.actionsApiBatch, must be bigger than or equal to 1.');
         }
 
+        if ($cursor !== null && $cursor < 0) {
+            throw new \InvalidArgumentException('invalid value for "$cursor" when calling ActionReadApiApi.actionsApiBatch, must be bigger than or equal to 0.');
+        }
+
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ActionReadApiApi.actionsApiBatch, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ActionReadApiApi.actionsApiBatch, must be bigger than or equal to 1.');
+        }
+
 
         $resourcePath = '/agent/workspaces/{workspace}/action-batches/{actionBatch}';
         $formParams = [];
@@ -421,6 +442,24 @@ class ActionReadApiApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $account_id,
             'account_id', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
             'integer', // openApiType
             'form', // style
             true, // explode
@@ -886,15 +925,17 @@ class ActionReadApiApi
      * @param  string|null $status status (optional)
      * @param  int|null $page page (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
      */
-    public function actionsApiIndex($workspace, $status = null, $page = null, $account_id = null, string $contentType = self::contentTypes['actionsApiIndex'][0])
+    public function actionsApiIndex($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
-        list($response) = $this->actionsApiIndexWithHttpInfo($workspace, $status, $page, $account_id, $contentType);
+        list($response) = $this->actionsApiIndexWithHttpInfo($workspace, $status, $page, $account_id, $cursor, $limit, $contentType);
         return $response;
     }
 
@@ -907,15 +948,17 @@ class ActionReadApiApi
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function actionsApiIndexWithHttpInfo($workspace, $status = null, $page = null, $account_id = null, string $contentType = self::contentTypes['actionsApiIndex'][0])
+    public function actionsApiIndexWithHttpInfo($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
-        $request = $this->actionsApiIndexRequest($workspace, $status, $page, $account_id, $contentType);
+        $request = $this->actionsApiIndexRequest($workspace, $status, $page, $account_id, $cursor, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1051,14 +1094,16 @@ class ActionReadApiApi
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsApiIndexAsync($workspace, $status = null, $page = null, $account_id = null, string $contentType = self::contentTypes['actionsApiIndex'][0])
+    public function actionsApiIndexAsync($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
-        return $this->actionsApiIndexAsyncWithHttpInfo($workspace, $status, $page, $account_id, $contentType)
+        return $this->actionsApiIndexAsyncWithHttpInfo($workspace, $status, $page, $account_id, $cursor, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1075,15 +1120,17 @@ class ActionReadApiApi
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsApiIndexAsyncWithHttpInfo($workspace, $status = null, $page = null, $account_id = null, string $contentType = self::contentTypes['actionsApiIndex'][0])
+    public function actionsApiIndexAsyncWithHttpInfo($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\ActionListRead';
-        $request = $this->actionsApiIndexRequest($workspace, $status, $page, $account_id, $contentType);
+        $request = $this->actionsApiIndexRequest($workspace, $status, $page, $account_id, $cursor, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1128,12 +1175,14 @@ class ActionReadApiApi
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
+     * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function actionsApiIndexRequest($workspace, $status = null, $page = null, $account_id = null, string $contentType = self::contentTypes['actionsApiIndex'][0])
+    public function actionsApiIndexRequest($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -1150,6 +1199,17 @@ class ActionReadApiApi
 
         if ($account_id !== null && $account_id < 1) {
             throw new \InvalidArgumentException('invalid value for "$account_id" when calling ActionReadApiApi.actionsApiIndex, must be bigger than or equal to 1.');
+        }
+
+        if ($cursor !== null && $cursor < 0) {
+            throw new \InvalidArgumentException('invalid value for "$cursor" when calling ActionReadApiApi.actionsApiIndex, must be bigger than or equal to 0.');
+        }
+
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ActionReadApiApi.actionsApiIndex, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ActionReadApiApi.actionsApiIndex, must be bigger than or equal to 1.');
         }
 
 
@@ -1182,6 +1242,24 @@ class ActionReadApiApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $account_id,
             'account_id', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
             'integer', // openApiType
             'form', // style
             true, // explode

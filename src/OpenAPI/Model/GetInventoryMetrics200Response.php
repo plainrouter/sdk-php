@@ -64,7 +64,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => '\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponseChangesInner[]',
         'effective_range' => '\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponseEffectiveRange',
         'object_metrics' => '\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponseObjectMetricsInner[]',
-        'unmatched_arrivals' => 'int'
+        'unmatched_arrivals' => 'int',
+        'pagination' => 'array<string,\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponsePaginationValue>',
+        'next_cursor' => 'string'
     ];
 
     /**
@@ -82,7 +84,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => null,
         'effective_range' => null,
         'object_metrics' => null,
-        'unmatched_arrivals' => null
+        'unmatched_arrivals' => null,
+        'pagination' => null,
+        'next_cursor' => null
     ];
 
     /**
@@ -98,7 +102,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => false,
         'effective_range' => true,
         'object_metrics' => false,
-        'unmatched_arrivals' => true
+        'unmatched_arrivals' => true,
+        'pagination' => false,
+        'next_cursor' => true
     ];
 
     /**
@@ -194,7 +200,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => 'changes',
         'effective_range' => 'effective_range',
         'object_metrics' => 'object_metrics',
-        'unmatched_arrivals' => 'unmatched_arrivals'
+        'unmatched_arrivals' => 'unmatched_arrivals',
+        'pagination' => 'pagination',
+        'next_cursor' => 'next_cursor'
     ];
 
     /**
@@ -210,7 +218,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => 'setChanges',
         'effective_range' => 'setEffectiveRange',
         'object_metrics' => 'setObjectMetrics',
-        'unmatched_arrivals' => 'setUnmatchedArrivals'
+        'unmatched_arrivals' => 'setUnmatchedArrivals',
+        'pagination' => 'setPagination',
+        'next_cursor' => 'setNextCursor'
     ];
 
     /**
@@ -226,7 +236,9 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         'changes' => 'getChanges',
         'effective_range' => 'getEffectiveRange',
         'object_metrics' => 'getObjectMetrics',
-        'unmatched_arrivals' => 'getUnmatchedArrivals'
+        'unmatched_arrivals' => 'getUnmatchedArrivals',
+        'pagination' => 'getPagination',
+        'next_cursor' => 'getNextCursor'
     ];
 
     /**
@@ -294,6 +306,8 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
         $this->setIfExists('effective_range', $data ?? [], null);
         $this->setIfExists('object_metrics', $data ?? [], null);
         $this->setIfExists('unmatched_arrivals', $data ?? [], null);
+        $this->setIfExists('pagination', $data ?? [], null);
+        $this->setIfExists('next_cursor', $data ?? [], null);
     }
 
     /**
@@ -588,6 +602,67 @@ class GetInventoryMetrics200Response implements ModelInterface, ArrayAccess, \Js
             }
         }
         $this->container['unmatched_arrivals'] = $unmatched_arrivals;
+
+        return $this;
+    }
+
+    /**
+     * Gets pagination
+     *
+     * @return array<string,\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponsePaginationValue>|null
+     */
+    public function getPagination()
+    {
+        return $this->container['pagination'];
+    }
+
+    /**
+     * Sets pagination
+     *
+     * @param array<string,\Plainrouter\OpenAPI\Model\GetInventoryMetrics200ResponsePaginationValue>|null $pagination pagination
+     *
+     * @return self
+     */
+    public function setPagination($pagination)
+    {
+        if (is_null($pagination)) {
+            throw new \InvalidArgumentException('non-nullable pagination cannot be null');
+        }
+        $this->container['pagination'] = $pagination;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_cursor
+     *
+     * @return string|null
+     */
+    public function getNextCursor()
+    {
+        return $this->container['next_cursor'];
+    }
+
+    /**
+     * Sets next_cursor
+     *
+     * @param string|null $next_cursor next_cursor
+     *
+     * @return self
+     */
+    public function setNextCursor($next_cursor)
+    {
+        if (is_null($next_cursor)) {
+            array_push($this->openAPINullablesSetToNull, 'next_cursor');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_cursor', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_cursor'] = $next_cursor;
 
         return $this;
     }
