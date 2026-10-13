@@ -55,8 +55,10 @@ distinguish codes because async calls and endpoints with no documented 503 may
 leave `getResponseObject()` null.
 
 With Guzzle `stream => true`, generated parsing can consume a non-seekable
-body. Streamed bodies cannot be re-read; capture the envelope bytes in middleware
-before parsing, or use the default buffered transport for these examples.
+body. Streamed bodies cannot be re-read. If middleware reads the envelope bytes,
+pass a buffered copy on so the SDK can still parse it, for example:
+`$response->withBody(\GuzzleHttp\Psr7\Utils::streamFor($bytes))`.
+Alternatively, use the default buffered transport for these examples.
 Async calls with `http_errors => false` can return a success-typed model on a 503;
 check the captured raw response, even when the promise resolves.
 
@@ -112,3 +114,8 @@ scripts/check-php-generated.sh
 Packagist reads the read-only mirror [`plainrouter/sdk-php`](https://github.com/plainrouter/sdk-php), which the `mirror-php.yml` workflow splits from `packages/php`. Releases use `php-v<version>` tags in this repository; the workflow pushes them to the mirror as `v<version>`. It then asks Packagist to refresh the package. Open issues and pull requests here, not on the mirror.
 
 Licensed under Apache-2.0.
+
+When `accept:` is omitted, a caller Guzzle client's configured Accept is kept;
+absent or exact `*/*` uses JSON. An explicit `accept:` overrides this default.
+`Plainrouter\JsonResponseClient` is public but marked `@internal`; use `Client`
+instead of constructing it directly. It forces `allow_redirects => false`.

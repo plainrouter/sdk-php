@@ -2,6 +2,9 @@
 
 ## 0.4.0 (unreleased)
 
+- The new public `Plainrouter\JsonResponseClient` is marked `@internal` and wraps the curated service groups; callers should use `Client`. It forces `allow_redirects => false`, even on a caller Guzzle client.
+- With `accept:` omitted, caller Guzzle Accept is retained; absent or exact `*/*` selects JSON. Explicit `accept:` overrides that value.
+
 - Default the hand-written client to `Accept: application/json`; override with `accept:`. Reject API 3xx responses with `ApiException`, retaining status and Location, in sync and async calls, including `http_errors => false`. Retry examples read headers case-insensitively and return `null` for absent Retry-After; document consumed streamed bodies and async success-typed 503 results. Actions propose is available through the hand-written client's `actions` service group.
 
 - On synchronous propose/execute, `ApiException::getResponseObject()` contains `ProposalUnavailable` for both known 503 codes. `ProposalErrors::isRetryable()` classifies an `ApiException` or a raw PSR response independently of that model, including async calls and endpoints with no documented 503; response headers retain `Retry-After`.
@@ -28,8 +31,10 @@
 - `Plainrouter\CopyResponseClient` is a public class marked `@internal`, used by the `Plans` facade to record copy responses. Callers should not instantiate or use it directly; use `Client::$plans` instead.
 
 With Guzzle `stream => true`, generated parsing can consume a non-seekable
-body. Streamed bodies cannot be re-read; capture the envelope bytes in middleware
-before parsing, or use the default buffered transport for these examples.
+body. Streamed bodies cannot be re-read. If middleware reads the envelope bytes,
+pass a buffered copy on so the SDK can still parse it, for example:
+`$response->withBody(\GuzzleHttp\Psr7\Utils::streamFor($bytes))`.
+Alternatively, use the default buffered transport for these examples.
 Async calls with `http_errors => false` can return a success-typed model on a 503;
 check the captured raw response, even when the promise resolves.
 

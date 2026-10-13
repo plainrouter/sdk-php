@@ -46,7 +46,7 @@ final class Client
         float $timeout = 30.0,
         ?string $userAgent = null,
         ?ClientInterface $httpClient = null,
-        string $accept = 'application/json',
+        ?string $accept = null,
     ) {
         $this->configuration = (new Configuration)
             ->setHost(self::validatedBaseUrl($baseUrl))
