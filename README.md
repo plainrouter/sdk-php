@@ -44,6 +44,45 @@ $example = (new Client())->sandbox->getSandbox();
 
 For response metadata, append `WithHttpInfo` to a generated operation. Models, API exceptions, configuration, and every generated operation are available in the deliberately separate `Plainrouter\OpenAPI` namespace.
 
+## Retryable proposal errors
+
+`ProposalErrors::isRetryable()` accepts either a
+`Plainrouter\OpenAPI\ApiException` or a raw
+`Psr\Http\Message\ResponseInterface`. It recognizes only 503 error envelopes
+with a string message and either `workspace_lock_timeout` or
+`proposal_not_recorded`; other bodies return `false`. Use the response body to
+distinguish codes because async calls and endpoints with no documented 503 may
+leave `getResponseObject()` null.
+
+Given a raw PSR response captured by your Guzzle middleware, use this after a
+sync call or after an async promise settles, including if generated parsing
+throws before an `ApiException` is available:
+
+```php
+use Plainrouter\ProposalErrors;
+
+$retryable = ProposalErrors::isRetryable($response);
+$errorCode = $retryable ? json_decode((string) $response->getBody(), true)['error']['code'] : null;
+$retryAfter = $retryable ? $response->getHeaderLine('Retry-After') : null;
+```
+
+For a caught `ApiException`, the equivalent classification and code extraction
+are:
+
+```php
+use Plainrouter\ProposalErrors;
+
+$retryable = ProposalErrors::isRetryable($exception);
+$errorCode = $retryable ? json_decode((string) $exception->getResponseBody(), true)['error']['code'] : null;
+$retryAfter = $retryable ? ($exception->getResponseHeaders()['Retry-After'][0] ?? null) : null;
+```
+
+No automatic retry is added. Honor `Retry-After` when present (delta seconds or
+an HTTP date) when scheduling a retry. Use `Client::$plans` for copy, including
+its async methods. `Plainrouter\CopyResponseClient` is public but marked
+`@internal`: it records responses for the copy facade, and callers should not
+instantiate or use it directly.
+
 ## Development
 
 From `packages/php`:
