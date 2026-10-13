@@ -115,6 +115,20 @@ final class ProposalErrorsTest extends TestCase
         }
     }
 
+    public function test_raw_response_classifies_codes_even_when_generated_parsing_cannot_complete(): void
+    {
+        foreach (['workspace_lock_timeout', 'proposal_not_recorded'] as $code) {
+            $body = json_encode(['error' => ['code' => $code, 'message' => 'Retry.']], JSON_THROW_ON_ERROR);
+            $response = new Response(503, ['Retry-After' => '1'], $body);
+            $this->assertTrue(ProposalErrors::isRetryable($response));
+            $this->assertSame('1', $response->getHeaderLine('Retry-After'));
+            $this->assertFalse(ProposalErrors::isRetryable(new Response(403, [], $body)));
+        }
+        foreach (['<html>Unavailable</html>', '{"message":"Unavailable"}', '{"error":{"code":"proposal_not_recorded"}}'] as $body) {
+            $this->assertFalse(ProposalErrors::isRetryable(new Response(503, [], $body)));
+        }
+    }
+
     public function test_unrelated_errors_are_not_retryable_proposal_refusals(): void
     {
         $exception = new ApiException('Unavailable.', 503);
