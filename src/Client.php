@@ -7,6 +7,7 @@ namespace Plainrouter;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
@@ -22,6 +23,8 @@ use Plainrouter\OpenAPI\Configuration;
 final class Client
 {
     public const DEFAULT_BASE_URL = 'https://plainrouter.com/api/v1';
+
+    public readonly ActionProposalApiApi $actions;
 
     public readonly Events $events;
 
@@ -43,6 +46,7 @@ final class Client
         float $timeout = 30.0,
         ?string $userAgent = null,
         ?ClientInterface $httpClient = null,
+        string $accept = 'application/json',
     ) {
         $this->configuration = (new Configuration)
             ->setHost(self::validatedBaseUrl($baseUrl))
@@ -52,8 +56,9 @@ final class Client
             $this->configuration->setAccessToken($token);
         }
 
-        $httpClient ??= new HttpClient(['timeout' => $timeout]);
+        $httpClient = new JsonResponseClient($httpClient ?? new HttpClient(['timeout' => $timeout]), $accept);
 
+        $this->actions = new ActionProposalApiApi($httpClient, $this->configuration);
         $this->events = new Events($httpClient, $this->configuration);
         $this->operations = new OperationsApi($httpClient, $this->configuration);
         $this->sandbox = new SandboxApi($httpClient, $this->configuration);

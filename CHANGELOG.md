@@ -2,6 +2,8 @@
 
 ## 0.4.0 (unreleased)
 
+- Default the hand-written client to `Accept: application/json`; override with `accept:`. Reject API 3xx responses with `ApiException`, retaining status and Location, in sync and async calls, including `http_errors => false`. Retry examples read headers case-insensitively and return `null` for absent Retry-After; document consumed streamed bodies and async success-typed 503 results. Actions propose is available through the hand-written client's `actions` service group.
+
 - On synchronous propose/execute, `ApiException::getResponseObject()` contains `ProposalUnavailable` for both known 503 codes. `ProposalErrors::isRetryable()` classifies an `ApiException` or a raw PSR response independently of that model, including async calls and endpoints with no documented 503; response headers retain `Retry-After`.
 - Regenerate from core main `40a2c3f1563aaa489d5658ef6058ffb6a613709c` with the existing pinned generator and settings.
 - Include core contract changes: bounded Actions and Launch projections/continuations, rule summaries, workspace creative and account inventory reads, frozen target evidence, and delivery incident attention/held states. The unused DeploymentPlan schema is removed upstream; creative MCP metadata schemas reflect the template-only connector contract.
@@ -25,6 +27,12 @@
 - `ProposalErrors::isRetryable()` accepts a raw `Psr\Http\Message\ResponseInterface` as well as an `ApiException`. Capture the raw response with your Guzzle middleware if generated parsing throws before an `ApiException` is available.
 - `Plainrouter\CopyResponseClient` is a public class marked `@internal`, used by the `Plans` facade to record copy responses. Callers should not instantiate or use it directly; use `Client::$plans` instead.
 
+With Guzzle `stream => true`, generated parsing can consume a non-seekable
+body. Streamed bodies cannot be re-read; capture the envelope bytes in middleware
+before parsing, or use the default buffered transport for these examples.
+Async calls with `http_errors => false` can return a success-typed model on a 503;
+check the captured raw response, even when the promise resolves.
+
 Given a raw PSR response captured by your Guzzle middleware, the same example
 works after a sync call or an async promise settles, on any endpoint:
 
@@ -33,11 +41,11 @@ use Plainrouter\ProposalErrors;
 
 $retryable = ProposalErrors::isRetryable($response);
 $errorCode = $retryable ? json_decode((string) $response->getBody(), true)['error']['code'] : null;
-$retryAfter = $retryable ? $response->getHeaderLine('Retry-After') : null;
+$retryAfter = $retryable && $response->hasHeader('Retry-After') ? $response->getHeaderLine('Retry-After') : null;
 ```
 
 For an `ApiException` caught from a sync call or async rejection, use
 `ProposalErrors::isRetryable($exception)` and, only when true,
 `json_decode((string) $exception->getResponseBody(), true)['error']['code']`.
-Read `Retry-After` from `$exception->getResponseHeaders()`. Neither path relies
+Read `Retry-After` case-insensitively from `$exception->getResponseHeaders()` using a PSR response as shown in the README; an absent header is `null` in both examples. Neither path relies
 on `getResponseObject()` being populated.

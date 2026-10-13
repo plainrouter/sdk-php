@@ -45,7 +45,7 @@ final class ClientTest extends TestCase
         );
         sort($properties);
 
-        $this->assertSame(['configuration', 'events', 'operations', 'plans', 'sandbox'], $properties);
+        $this->assertSame(['actions', 'configuration', 'events', 'operations', 'plans', 'sandbox'], $properties);
 
         $client = new Client;
         $this->assertInstanceOf(EventApi::class, $client->events);
