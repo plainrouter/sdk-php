@@ -57,7 +57,7 @@ final class Client
         $this->events = new Events($httpClient, $this->configuration);
         $this->operations = new OperationsApi($httpClient, $this->configuration);
         $this->sandbox = new SandboxApi($httpClient, $this->configuration);
-        $this->plans = new DeploymentPlanApi($httpClient, $this->configuration);
+        $this->plans = new Plans($httpClient, $this->configuration);
     }
 
     private static function validatedBaseUrl(string $baseUrl): string

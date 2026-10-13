@@ -5,17 +5,25 @@ declare(strict_types=1);
 namespace Plainrouter;
 
 use Plainrouter\OpenAPI\ApiException;
-use Plainrouter\OpenAPI\Model\ProposalUnavailable;
 
 final class ProposalErrors
 {
-    /** Known 503 proposal refusals may be retried after the Retry-After header. */
+    /** Classify a known 503 envelope by its code, independently of its generated model class. */
     public static function isRetryable(ApiException $exception): bool
     {
-        $response = $exception->getResponseObject();
+        if ($exception->getCode() !== 503) {
+            return false;
+        }
 
-        return $exception->getCode() === 503
-            && $response instanceof ProposalUnavailable
-            && in_array($response->getError()?->getCode(), ['proposal_not_recorded', 'workspace_lock_timeout'], true);
+        $body = $exception->getResponseBody();
+        $envelope = is_string($body) ? json_decode($body, true) : null;
+        if (! is_array($envelope) && $exception->getResponseObject() !== null) {
+            $envelope = json_decode(json_encode($exception->getResponseObject()), true);
+        }
+
+        return is_array($envelope)
+            && is_array($envelope['error'] ?? null)
+            && is_string($envelope['error']['message'] ?? null)
+            && in_array($envelope['error']['code'] ?? null, ['proposal_not_recorded', 'workspace_lock_timeout'], true);
     }
 }

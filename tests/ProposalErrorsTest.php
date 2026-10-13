@@ -14,6 +14,7 @@ use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
 use Plainrouter\OpenAPI\ApiException;
 use Plainrouter\OpenAPI\Model\ProposalUnavailable;
 use Plainrouter\OpenAPI\Model\ProposalUnavailableError;
+use Plainrouter\OpenAPI\Model\WorkspaceLockTimeout;
 use Plainrouter\ProposalErrors;
 
 final class ProposalErrorsTest extends TestCase
@@ -45,6 +46,70 @@ final class ProposalErrorsTest extends TestCase
                     $this->assertSame($envelope, json_decode(json_encode($exception->getResponseObject(), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR));
                     $this->assertSame(['1'], $exception->getResponseHeaders()['Retry-After']);
                     $this->assertTrue(ProposalErrors::isRetryable($exception));
+                }
+            }
+        }
+    }
+
+    public function test_copy_classifies_both_codes_and_preserves_retry_after(): void
+    {
+        foreach (['workspace_lock_timeout', 'proposal_not_recorded'] as $code) {
+            foreach (['1', 'Wed, 14 Oct 2026 12:00:00 GMT', null] as $retryAfter) {
+                foreach ([false, true] as $async) {
+                    $envelope = ['error' => ['code' => $code, 'message' => 'Retry the proposal.']];
+                    $headers = ['Content-Type' => 'application/json'];
+                    if ($retryAfter !== null) {
+                        $headers['Retry-After'] = $retryAfter;
+                    }
+                    $httpClient = new HttpClient(['handler' => HandlerStack::create(new MockHandler([
+                        new Response(503, $headers, json_encode($envelope, JSON_THROW_ON_ERROR)),
+                    ]))]);
+                    $client = new Client(token: 'proposal-test-token', httpClient: $httpClient);
+                    try {
+                        if ($async) {
+                            $client->plans->launchPlansCopyAsync(1, 'failed-plan')->wait();
+                        } else {
+                            $client->plans->launchPlansCopy(1, 'failed-plan');
+                        }
+                        $this->fail('Expected a copy API exception.');
+                    } catch (ApiException $exception) {
+                        $this->assertSame(503, $exception->getCode());
+                        $this->assertInstanceOf($code === 'workspace_lock_timeout' ? WorkspaceLockTimeout::class : ProposalUnavailable::class, $exception->getResponseObject());
+                        $this->assertSame($code, $exception->getResponseObject()->getError()->getCode());
+                        $this->assertSame($envelope, json_decode(json_encode($exception->getResponseObject(), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR));
+                        $this->assertSame($retryAfter === null ? null : [$retryAfter], $exception->getResponseHeaders()['Retry-After'] ?? null);
+                        $this->assertTrue(ProposalErrors::isRetryable($exception));
+                    }
+                }
+            }
+        }
+    }
+
+    public function test_generated_async_errors_are_classified_by_code_without_a_response_model(): void
+    {
+        foreach (['workspace_lock_timeout', 'proposal_not_recorded'] as $code) {
+            foreach (['propose', 'execute'] as $operation) {
+                $envelope = ['error' => ['code' => $code, 'message' => 'Retry the proposal.']];
+                $httpClient = new HttpClient(['handler' => HandlerStack::create(new MockHandler([
+                    new Response(503, ['Content-Type' => 'application/json', 'Retry-After' => '1'], json_encode($envelope, JSON_THROW_ON_ERROR)),
+                ]))]);
+                $client = new Client(token: 'proposal-test-token', httpClient: $httpClient);
+                try {
+                    if ($operation === 'propose') {
+                        (new ActionProposalApiApi($httpClient, $client->configuration))->actionsApiProposeAsync(1, [
+                            'actions' => [], 'evidence' => [], 'rationale' => 'Pause the ad.',
+                            'idempotency_key' => 'retry-test', 'target_source' => 'human_supplied',
+                        ])->wait();
+                    } else {
+                        $client->plans->launchPlansExecuteAsync(1, 'plan-test', ['review_version' => 'review-test'])->wait();
+                    }
+                    $this->fail('Expected an API exception.');
+                } catch (ApiException $exception) {
+                    $this->assertSame(503, $exception->getCode());
+                    $this->assertSame($envelope, json_decode($exception->getResponseBody(), true, flags: JSON_THROW_ON_ERROR));
+                    $this->assertNull($exception->getResponseObject());
+                    $this->assertTrue(ProposalErrors::isRetryable($exception));
+                    $this->assertSame(['1'], $exception->getResponseHeaders()['Retry-After']);
                 }
             }
         }
