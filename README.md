@@ -92,7 +92,7 @@ its async methods. `Plainrouter\CopyResponseClient` is public but marked
 `@internal`: it records responses for the copy facade, and callers should not
 instantiate or use it directly.
 
-`Plainrouter\Client` defaults to `Accept: application/json`; override with `accept: "..."`. API redirects throw `OpenAPI\ApiException` with status (`getCode()`) and `getResponseHeaders()`, before sync or async parsing, even with `http_errors => false`. Redirect following is disabled. `$client->actions` exposes Actions propose through this transport. The separate generated namespace provides raw clients without this policy.
+`Plainrouter\Client` defaults to `Accept: application/json`; override with `accept: "..."`. API redirects throw `OpenAPI\ApiException` with status (`getCode()`) and `getResponseHeaders()`, before sync or async parsing, even with `http_errors => false`. Redirect following is disabled. Every generated operation is available through the curated service properties: `$client->actions`, `$client->actionDryRun`, `$client->actionReads`, `$client->actionRules`, `$client->adTests`, `$client->agentContext`, `$client->cookieDeclarations`, `$client->creatives`, `$client->events`, `$client->inventory`, `$client->operations`, `$client->plans`, and `$client->sandbox`. The generated namespace remains available for direct access without this policy.
 
 ## Development
 

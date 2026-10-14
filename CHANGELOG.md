@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+- Curate the previously generated-only `actions.api.dry-run`, `actions.api.index`, `actions.api.policy`, `actions.api.decision-receipt`, `actions.api.show`, `actions.api.batch`, `actions.rules.index`, `actions.rules.store`, `actions.rules.show`, `actions.rules.update`, `actions.tests.api.index`, `actions.tests.api.store`, `actions.tests.api.show`, `agent.context`, `getCookieDeclaration`, `launch.creatives.index`, `storeCreative`, `storeCreativeFromUrl`, `get_account_inventory`, and `get_inventory_metrics` operations through the `actionDryRun`, `actionReads`, `actionRules`, `adTests`, `agentContext`, `cookieDeclarations`, `creatives`, and `inventory` groups.
 - Add `GET /agent/context` and action-rule `POST` collection, item `GET`, and item `PATCH` operations.
 - Correct Destination `config`, `attention_reason`, `held_count` and `notices` types; expose plans-list `last_page`, `next_cursor`, `truncated`, `next_page_arguments` and `continuation`; clarify that `account_id` is the internal platform-account ID; correct action-rule list authentication and account/workspace selectors; fix the empty-array branches of action-rule write unions so Python generation succeeds with `--fail-on-warning`.
 

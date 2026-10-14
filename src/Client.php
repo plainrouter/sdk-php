@@ -7,8 +7,16 @@ namespace Plainrouter;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use Plainrouter\OpenAPI\Api\ActionDryRunApiApi;
 use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
+use Plainrouter\OpenAPI\Api\ActionReadApiApi;
+use Plainrouter\OpenAPI\Api\ActionRuleApiApi;
+use Plainrouter\OpenAPI\Api\AdTestApiApi;
+use Plainrouter\OpenAPI\Api\AgentContextApi;
+use Plainrouter\OpenAPI\Api\CookieDeclarationApi;
+use Plainrouter\OpenAPI\Api\CreativeApi;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
+use Plainrouter\OpenAPI\Api\MetaInventoryExposureApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
 use Plainrouter\OpenAPI\Configuration;
@@ -16,9 +24,9 @@ use Plainrouter\OpenAPI\Configuration;
 /**
  * Compact entry point for the Plainrouter API.
  *
- * Events, operations, sandbox, and plans expose the generated service groups; every
- * generated model and operation stays in the separate Plainrouter\OpenAPI
- * namespace.
+ * Each service property exposes a generated operation group through the shared
+ * JSON and redirect policy; generated models and namespace classes remain in
+ * Plainrouter\OpenAPI.
  */
 final class Client
 {
@@ -26,7 +34,23 @@ final class Client
 
     public readonly ActionProposalApiApi $actions;
 
+    public readonly ActionDryRunApiApi $actionDryRun;
+
+    public readonly ActionReadApiApi $actionReads;
+
+    public readonly ActionRuleApiApi $actionRules;
+
+    public readonly AdTestApiApi $adTests;
+
+    public readonly AgentContextApi $agentContext;
+
+    public readonly CookieDeclarationApi $cookieDeclarations;
+
+    public readonly CreativeApi $creatives;
+
     public readonly Events $events;
+
+    public readonly MetaInventoryExposureApi $inventory;
 
     public readonly OperationsApi $operations;
 
@@ -59,7 +83,15 @@ final class Client
         $httpClient = new JsonResponseClient($httpClient ?? new HttpClient(['timeout' => $timeout]), $accept);
 
         $this->actions = new ActionProposalApiApi($httpClient, $this->configuration);
+        $this->actionDryRun = new ActionDryRunApiApi($httpClient, $this->configuration);
+        $this->actionReads = new ActionReadApiApi($httpClient, $this->configuration);
+        $this->actionRules = new ActionRuleApiApi($httpClient, $this->configuration);
+        $this->adTests = new AdTestApiApi($httpClient, $this->configuration);
+        $this->agentContext = new AgentContextApi($httpClient, $this->configuration);
+        $this->cookieDeclarations = new CookieDeclarationApi($httpClient, $this->configuration);
+        $this->creatives = new CreativeApi($httpClient, $this->configuration);
         $this->events = new Events($httpClient, $this->configuration);
+        $this->inventory = new MetaInventoryExposureApi($httpClient, $this->configuration);
         $this->operations = new OperationsApi($httpClient, $this->configuration);
         $this->sandbox = new SandboxApi($httpClient, $this->configuration);
         $this->plans = new Plans($httpClient, $this->configuration);

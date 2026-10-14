@@ -14,8 +14,17 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Plainrouter\Client;
 use Plainrouter\Events;
+use Plainrouter\OpenAPI\Api\ActionDryRunApiApi;
+use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
+use Plainrouter\OpenAPI\Api\ActionReadApiApi;
+use Plainrouter\OpenAPI\Api\ActionRuleApiApi;
+use Plainrouter\OpenAPI\Api\AdTestApiApi;
+use Plainrouter\OpenAPI\Api\AgentContextApi;
+use Plainrouter\OpenAPI\Api\CookieDeclarationApi;
+use Plainrouter\OpenAPI\Api\CreativeApi;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\Api\EventApi;
+use Plainrouter\OpenAPI\Api\MetaInventoryExposureApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
 use Plainrouter\OpenAPI\ApiException;
@@ -27,6 +36,7 @@ use Plainrouter\Version;
 use Psr\Http\Message\RequestInterface;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionProperty;
 
 final class ClientTest extends TestCase
 {
@@ -45,10 +55,36 @@ final class ClientTest extends TestCase
         );
         sort($properties);
 
-        $this->assertSame(['actions', 'configuration', 'events', 'operations', 'plans', 'sandbox'], $properties);
+        $expectedProperties = [
+            'actions',
+            'actionDryRun',
+            'actionReads',
+            'actionRules',
+            'adTests',
+            'agentContext',
+            'configuration',
+            'cookieDeclarations',
+            'creatives',
+            'events',
+            'inventory',
+            'operations',
+            'plans',
+            'sandbox',
+        ];
+        sort($expectedProperties);
+        $this->assertSame($expectedProperties, $properties);
 
         $client = new Client;
+        $this->assertInstanceOf(ActionProposalApiApi::class, $client->actions);
+        $this->assertInstanceOf(ActionDryRunApiApi::class, $client->actionDryRun);
+        $this->assertInstanceOf(ActionReadApiApi::class, $client->actionReads);
+        $this->assertInstanceOf(ActionRuleApiApi::class, $client->actionRules);
+        $this->assertInstanceOf(AdTestApiApi::class, $client->adTests);
+        $this->assertInstanceOf(AgentContextApi::class, $client->agentContext);
+        $this->assertInstanceOf(CookieDeclarationApi::class, $client->cookieDeclarations);
+        $this->assertInstanceOf(CreativeApi::class, $client->creatives);
         $this->assertInstanceOf(EventApi::class, $client->events);
+        $this->assertInstanceOf(MetaInventoryExposureApi::class, $client->inventory);
         $this->assertInstanceOf(OperationsApi::class, $client->operations);
         $this->assertInstanceOf(SandboxApi::class, $client->sandbox);
         $this->assertInstanceOf(DeploymentPlanApi::class, $client->plans);
@@ -56,6 +92,56 @@ final class ClientTest extends TestCase
 
     public function test_exposes_the_signed_contract_operations(): void
     {
+        $client = new Client;
+        $curated = [];
+
+        foreach ((new ReflectionClass(Client::class))->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            if ($property->getName() === 'configuration') {
+                continue;
+            }
+
+            $curated = array_merge($curated, $this->operationNames(get_class($property->getValue($client))));
+        }
+
+        $generated = [];
+        $apiFiles = glob(__DIR__.'/../src/OpenAPI/Api/*.php') ?: [];
+        foreach ($apiFiles as $apiFile) {
+            $api = 'Plainrouter\\OpenAPI\\Api\\'.pathinfo($apiFile, PATHINFO_FILENAME);
+            $generated = array_merge($generated, $this->operationNames($api));
+        }
+
+        sort($curated);
+        sort($generated);
+
+        $missing = array_values(array_diff($generated, $curated));
+        $unexpected = array_values(array_diff($curated, $generated));
+        $this->assertSame(
+            $generated,
+            $curated,
+            'Curated operations must match generated operations. Missing generated operations: '
+                .implode(', ', $missing).'; unexpected curated operations: '.implode(', ', $unexpected),
+        );
+
+        $this->assertSame(['actionsApiPropose'], $this->operationNames(ActionProposalApiApi::class));
+        $this->assertSame(['actionsApiDryRun'], $this->operationNames(ActionDryRunApiApi::class));
+        $this->assertSame(
+            ['actionsApiBatch', 'actionsApiDecisionReceipt', 'actionsApiIndex', 'actionsApiPolicy', 'actionsApiShow'],
+            $this->operationNames(ActionReadApiApi::class),
+        );
+        $this->assertSame(
+            ['actionsRulesIndex', 'actionsRulesShow', 'actionsRulesStore', 'actionsRulesUpdate'],
+            $this->operationNames(ActionRuleApiApi::class),
+        );
+        $this->assertSame(
+            ['actionsTestsApiIndex', 'actionsTestsApiShow', 'actionsTestsApiStore'],
+            $this->operationNames(AdTestApiApi::class),
+        );
+        $this->assertSame(['agentContext'], $this->operationNames(AgentContextApi::class));
+        $this->assertSame(['getCookieDeclaration'], $this->operationNames(CookieDeclarationApi::class));
+        $this->assertSame(
+            ['launchCreativesIndex', 'storeCreative', 'storeCreativeFromUrl'],
+            $this->operationNames(CreativeApi::class),
+        );
         $this->assertSame(['launchPlansCopy', 'launchPlansExecute', 'launchPlansIndex', 'launchPlansShow'], $this->operationNames(DeploymentPlanApi::class));
         $this->assertSame(
             ['createEvent', 'getEvent', 'verifySignalIngestion'],
@@ -78,6 +164,7 @@ final class ClientTest extends TestCase
             ['createSandboxKey', 'getSandbox', 'getSandboxKey', 'validateSandboxEvent', 'validateSandboxEventWithKey'],
             $this->operationNames(SandboxApi::class),
         );
+        $this->assertSame(['getAccountInventory', 'getInventoryMetrics'], $this->operationNames(MetaInventoryExposureApi::class));
     }
 
     public function test_targets_the_vendored_contract_version(): void
