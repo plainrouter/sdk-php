@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Plainrouter\Client;
 use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
 use Plainrouter\OpenAPI\ApiException;
+use Plainrouter\OpenAPI\Model\ActionReceiptUnavailable;
 use Plainrouter\OpenAPI\Model\ProposalUnavailable;
 use Plainrouter\OpenAPI\Model\ProposalUnavailableError;
 use Plainrouter\OpenAPI\Model\WorkspaceLockTimeout;
@@ -19,34 +20,47 @@ use Plainrouter\ProposalErrors;
 
 final class ProposalErrorsTest extends TestCase
 {
-    public function test_proposal_refusals_are_typed_retryable_and_retain_retry_after(): void
+    public function test_curated_errors_preserve_status_body_and_response_model(): void
     {
+        $cases = [];
         foreach (['proposal_not_recorded', 'workspace_lock_timeout'] as $code) {
             foreach (['propose', 'execute'] as $operation) {
-                $envelope = ['error' => ['code' => $code, 'message' => 'Retry the proposal.']];
-                $httpClient = new HttpClient(['handler' => HandlerStack::create(new MockHandler([
-                    new Response(503, ['Content-Type' => 'application/json', 'Retry-After' => '1'], json_encode($envelope, JSON_THROW_ON_ERROR)),
-                ]))]);
-                $client = new Client(token: 'proposal-test-token', httpClient: $httpClient);
+                $cases[] = [503, $operation, $code, ProposalUnavailable::class];
+            }
+        }
+        $cases[] = [404, 'decision-receipt', 'receipt_not_available', ActionReceiptUnavailable::class];
+        foreach ($cases as [$status, $operation, $code, $model]) {
+            $envelope = ['error' => ['code' => $code, 'message' => 'Retry the proposal.']];
+            $body = json_encode($envelope, JSON_THROW_ON_ERROR);
+            $headers = ['Content-Type' => 'application/json'];
+            if ($status === 503) {
+                $headers['Retry-After'] = '1';
+            }
+            $httpClient = new HttpClient(['handler' => HandlerStack::create(new MockHandler([
+                new Response($status, $headers, $body),
+            ]))]);
+            $client = new Client(token: 'proposal-test-token', httpClient: $httpClient);
 
-                try {
-                    if ($operation === 'propose') {
-                        (new ActionProposalApiApi($httpClient, $client->configuration))->actionsApiPropose(1, [
-                            'actions' => [], 'evidence' => [], 'rationale' => 'Pause the ad.',
-                            'idempotency_key' => 'retry-test', 'target_source' => 'human_supplied',
-                        ]);
-                    } else {
-                        $client->plans->launchPlansExecute(1, 'plan-test', ['review_version' => 'review-test']);
-                    }
-                    $this->fail('Expected a proposal API exception.');
-                } catch (ApiException $exception) {
-                    $this->assertSame(503, $exception->getCode());
-                    $this->assertInstanceOf(ProposalUnavailable::class, $exception->getResponseObject());
-                    $this->assertSame($code, $exception->getResponseObject()->getError()->getCode());
-                    $this->assertSame($envelope, json_decode(json_encode($exception->getResponseObject(), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR));
-                    $this->assertSame(['1'], $exception->getResponseHeaders()['Retry-After']);
-                    $this->assertTrue(ProposalErrors::isRetryable($exception));
+            try {
+                if ($operation === 'propose') {
+                    (new ActionProposalApiApi($httpClient, $client->configuration))->actionsApiPropose(1, [
+                        'actions' => [], 'evidence' => [], 'rationale' => 'Pause the ad.',
+                        'idempotency_key' => 'retry-test', 'target_source' => 'human_supplied',
+                    ]);
+                } elseif ($operation === 'execute') {
+                    $client->plans->launchPlansExecute(1, 'plan-test', ['review_version' => 'review-test']);
+                } else {
+                    $client->actionReads->actionsApiDecisionReceipt(1, 'action-test');
                 }
+                $this->fail('Expected a curated API exception.');
+            } catch (ApiException $exception) {
+                $this->assertSame($status, $exception->getCode());
+                $this->assertSame($body, $exception->getResponseBody());
+                $this->assertInstanceOf($model, $exception->getResponseObject());
+                $this->assertSame($code, $exception->getResponseObject()->getError()->getCode());
+                $this->assertSame($envelope, json_decode(json_encode($exception->getResponseObject(), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR));
+                $this->assertSame($status === 503 ? ['1'] : null, $exception->getResponseHeaders()['Retry-After'] ?? null);
+                $this->assertSame($status === 503, ProposalErrors::isRetryable($exception));
             }
         }
     }

@@ -9,19 +9,26 @@ use GuzzleHttp\Promise\RejectedPromise;
 use InvalidArgumentException;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\ApiException;
+use Plainrouter\OpenAPI\Model\ApiRouteNotFound;
+use Plainrouter\OpenAPI\Model\PlanCopyNotFound;
 use Plainrouter\OpenAPI\Model\ProposalUnavailable;
 use Plainrouter\OpenAPI\Model\WorkspaceLockTimeout;
 use Plainrouter\OpenAPI\ObjectSerializer;
 
-/** Delegates copy to the generated class, only decoding the two known retry envelopes. */
+/** Delegates copy to the generated class, decoding known retry and not-found envelopes. */
 final class Plans extends DeploymentPlanApi
 {
+    private const ERROR_MODELS = [
+        'plan_not_found' => PlanCopyNotFound::class,
+        'api_route_not_found' => ApiRouteNotFound::class,
+    ];
+
     /** @return array{mixed, int, array<string, string[]>} */
     public function launchPlansCopyWithHttpInfo(mixed $workspace, mixed $deployment_plan, string $contentType = self::contentTypes['launchPlansCopy'][0]): array
     {
         [$observer, $generated] = $this->copyApi();
         try {
-            return $generated->launchPlansCopyWithHttpInfo($workspace, $deployment_plan, $contentType);
+            return ErrorResponses::call($observer, fn (): array => $generated->launchPlansCopyWithHttpInfo($workspace, $deployment_plan, $contentType), self::ERROR_MODELS);
         } catch (ApiException $error) {
             if (ProposalErrors::isRetryable($error)) {
                 $error->setResponseObject(self::retryObject($error->getResponseBody(), $error->getResponseHeaders()));
@@ -47,7 +54,7 @@ final class Plans extends DeploymentPlanApi
     public function launchPlansCopyAsyncWithHttpInfo(mixed $workspace, mixed $deployment_plan, string $contentType = self::contentTypes['launchPlansCopy'][0]): PromiseInterface
     {
         [$observer, $generated] = $this->copyApi();
-        return $generated->launchPlansCopyAsyncWithHttpInfo($workspace, $deployment_plan, $contentType)->then(
+        return ErrorResponses::promise($observer, $generated->launchPlansCopyAsyncWithHttpInfo($workspace, $deployment_plan, $contentType), self::ERROR_MODELS)->then(
             function (array $result) use ($observer): array {
                 $response = $observer->response;
                 if ($response !== null && ProposalErrors::isRetryable($response)) {

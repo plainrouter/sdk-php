@@ -84,7 +84,7 @@ final class Client
 
         $this->actions = new ActionProposalApiApi($httpClient, $this->configuration);
         $this->actionDryRun = new ActionDryRunApiApi($httpClient, $this->configuration);
-        $this->actionReads = new ActionReadApiApi($httpClient, $this->configuration);
+        $this->actionReads = new ActionReads($httpClient, $this->configuration);
         $this->actionRules = new ActionRuleApiApi($httpClient, $this->configuration);
         $this->adTests = new AdTestApiApi($httpClient, $this->configuration);
         $this->agentContext = new AgentContextApi($httpClient, $this->configuration);
