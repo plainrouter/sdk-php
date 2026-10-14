@@ -62,7 +62,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestDefinition',
         'account_id' => 'int',
         'platform_ad_account_id' => 'int',
-        'enabled' => 'mixed',
         'window' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
         'window_days' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
         'author_type' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
@@ -81,7 +80,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => null,
         'account_id' => null,
         'platform_ad_account_id' => null,
-        'enabled' => null,
         'window' => null,
         'window_days' => null,
         'author_type' => null,
@@ -98,7 +96,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => false,
         'account_id' => false,
         'platform_ad_account_id' => false,
-        'enabled' => true,
         'window' => true,
         'window_days' => true,
         'author_type' => true,
@@ -195,7 +192,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => 'definition',
         'account_id' => 'account_id',
         'platform_ad_account_id' => 'platform_ad_account_id',
-        'enabled' => 'enabled',
         'window' => 'window',
         'window_days' => 'window_days',
         'author_type' => 'author_type',
@@ -212,7 +208,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => 'setDefinition',
         'account_id' => 'setAccountId',
         'platform_ad_account_id' => 'setPlatformAdAccountId',
-        'enabled' => 'setEnabled',
         'window' => 'setWindow',
         'window_days' => 'setWindowDays',
         'author_type' => 'setAuthorType',
@@ -229,7 +224,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         'definition' => 'getDefinition',
         'account_id' => 'getAccountId',
         'platform_ad_account_id' => 'getPlatformAdAccountId',
-        'enabled' => 'getEnabled',
         'window' => 'getWindow',
         'window_days' => 'getWindowDays',
         'author_type' => 'getAuthorType',
@@ -297,7 +291,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         $this->setIfExists('definition', $data ?? [], null);
         $this->setIfExists('account_id', $data ?? [], null);
         $this->setIfExists('platform_ad_account_id', $data ?? [], null);
-        $this->setIfExists('enabled', $data ?? [], null);
         $this->setIfExists('window', $data ?? [], null);
         $this->setIfExists('window_days', $data ?? [], null);
         $this->setIfExists('author_type', $data ?? [], null);
@@ -490,40 +483,6 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
         }
 
         $this->container['platform_ad_account_id'] = $platform_ad_account_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets enabled
-     *
-     * @return mixed|null
-     */
-    public function getEnabled()
-    {
-        return $this->container['enabled'];
-    }
-
-    /**
-     * Sets enabled
-     *
-     * @param mixed|null $enabled enabled
-     *
-     * @return self
-     */
-    public function setEnabled($enabled)
-    {
-        if (is_null($enabled)) {
-            array_push($this->openAPINullablesSetToNull, 'enabled');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('enabled', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['enabled'] = $enabled;
 
         return $this;
     }

@@ -151,7 +151,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function actionsApiBatch($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
@@ -173,7 +173,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionBatchRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiBatchWithHttpInfo($workspace, $action_batch, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiBatch'][0])
     {
@@ -211,19 +211,19 @@ class ActionReadApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $request,
                         $response,
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -268,7 +268,7 @@ class ActionReadApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -276,7 +276,7 @@ class ActionReadApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -284,7 +284,7 @@ class ActionReadApiApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -558,7 +558,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionDecisionReceiptRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionDecisionReceiptRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ActionsApiDecisionReceipt404Response|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function actionsApiDecisionReceipt($workspace, $action, $account_id = null, string $contentType = self::contentTypes['actionsApiDecisionReceipt'][0])
     {
@@ -578,7 +578,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionDecisionReceiptRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionDecisionReceiptRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ActionsApiDecisionReceipt404Response|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiDecisionReceiptWithHttpInfo($workspace, $action, $account_id = null, string $contentType = self::contentTypes['actionsApiDecisionReceipt'][0])
     {
@@ -616,19 +616,19 @@ class ActionReadApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $request,
                         $response,
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDecisionReceipt404Response',
                         $request,
                         $response,
                     );
@@ -673,7 +673,7 @@ class ActionReadApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -681,7 +681,7 @@ class ActionReadApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -689,7 +689,7 @@ class ActionReadApiApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDecisionReceipt404Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -931,7 +931,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function actionsApiIndex($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
@@ -954,7 +954,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionListRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiIndexWithHttpInfo($workspace, $status = null, $page = null, $account_id = null, $cursor = null, $limit = 25, string $contentType = self::contentTypes['actionsApiIndex'][0])
     {
@@ -992,19 +992,19 @@ class ActionReadApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $request,
                         $response,
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -1049,7 +1049,7 @@ class ActionReadApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1057,7 +1057,7 @@ class ActionReadApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1065,7 +1065,7 @@ class ActionReadApiApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1349,7 +1349,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionPolicyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionPolicyRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function actionsApiPolicy($workspace, $account_id = null, string $contentType = self::contentTypes['actionsApiPolicy'][0])
     {
@@ -1368,7 +1368,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionPolicyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionPolicyRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiPolicyWithHttpInfo($workspace, $account_id = null, string $contentType = self::contentTypes['actionsApiPolicy'][0])
     {
@@ -1406,19 +1406,19 @@ class ActionReadApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $request,
                         $response,
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -1463,7 +1463,7 @@ class ActionReadApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1471,7 +1471,7 @@ class ActionReadApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1479,7 +1479,7 @@ class ActionReadApiApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1700,7 +1700,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionDetailRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\ActionDetailRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function actionsApiShow($workspace, $action, $account_id = null, string $contentType = self::contentTypes['actionsApiShow'][0])
     {
@@ -1720,7 +1720,7 @@ class ActionReadApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionDetailRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionDetailRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\AgentCredentialError|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsApiShowWithHttpInfo($workspace, $action, $account_id = null, string $contentType = self::contentTypes['actionsApiShow'][0])
     {
@@ -1758,19 +1758,19 @@ class ActionReadApiApi
                     );
                 case 401:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $request,
                         $response,
                     );
                 case 403:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $request,
                         $response,
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -1815,7 +1815,7 @@ class ActionReadApiApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1823,7 +1823,7 @@ class ActionReadApiApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\AgentCredentialError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1831,7 +1831,7 @@ class ActionReadApiApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

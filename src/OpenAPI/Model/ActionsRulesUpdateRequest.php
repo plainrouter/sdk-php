@@ -62,7 +62,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => '\Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequestDefinition',
         'account_id' => 'int',
         'enabled' => 'bool',
-        'platform_ad_account_id' => 'mixed',
         'window' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
         'window_days' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
         'author_type' => '\Plainrouter\OpenAPI\Model\ActionsRulesStoreRequestWindow',
@@ -81,7 +80,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => null,
         'account_id' => null,
         'enabled' => null,
-        'platform_ad_account_id' => null,
         'window' => null,
         'window_days' => null,
         'author_type' => null,
@@ -98,7 +96,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => false,
         'account_id' => false,
         'enabled' => false,
-        'platform_ad_account_id' => true,
         'window' => true,
         'window_days' => true,
         'author_type' => true,
@@ -195,7 +192,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => 'definition',
         'account_id' => 'account_id',
         'enabled' => 'enabled',
-        'platform_ad_account_id' => 'platform_ad_account_id',
         'window' => 'window',
         'window_days' => 'window_days',
         'author_type' => 'author_type',
@@ -212,7 +208,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => 'setDefinition',
         'account_id' => 'setAccountId',
         'enabled' => 'setEnabled',
-        'platform_ad_account_id' => 'setPlatformAdAccountId',
         'window' => 'setWindow',
         'window_days' => 'setWindowDays',
         'author_type' => 'setAuthorType',
@@ -229,7 +224,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         'definition' => 'getDefinition',
         'account_id' => 'getAccountId',
         'enabled' => 'getEnabled',
-        'platform_ad_account_id' => 'getPlatformAdAccountId',
         'window' => 'getWindow',
         'window_days' => 'getWindowDays',
         'author_type' => 'getAuthorType',
@@ -297,7 +291,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
         $this->setIfExists('definition', $data ?? [], null);
         $this->setIfExists('account_id', $data ?? [], null);
         $this->setIfExists('enabled', $data ?? [], null);
-        $this->setIfExists('platform_ad_account_id', $data ?? [], null);
         $this->setIfExists('window', $data ?? [], null);
         $this->setIfExists('window_days', $data ?? [], null);
         $this->setIfExists('author_type', $data ?? [], null);
@@ -473,40 +466,6 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable enabled cannot be null');
         }
         $this->container['enabled'] = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Gets platform_ad_account_id
-     *
-     * @return mixed|null
-     */
-    public function getPlatformAdAccountId()
-    {
-        return $this->container['platform_ad_account_id'];
-    }
-
-    /**
-     * Sets platform_ad_account_id
-     *
-     * @param mixed|null $platform_ad_account_id platform_ad_account_id
-     *
-     * @return self
-     */
-    public function setPlatformAdAccountId($platform_ad_account_id)
-    {
-        if (is_null($platform_ad_account_id)) {
-            array_push($this->openAPINullablesSetToNull, 'platform_ad_account_id');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('platform_ad_account_id', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['platform_ad_account_id'] = $platform_ad_account_id;
 
         return $this;
     }
