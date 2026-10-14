@@ -144,7 +144,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch action_batch (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
@@ -166,7 +166,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
@@ -311,7 +311,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
@@ -336,7 +336,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
@@ -390,7 +390,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_batch (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiBatch'] to see the possible values for this operation
@@ -553,7 +553,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiDecisionReceipt'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -573,7 +573,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiDecisionReceipt'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -716,7 +716,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiDecisionReceipt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -739,7 +739,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiDecisionReceipt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -791,7 +791,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiDecisionReceipt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -924,7 +924,7 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status status (optional)
      * @param  int|null $page page (optional)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
@@ -947,7 +947,7 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
@@ -1093,7 +1093,7 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
@@ -1119,7 +1119,7 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
@@ -1174,7 +1174,7 @@ class ActionReadApiApi
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiIndex'] to see the possible values for this operation
@@ -1344,7 +1344,7 @@ class ActionReadApiApi
      * Get action policy
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiPolicy'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1363,7 +1363,7 @@ class ActionReadApiApi
      * Get action policy
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiPolicy'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1505,7 +1505,7 @@ class ActionReadApiApi
      * Get action policy
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1527,7 +1527,7 @@ class ActionReadApiApi
      * Get action policy
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1578,7 +1578,7 @@ class ActionReadApiApi
      * Create request for operation 'actionsApiPolicy'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1695,7 +1695,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1715,7 +1715,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1858,7 +1858,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1881,7 +1881,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1933,7 +1933,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action (required)
-     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; any other value returns 422. An unbound key may name only an active account with an active connection in its workspace, and must name one when the workspace has more than one. (optional)
+     * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsApiShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

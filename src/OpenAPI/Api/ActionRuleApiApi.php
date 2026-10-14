@@ -77,6 +77,15 @@ class ActionRuleApiApi
         'actionsRulesIndex' => [
             'application/json',
         ],
+        'actionsRulesShow' => [
+            'application/json',
+        ],
+        'actionsRulesStore' => [
+            'application/json',
+        ],
+        'actionsRulesUpdate' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -132,17 +141,19 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page page (optional)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\ActionsRulesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage
+     * @return \Plainrouter\OpenAPI\Model\ActionsRulesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage
      */
-    public function actionsRulesIndex($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
+    public function actionsRulesIndex($workspace, $page = null, $account_id = null, $platform_ad_account_id = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
     {
-        list($response) = $this->actionsRulesIndexWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType);
+        list($response) = $this->actionsRulesIndexWithHttpInfo($workspace, $page, $account_id, $platform_ad_account_id, $cursor, $per_page, $contentType);
         return $response;
     }
 
@@ -153,17 +164,19 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\ActionsRulesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\ActionsRulesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
      */
-    public function actionsRulesIndexWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
+    public function actionsRulesIndexWithHttpInfo($workspace, $page = null, $account_id = null, $platform_ad_account_id = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
     {
-        $request = $this->actionsRulesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
+        $request = $this->actionsRulesIndexRequest($workspace, $page, $account_id, $platform_ad_account_id, $cursor, $per_page, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -196,6 +209,30 @@ class ActionRuleApiApi
                         $response,
                     );
                 case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         $request,
@@ -241,6 +278,38 @@ class ActionRuleApiApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
 
 
@@ -255,6 +324,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -262,9 +333,9 @@ class ActionRuleApiApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsRulesIndexAsync($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
+    public function actionsRulesIndexAsync($workspace, $page = null, $account_id = null, $platform_ad_account_id = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
     {
-        return $this->actionsRulesIndexAsyncWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType)
+        return $this->actionsRulesIndexAsyncWithHttpInfo($workspace, $page, $account_id, $platform_ad_account_id, $cursor, $per_page, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -279,6 +350,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -286,10 +359,10 @@ class ActionRuleApiApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function actionsRulesIndexAsyncWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
+    public function actionsRulesIndexAsyncWithHttpInfo($workspace, $page = null, $account_id = null, $platform_ad_account_id = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\ActionsRulesIndex200Response';
-        $request = $this->actionsRulesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
+        $request = $this->actionsRulesIndexRequest($workspace, $page, $account_id, $platform_ad_account_id, $cursor, $per_page, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -332,6 +405,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -339,7 +414,7 @@ class ActionRuleApiApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function actionsRulesIndexRequest($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
+    public function actionsRulesIndexRequest($workspace, $page = null, $account_id = null, $platform_ad_account_id = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['actionsRulesIndex'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -351,6 +426,14 @@ class ActionRuleApiApi
 
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling ActionRuleApiApi.actionsRulesIndex, must be bigger than or equal to 1.');
+        }
+
+        if ($account_id !== null && $account_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$account_id" when calling ActionRuleApiApi.actionsRulesIndex, must be bigger than or equal to 1.');
+        }
+
+        if ($platform_ad_account_id !== null && $platform_ad_account_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$platform_ad_account_id" when calling ActionRuleApiApi.actionsRulesIndex, must be bigger than or equal to 1.');
         }
 
 
@@ -373,6 +456,24 @@ class ActionRuleApiApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $page,
             'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $account_id,
+            'account_id', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $platform_ad_account_id,
+            'platform_ad_account_id', // param base name
             'integer', // openApiType
             'form', // style
             true, // explode
@@ -463,6 +564,1170 @@ class ActionRuleApiApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation actionsRulesShow
+     *
+     * Get an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule action_rule (required)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\ActionRuleDetailRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage
+     */
+    public function actionsRulesShow($workspace, $action_rule, $account_id = null, string $contentType = self::contentTypes['actionsRulesShow'][0])
+    {
+        list($response) = $this->actionsRulesShowWithHttpInfo($workspace, $action_rule, $account_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation actionsRulesShowWithHttpInfo
+     *
+     * Get an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\ActionRuleDetailRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function actionsRulesShowWithHttpInfo($workspace, $action_rule, $account_id = null, string $contentType = self::contentTypes['actionsRulesShow'][0])
+    {
+        $request = $this->actionsRulesShowRequest($workspace, $action_rule, $account_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionRuleDetailRead',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\ActionRuleDetailRead',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionRuleDetailRead',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation actionsRulesShowAsync
+     *
+     * Get an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesShowAsync($workspace, $action_rule, $account_id = null, string $contentType = self::contentTypes['actionsRulesShow'][0])
+    {
+        return $this->actionsRulesShowAsyncWithHttpInfo($workspace, $action_rule, $account_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation actionsRulesShowAsyncWithHttpInfo
+     *
+     * Get an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesShowAsyncWithHttpInfo($workspace, $action_rule, $account_id = null, string $contentType = self::contentTypes['actionsRulesShow'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\ActionRuleDetailRead';
+        $request = $this->actionsRulesShowRequest($workspace, $action_rule, $account_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'actionsRulesShow'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function actionsRulesShowRequest($workspace, $action_rule, $account_id = null, string $contentType = self::contentTypes['actionsRulesShow'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling actionsRulesShow'
+            );
+        }
+
+        // verify the required parameter 'action_rule' is set
+        if ($action_rule === null || (is_array($action_rule) && count($action_rule) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $action_rule when calling actionsRulesShow'
+            );
+        }
+
+        if ($account_id !== null && $account_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$account_id" when calling ActionRuleApiApi.actionsRulesShow, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/agent/workspaces/{workspace}/action-rules/{action_rule}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $account_id,
+            'account_id', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($action_rule !== null) {
+            $resourcePath = str_replace(
+                '{action_rule}',
+                ObjectSerializer::toPathValue($action_rule),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation actionsRulesStore
+     *
+     * Create an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesStoreRequest $actions_rules_store_request actions_rules_store_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesStore'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\ActionRuleWriteRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
+     */
+    public function actionsRulesStore($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
+    {
+        list($response) = $this->actionsRulesStoreWithHttpInfo($workspace, $actions_rules_store_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation actionsRulesStoreWithHttpInfo
+     *
+     * Create an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesStoreRequest $actions_rules_store_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesStore'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\ActionRuleWriteRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function actionsRulesStoreWithHttpInfo($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
+    {
+        $request = $this->actionsRulesStoreRequest($workspace, $actions_rules_store_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation actionsRulesStoreAsync
+     *
+     * Create an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesStoreRequest $actions_rules_store_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesStoreAsync($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
+    {
+        return $this->actionsRulesStoreAsyncWithHttpInfo($workspace, $actions_rules_store_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation actionsRulesStoreAsyncWithHttpInfo
+     *
+     * Create an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesStoreRequest $actions_rules_store_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesStoreAsyncWithHttpInfo($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead';
+        $request = $this->actionsRulesStoreRequest($workspace, $actions_rules_store_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'actionsRulesStore'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesStoreRequest $actions_rules_store_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function actionsRulesStoreRequest($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling actionsRulesStore'
+            );
+        }
+
+        // verify the required parameter 'actions_rules_store_request' is set
+        if ($actions_rules_store_request === null || (is_array($actions_rules_store_request) && count($actions_rules_store_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $actions_rules_store_request when calling actionsRulesStore'
+            );
+        }
+
+
+        $resourcePath = '/agent/workspaces/{workspace}/action-rules';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($actions_rules_store_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($actions_rules_store_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $actions_rules_store_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation actionsRulesUpdate
+     *
+     * Update an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule action_rule (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequest|null $actions_rules_update_request actions_rules_update_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesUpdate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\ActionRuleWriteRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
+     */
+    public function actionsRulesUpdate($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
+    {
+        list($response) = $this->actionsRulesUpdateWithHttpInfo($workspace, $action_rule, $actions_rules_update_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation actionsRulesUpdateWithHttpInfo
+     *
+     * Update an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequest|null $actions_rules_update_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesUpdate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\ActionRuleWriteRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function actionsRulesUpdateWithHttpInfo($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
+    {
+        $request = $this->actionsRulesUpdateRequest($workspace, $action_rule, $actions_rules_update_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ActionsRulesIndex403Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation actionsRulesUpdateAsync
+     *
+     * Update an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequest|null $actions_rules_update_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesUpdateAsync($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
+    {
+        return $this->actionsRulesUpdateAsyncWithHttpInfo($workspace, $action_rule, $actions_rules_update_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation actionsRulesUpdateAsyncWithHttpInfo
+     *
+     * Update an action rule
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequest|null $actions_rules_update_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function actionsRulesUpdateAsyncWithHttpInfo($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\ActionRuleWriteRead';
+        $request = $this->actionsRulesUpdateRequest($workspace, $action_rule, $actions_rules_update_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'actionsRulesUpdate'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $action_rule (required)
+     * @param  \Plainrouter\OpenAPI\Model\ActionsRulesUpdateRequest|null $actions_rules_update_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function actionsRulesUpdateRequest($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling actionsRulesUpdate'
+            );
+        }
+
+        // verify the required parameter 'action_rule' is set
+        if ($action_rule === null || (is_array($action_rule) && count($action_rule) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $action_rule when calling actionsRulesUpdate'
+            );
+        }
+
+
+
+        $resourcePath = '/agent/workspaces/{workspace}/action-rules/{action_rule}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($action_rule !== null) {
+            $resourcePath = str_replace(
+                '{action_rule}',
+                ObjectSerializer::toPathValue($action_rule),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($actions_rules_update_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($actions_rules_update_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $actions_rules_update_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

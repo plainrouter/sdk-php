@@ -60,7 +60,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => '\Plainrouter\OpenAPI\Model\DeploymentPlanRead[]',
         'current_page' => 'int',
         'per_page' => 'int',
-        'total' => 'int'
+        'total' => 'int',
+        'last_page' => 'int',
+        'next_cursor' => 'int',
+        'truncated' => 'bool',
+        'next_page_arguments' => '\Plainrouter\OpenAPI\Model\LaunchPlansIndex200ResponsePlansNextPageArguments',
+        'continuation' => 'string'
     ];
 
     /**
@@ -74,7 +79,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => null,
         'current_page' => null,
         'per_page' => null,
-        'total' => null
+        'total' => null,
+        'last_page' => null,
+        'next_cursor' => null,
+        'truncated' => null,
+        'next_page_arguments' => null,
+        'continuation' => null
     ];
 
     /**
@@ -86,7 +96,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => false,
         'current_page' => false,
         'per_page' => false,
-        'total' => false
+        'total' => false,
+        'last_page' => false,
+        'next_cursor' => true,
+        'truncated' => false,
+        'next_page_arguments' => true,
+        'continuation' => false
     ];
 
     /**
@@ -178,7 +193,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => 'data',
         'current_page' => 'current_page',
         'per_page' => 'per_page',
-        'total' => 'total'
+        'total' => 'total',
+        'last_page' => 'last_page',
+        'next_cursor' => 'next_cursor',
+        'truncated' => 'truncated',
+        'next_page_arguments' => 'next_page_arguments',
+        'continuation' => 'continuation'
     ];
 
     /**
@@ -190,7 +210,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => 'setData',
         'current_page' => 'setCurrentPage',
         'per_page' => 'setPerPage',
-        'total' => 'setTotal'
+        'total' => 'setTotal',
+        'last_page' => 'setLastPage',
+        'next_cursor' => 'setNextCursor',
+        'truncated' => 'setTruncated',
+        'next_page_arguments' => 'setNextPageArguments',
+        'continuation' => 'setContinuation'
     ];
 
     /**
@@ -202,7 +227,12 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         'data' => 'getData',
         'current_page' => 'getCurrentPage',
         'per_page' => 'getPerPage',
-        'total' => 'getTotal'
+        'total' => 'getTotal',
+        'last_page' => 'getLastPage',
+        'next_cursor' => 'getNextCursor',
+        'truncated' => 'getTruncated',
+        'next_page_arguments' => 'getNextPageArguments',
+        'continuation' => 'getContinuation'
     ];
 
     /**
@@ -266,6 +296,11 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         $this->setIfExists('current_page', $data ?? [], null);
         $this->setIfExists('per_page', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('last_page', $data ?? [], null);
+        $this->setIfExists('next_cursor', $data ?? [], null);
+        $this->setIfExists('truncated', $data ?? [], null);
+        $this->setIfExists('next_page_arguments', $data ?? [], null);
+        $this->setIfExists('continuation', $data ?? [], null);
     }
 
     /**
@@ -306,6 +341,21 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
         }
         if ($this->container['total'] === null) {
             $invalidProperties[] = "'total' can't be null";
+        }
+        if ($this->container['last_page'] === null) {
+            $invalidProperties[] = "'last_page' can't be null";
+        }
+        if ($this->container['next_cursor'] === null && !$this->isNullableSetToNull('next_cursor')) {
+            $invalidProperties[] = "'next_cursor' is required";
+        }
+        if ($this->container['truncated'] === null) {
+            $invalidProperties[] = "'truncated' can't be null";
+        }
+        if ($this->container['next_page_arguments'] === null && !$this->isNullableSetToNull('next_page_arguments')) {
+            $invalidProperties[] = "'next_page_arguments' is required";
+        }
+        if ($this->container['continuation'] === null) {
+            $invalidProperties[] = "'continuation' can't be null";
         }
         return $invalidProperties;
     }
@@ -426,6 +476,155 @@ class LaunchPlansIndex200ResponsePlans implements ModelInterface, ArrayAccess, \
             throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
         $this->container['total'] = $total;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_page
+     *
+     * @return int
+     */
+    public function getLastPage()
+    {
+        return $this->container['last_page'];
+    }
+
+    /**
+     * Sets last_page
+     *
+     * @param int $last_page last_page
+     *
+     * @return self
+     */
+    public function setLastPage($last_page)
+    {
+        if (is_null($last_page)) {
+            throw new \InvalidArgumentException('non-nullable last_page cannot be null');
+        }
+        $this->container['last_page'] = $last_page;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_cursor
+     *
+     * @return int|null
+     */
+    public function getNextCursor()
+    {
+        return $this->container['next_cursor'];
+    }
+
+    /**
+     * Sets next_cursor
+     *
+     * @param int|null $next_cursor Always present. The next row offset, or null when the list is complete.
+     *
+     * @return self
+     */
+    public function setNextCursor($next_cursor)
+    {
+        if (is_null($next_cursor)) {
+            array_push($this->openAPINullablesSetToNull, 'next_cursor');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_cursor', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_cursor'] = $next_cursor;
+
+        return $this;
+    }
+
+    /**
+     * Gets truncated
+     *
+     * @return bool
+     */
+    public function getTruncated()
+    {
+        return $this->container['truncated'];
+    }
+
+    /**
+     * Sets truncated
+     *
+     * @param bool $truncated truncated
+     *
+     * @return self
+     */
+    public function setTruncated($truncated)
+    {
+        if (is_null($truncated)) {
+            throw new \InvalidArgumentException('non-nullable truncated cannot be null');
+        }
+        $this->container['truncated'] = $truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets next_page_arguments
+     *
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansIndex200ResponsePlansNextPageArguments|null
+     */
+    public function getNextPageArguments()
+    {
+        return $this->container['next_page_arguments'];
+    }
+
+    /**
+     * Sets next_page_arguments
+     *
+     * @param \Plainrouter\OpenAPI\Model\LaunchPlansIndex200ResponsePlansNextPageArguments|null $next_page_arguments next_page_arguments
+     *
+     * @return self
+     */
+    public function setNextPageArguments($next_page_arguments)
+    {
+        if (is_null($next_page_arguments)) {
+            array_push($this->openAPINullablesSetToNull, 'next_page_arguments');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('next_page_arguments', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['next_page_arguments'] = $next_page_arguments;
+
+        return $this;
+    }
+
+    /**
+     * Gets continuation
+     *
+     * @return string
+     */
+    public function getContinuation()
+    {
+        return $this->container['continuation'];
+    }
+
+    /**
+     * Sets continuation
+     *
+     * @param string $continuation continuation
+     *
+     * @return self
+     */
+    public function setContinuation($continuation)
+    {
+        if (is_null($continuation)) {
+            throw new \InvalidArgumentException('non-nullable continuation cannot be null');
+        }
+        $this->container['continuation'] = $continuation;
 
         return $this;
     }

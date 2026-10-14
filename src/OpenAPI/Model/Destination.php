@@ -63,13 +63,13 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'platform_ad_account_id' => 'int',
         'type' => '\Plainrouter\OpenAPI\Model\DestinationType',
         'credential_source' => '\Plainrouter\OpenAPI\Model\DestinationCredentialSource',
-        'config' => 'mixed[]',
+        'config' => '\Plainrouter\OpenAPI\Model\DestinationConfig',
         'status' => '\Plainrouter\OpenAPI\Model\DestinationStatus',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime',
-        'attention_reason' => 'string',
-        'held_count' => 'string',
-        'notices' => 'string'
+        'attention_reason' => '\Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent',
+        'held_count' => 'int',
+        'notices' => 'array<string,mixed>[]'
     ];
 
     /**
@@ -111,7 +111,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => false,
         'created_at' => true,
         'updated_at' => true,
-        'attention_reason' => false,
+        'attention_reason' => true,
         'held_count' => false,
         'notices' => false
     ];
@@ -388,8 +388,8 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['updated_at'] === null && !$this->isNullableSetToNull('updated_at')) {
             $invalidProperties[] = "'updated_at' is required";
         }
-        if ($this->container['attention_reason'] === null) {
-            $invalidProperties[] = "'attention_reason' can't be null";
+        if ($this->container['attention_reason'] === null && !$this->isNullableSetToNull('attention_reason')) {
+            $invalidProperties[] = "'attention_reason' is required";
         }
         if ($this->container['held_count'] === null) {
             $invalidProperties[] = "'held_count' can't be null";
@@ -586,7 +586,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets config
      *
-     * @return mixed[]
+     * @return \Plainrouter\OpenAPI\Model\DestinationConfig
      */
     public function getConfig()
     {
@@ -596,7 +596,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets config
      *
-     * @param mixed[] $config config
+     * @param \Plainrouter\OpenAPI\Model\DestinationConfig $config config
      *
      * @return self
      */
@@ -708,7 +708,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets attention_reason
      *
-     * @return string
+     * @return \Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent|null
      */
     public function getAttentionReason()
     {
@@ -718,14 +718,21 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets attention_reason
      *
-     * @param string $attention_reason attention_reason
+     * @param \Plainrouter\OpenAPI\Model\GetEvent200ResponseEventConsent|null $attention_reason attention_reason
      *
      * @return self
      */
     public function setAttentionReason($attention_reason)
     {
         if (is_null($attention_reason)) {
-            throw new \InvalidArgumentException('non-nullable attention_reason cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'attention_reason');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attention_reason', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['attention_reason'] = $attention_reason;
 
@@ -735,7 +742,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets held_count
      *
-     * @return string
+     * @return int
      */
     public function getHeldCount()
     {
@@ -745,7 +752,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets held_count
      *
-     * @param string $held_count held_count
+     * @param int $held_count held_count
      *
      * @return self
      */
@@ -762,7 +769,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets notices
      *
-     * @return string
+     * @return array<string,mixed>[]
      */
     public function getNotices()
     {
@@ -772,7 +779,7 @@ class Destination implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets notices
      *
-     * @param string $notices notices
+     * @param array<string,mixed>[] $notices notices
      *
      * @return self
      */

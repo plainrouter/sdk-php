@@ -2,6 +2,9 @@
 
 ## 0.4.0 (unreleased)
 
+- Add `GET /agent/context` and action-rule `POST` collection, item `GET`, and item `PATCH` operations.
+- Correct Destination `config`, `attention_reason`, `held_count` and `notices` types; expose plans-list `last_page`, `next_cursor`, `truncated`, `next_page_arguments` and `continuation`; clarify that `account_id` is the internal platform-account ID; correct action-rule list authentication and account/workspace selectors; fix the empty-array branches of action-rule write unions so Python generation succeeds with `--fail-on-warning`.
+
 - The new public `Plainrouter\JsonResponseClient` is marked `@internal` and wraps the curated service groups; callers should use `Client`. It forces `allow_redirects => false`, even on a caller Guzzle client.
 - With `accept:` omitted, caller Guzzle Accept is retained; absent or exact `*/*` selects JSON. Explicit `accept:` overrides that value.
 
