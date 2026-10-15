@@ -119,6 +119,16 @@ final class JsonTransportTest extends TestCase
     /** Exercise every spec-derived closed PHP input path within the existing transport case. */
     private function assertClosedInputGuardsCoverTheGeneratedContract(): void
     {
+        $budgetProposal = $this->actionProposalInput(
+            ['action' => 'increase_budget', 'target_type' => 'campaign'],
+            ['new_daily_budget_minor' => 25000],
+        );
+        $deserializedProposal = \Plainrouter\OpenAPI\ObjectSerializer::deserialize(
+            json_encode($budgetProposal, JSON_THROW_ON_ERROR),
+            \Plainrouter\OpenAPI\Model\ActionProposalInput::class,
+        );
+        $this->assertInstanceOf(\Plainrouter\OpenAPI\Model\ActionProposalInput::class, $deserializedProposal);
+
         $paramVariants = [
             [
                 'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfParams::class,

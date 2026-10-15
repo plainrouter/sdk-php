@@ -14,6 +14,33 @@ final class ClosedObjectGuard
     /** @var array<string, mixed>|null */
     private static ?array $contract = null;
 
+    private static int $deserializationDepth = 0;
+
+    /** Validate the complete input before the generated deserializer follows flattened model types. */
+    public static function deserialize(mixed $class, mixed $value, callable $deserialize): mixed
+    {
+        if (self::$deserializationDepth > 0 || self::modelPointer($class) === null) {
+            return $deserialize();
+        }
+
+        self::assertModelInput($class, $value);
+        self::$deserializationDepth++;
+        try {
+            return $deserialize();
+        } finally {
+            self::$deserializationDepth--;
+        }
+    }
+
+    private static function modelPointer(mixed $class): ?string
+    {
+        if (! is_string($class) || ! class_exists($class) || ! is_a($class, \Plainrouter\OpenAPI\Model\ModelInterface::class, true)) {
+            return null;
+        }
+
+        return self::contract()['models'][self::modelNameForClass($class)] ?? null;
+    }
+
     public static function assertRequestBody(string $operation, mixed $body): void
     {
         $pointer = self::contract()['operations'][$operation] ?? null;
@@ -27,13 +54,13 @@ final class ClosedObjectGuard
 
     public static function assertModelInput(mixed $class, mixed $value): void
     {
-        if (! is_string($class) || ! class_exists($class) || ! is_a($class, \Plainrouter\OpenAPI\Model\ModelInterface::class, true)) {
+        if (self::$deserializationDepth > 0) {
             return;
         }
 
-        $modelName = self::modelNameForClass($class);
-        $pointer = self::contract()['models'][$modelName] ?? null;
-        if (is_string($pointer)) {
+        $pointer = self::modelPointer($class);
+        if ($pointer !== null) {
+            $modelName = self::modelNameForClass($class);
             if (is_string($value)) {
                 $decoded = json_decode($value);
                 if (json_last_error() === JSON_ERROR_NONE && (is_object($decoded) || is_array($decoded))) {
@@ -146,7 +173,7 @@ final class ClosedObjectGuard
         $matches = [];
         foreach ($branches as $index => $branch) {
             foreach ($discriminators as $property => $allowedValues) {
-                if (! array_key_exists($property, $values) || ! in_array($values[$property], $allowedValues[$index], true)) {
+                if (array_key_exists($property, $values) && ! in_array($values[$property], $allowedValues[$index], true)) {
                     continue 2;
                 }
             }
@@ -202,7 +229,6 @@ final class ClosedObjectGuard
             }
 
             $candidates = $values === null ? $branches : self::matchingBranches($branches, $values);
-            $discriminated = $values !== null && count($candidates) < count($branches);
             $errors = [];
             foreach ($candidates as $index => $branch) {
                 if (! is_string($branch['$ref'] ?? null)) {
@@ -223,31 +249,6 @@ final class ClosedObjectGuard
             }
 
             if ($errors !== []) {
-                if (! $discriminated) {
-                    foreach ($errors as $errorIndex => $error) {
-                        if (! $error instanceof ClosedObjectKeyException) {
-                            continue;
-                        }
-
-                        foreach ($candidates as $candidateIndex => $branch) {
-                            if ($candidateIndex === $errorIndex || ! is_string($branch['$ref'] ?? null)) {
-                                continue;
-                            }
-
-                            $branchSchema = self::resolveSchema($branch['$ref']);
-                            if (array_key_exists($error->key, $branchSchema['properties'] ?? [])) {
-                                unset($errors[$errorIndex]);
-                                break;
-                            }
-                        }
-                    }
-                    $errors = array_values($errors);
-                }
-
-                if ($errors === []) {
-                    continue;
-                }
-
                 $firstError = array_values($errors)[0] ?? null;
                 if ($firstError instanceof InvalidArgumentException) {
                     throw $firstError;

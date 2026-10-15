@@ -396,7 +396,16 @@ class ObjectSerializer
      */
     public static function deserialize($data, $class, $httpHeaders = null)
     {
-        \Plainrouter\ClosedObjectGuard::assertModelInput($class, $data);
+        return \Plainrouter\ClosedObjectGuard::deserialize(
+            $class,
+            $data,
+            static fn () => self::deserializeUnchecked($data, $class, $httpHeaders),
+        );
+    }
+
+    /** Materialize the validated data using the generator's existing model types. */
+    private static function deserializeUnchecked($data, $class, $httpHeaders = null)
+    {
         if (null === $data) {
             return null;
         }
