@@ -3,6 +3,8 @@
 ## 0.4.0 (unreleased)
 
 - Refuse unknown keys, including case variants, on closed request objects before sending; errors name the key and object. Closed objects and their allowed keys are derived from the vendored contract, including model construction, mapping conversion, and raw request bodies.
+- Tighten page validation on the actions, action-rules, tests, creatives, plans and policies lists: page is an integer from 1 to 10^16; integer strings such as "2" remain accepted, and all other values are refused with 422 on page. Unset and language-null page values are omitted from requests, preserving the default page 1.
+
 - Honor an explicit custom base URL for the newly generated file-import operation; retain its contract-defined host when using the default configuration.
 - Expose the regenerated Launch policy index, create and retire operations and draft-batch file import through the curated client, preserving its shared header, Accept and redirect policy.
 - Tighten validation of the existing contract: integer inputs refuse JSON booleans instead of treating them as 1 or 0. The curated client rejects booleans before sending with an error naming the integer field; integer selectors are generated from the contract, and integers and numeric strings remain accepted.

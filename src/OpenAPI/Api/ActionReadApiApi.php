@@ -923,7 +923,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status status (optional)
-     * @param  int|null $page page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
@@ -946,7 +946,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
@@ -1092,7 +1092,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
@@ -1118,7 +1118,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
@@ -1173,7 +1173,7 @@ class ActionReadApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string|null $status (optional)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional positive account ID. A bound key may name only its own account; a different ID returns 422. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $limit Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
@@ -1193,6 +1193,9 @@ class ActionReadApiApi
         }
 
 
+        if ($page !== null && $page > 10000000000000000) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling ActionReadApiApi.actionsApiIndex, must be smaller than or equal to 10000000000000000.');
+        }
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling ActionReadApiApi.actionsApiIndex, must be bigger than or equal to 1.');
         }

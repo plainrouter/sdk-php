@@ -1003,7 +1003,7 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
@@ -1012,7 +1012,7 @@ class DeploymentPlanApi
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
-    public function launchPlansIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndex($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         list($response) = $this->launchPlansIndexWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType);
         return $response;
@@ -1024,7 +1024,7 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
@@ -1033,7 +1033,7 @@ class DeploymentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function launchPlansIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         $request = $this->launchPlansIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
 
@@ -1168,7 +1168,7 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
@@ -1176,7 +1176,7 @@ class DeploymentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansIndexAsync($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexAsync($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         return $this->launchPlansIndexAsyncWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType)
             ->then(
@@ -1192,7 +1192,7 @@ class DeploymentPlanApi
      * List deployment plans
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
@@ -1200,7 +1200,7 @@ class DeploymentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchPlansIndexAsyncWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexAsyncWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response';
         $request = $this->launchPlansIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
@@ -1245,7 +1245,7 @@ class DeploymentPlanApi
      * Create request for operation 'launchPlansIndex'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansIndex'] to see the possible values for this operation
@@ -1253,7 +1253,7 @@ class DeploymentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function launchPlansIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexRequest($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -1263,6 +1263,12 @@ class DeploymentPlanApi
             );
         }
 
+        if ($page !== null && $page > 10000000000000000) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling DeploymentPlanApi.launchPlansIndex, must be smaller than or equal to 10000000000000000.');
+        }
+        if ($page !== null && $page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling DeploymentPlanApi.launchPlansIndex, must be bigger than or equal to 1.');
+        }
 
         if ($cursor !== null && $cursor < 0) {
             throw new \InvalidArgumentException('invalid value for "$cursor" when calling DeploymentPlanApi.launchPlansIndex, must be bigger than or equal to 0.');

@@ -9,7 +9,7 @@ use Plainrouter\IntegerInputGuard;
 /** Generated from spec/openapi.json by scripts/generate-php-integer-apis.mjs. */
 class GuardedDeploymentPlanApi extends \Plainrouter\OpenAPI\Api\DeploymentPlanApi
 {
-    public function launchPlansIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
+    public function launchPlansIndexRequest($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
         IntegerInputGuard::assertArguments('GET /workspaces/{workspace}/admin/plans', self::class, __FUNCTION__, func_get_args(), null, []);
         return parent::launchPlansIndexRequest(...func_get_args());

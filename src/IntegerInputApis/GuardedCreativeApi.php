@@ -9,7 +9,7 @@ use Plainrouter\IntegerInputGuard;
 /** Generated from spec/openapi.json by scripts/generate-php-integer-apis.mjs. */
 class GuardedCreativeApi extends \Plainrouter\OpenAPI\Api\CreativeApi
 {
-    public function launchCreativesIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndexRequest($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
         IntegerInputGuard::assertArguments('GET /workspaces/{workspace}/admin/creatives', self::class, __FUNCTION__, func_get_args(), null, []);
         return parent::launchCreativesIndexRequest(...func_get_args());

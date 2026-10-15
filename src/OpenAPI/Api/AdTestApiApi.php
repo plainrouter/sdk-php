@@ -137,7 +137,7 @@ class AdTestApiApi
      * List Tests and observed conversion event choices
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $per_page per_page (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsTestsApiIndex'] to see the possible values for this operation
      *
@@ -157,7 +157,7 @@ class AdTestApiApi
      * List Tests and observed conversion event choices
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $per_page (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsTestsApiIndex'] to see the possible values for this operation
      *
@@ -314,7 +314,7 @@ class AdTestApiApi
      * List Tests and observed conversion event choices
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $per_page (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsTestsApiIndex'] to see the possible values for this operation
      *
@@ -337,7 +337,7 @@ class AdTestApiApi
      * List Tests and observed conversion event choices
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $per_page (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsTestsApiIndex'] to see the possible values for this operation
      *
@@ -389,7 +389,7 @@ class AdTestApiApi
      * Create request for operation 'actionsTestsApiIndex'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $per_page (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsTestsApiIndex'] to see the possible values for this operation
      *
@@ -406,6 +406,9 @@ class AdTestApiApi
             );
         }
 
+        if ($page !== null && $page > 10000000000000000) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling AdTestApiApi.actionsTestsApiIndex, must be smaller than or equal to 10000000000000000.');
+        }
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling AdTestApiApi.actionsTestsApiIndex, must be bigger than or equal to 1.');
         }

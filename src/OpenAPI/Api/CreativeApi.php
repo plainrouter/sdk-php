@@ -143,7 +143,7 @@ class CreativeApi
      * List workspace creatives
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
@@ -152,7 +152,7 @@ class CreativeApi
      * @throws \InvalidArgumentException
      * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
-    public function launchCreativesIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndex($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
         list($response) = $this->launchCreativesIndexWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType);
         return $response;
@@ -164,7 +164,7 @@ class CreativeApi
      * List workspace creatives
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
@@ -173,7 +173,7 @@ class CreativeApi
      * @throws \InvalidArgumentException
      * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function launchCreativesIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndexWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
         $request = $this->launchCreativesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
 
@@ -308,7 +308,7 @@ class CreativeApi
      * List workspace creatives
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
@@ -316,7 +316,7 @@ class CreativeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchCreativesIndexAsync($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndexAsync($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
         return $this->launchCreativesIndexAsyncWithHttpInfo($workspace, $page, $cursor, $per_page, $contentType)
             ->then(
@@ -332,7 +332,7 @@ class CreativeApi
      * List workspace creatives
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
@@ -340,7 +340,7 @@ class CreativeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function launchCreativesIndexAsyncWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndexAsyncWithHttpInfo($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
         $returnType = '\Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response';
         $request = $this->launchCreativesIndexRequest($workspace, $page, $cursor, $per_page, $contentType);
@@ -385,7 +385,7 @@ class CreativeApi
      * Create request for operation 'launchCreativesIndex'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesIndex'] to see the possible values for this operation
@@ -393,7 +393,7 @@ class CreativeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function launchCreativesIndexRequest($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
+    public function launchCreativesIndexRequest($workspace, $page = null, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
 
         // verify the required parameter 'workspace' is set
@@ -403,6 +403,12 @@ class CreativeApi
             );
         }
 
+        if ($page !== null && $page > 10000000000000000) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling CreativeApi.launchCreativesIndex, must be smaller than or equal to 10000000000000000.');
+        }
+        if ($page !== null && $page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling CreativeApi.launchCreativesIndex, must be bigger than or equal to 1.');
+        }
 
         if ($cursor !== null && $cursor < 0) {
             throw new \InvalidArgumentException('invalid value for "$cursor" when calling CreativeApi.launchCreativesIndex, must be bigger than or equal to 0.');

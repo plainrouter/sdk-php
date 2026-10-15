@@ -140,7 +140,7 @@ class ActionRuleApiApi
      * List rule summaries
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
@@ -163,7 +163,7 @@ class ActionRuleApiApi
      * List rule summaries
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
@@ -323,7 +323,7 @@ class ActionRuleApiApi
      * List rule summaries
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
@@ -349,7 +349,7 @@ class ActionRuleApiApi
      * List rule summaries
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
@@ -404,7 +404,7 @@ class ActionRuleApiApi
      * Create request for operation 'actionsRulesIndex'
      *
      * @param  int $workspace The workspace ID (required)
-     * @param  int|null $page (optional)
+     * @param  int|null $page Integer page from 1 through 10000000000000000; integer strings are accepted. Zero, negatives, fractions, non-numeric strings and booleans return 422 with a page field validation error. (optional)
      * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
@@ -424,6 +424,9 @@ class ActionRuleApiApi
             );
         }
 
+        if ($page !== null && $page > 10000000000000000) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling ActionRuleApiApi.actionsRulesIndex, must be smaller than or equal to 10000000000000000.');
+        }
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling ActionRuleApiApi.actionsRulesIndex, must be bigger than or equal to 1.');
         }
