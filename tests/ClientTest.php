@@ -209,6 +209,27 @@ final class ClientTest extends TestCase
         $this->assertSame($client->configuration, $client->plans->getConfig());
         $this->assertSame($client->configuration, $client->fileImports->getConfig());
         $this->assertSame($client->configuration, $client->launchPolicies->getConfig());
+
+        $stack = HandlerStack::create(new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], '{}'),
+        ]));
+        $history = [];
+        $stack->push(Middleware::history($history));
+        $localClient = new Client(
+            baseUrl: 'http://localhost:4567/custom/v1/',
+            httpClient: new HttpClient(['handler' => $stack]),
+        );
+        $localClient->fileImports->launcherFileImport(
+            new \SplFileObject(__FILE__),
+            '123',
+            '456',
+            \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET,
+        );
+        $this->assertCount(1, $history);
+        $this->assertSame(
+            'http://localhost:4567/custom/v1/mcp/launcher/import',
+            (string) $history[0]['request']->getUri(),
+        );
     }
 
     public function test_uses_safe_defaults(): void

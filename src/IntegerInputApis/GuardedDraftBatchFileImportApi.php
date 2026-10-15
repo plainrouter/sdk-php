@@ -14,4 +14,12 @@ class GuardedDraftBatchFileImportApi extends \Plainrouter\OpenAPI\Api\DraftBatch
         IntegerInputGuard::assertArguments('POST /mcp/launcher/import', self::class, __FUNCTION__, func_get_args(), null, [['account_id', 'account_id'], ['workspace_id', 'workspace_id']]);
         return parent::launcherFileImportRequest(...func_get_args());
     }
+
+    protected function getHostSettingsForlauncherFileImport(): array
+    {
+        if ($this->config->getHost() !== \Plainrouter\Client::DEFAULT_BASE_URL) {
+            return [['url' => $this->config->getHost(), 'description' => 'Configured base URL']];
+        }
+        return parent::getHostSettingsForlauncherFileImport();
+    }
 }
