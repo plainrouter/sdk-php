@@ -86,6 +86,15 @@ class DeploymentPlanApi
         'launchPlansShow' => [
             'application/json',
         ],
+        'launchPlansStore' => [
+            'application/json',
+        ],
+        'launchPlansUpdate' => [
+            'application/json',
+        ],
+        'launchPlansValidate' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -145,7 +154,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\PlanCopyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy403Response|\Plainrouter\OpenAPI\Model\LaunchPlansCopy404Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\PlanCopyRejected|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
+     * @return \Plainrouter\OpenAPI\Model\PlanCopyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy403Response|\Plainrouter\OpenAPI\Model\LaunchPlansCopy404Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout
      */
     public function launchPlansCopy($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansCopy'][0])
     {
@@ -164,7 +173,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\PlanCopyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy403Response|\Plainrouter\OpenAPI\Model\LaunchPlansCopy404Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\PlanCopyRejected|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\PlanCopyRead|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy403Response|\Plainrouter\OpenAPI\Model\LaunchPlansCopy404Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LaunchPlansCopy422Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout, HTTP status code, HTTP response headers (array of strings)
      */
     public function launchPlansCopyWithHttpInfo($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansCopy'][0])
     {
@@ -226,7 +235,7 @@ class DeploymentPlanApi
                     );
                 case 422:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\PlanCopyRejected',
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansCopy422Response',
                         $request,
                         $response,
                     );
@@ -315,7 +324,7 @@ class DeploymentPlanApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\PlanCopyRejected',
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansCopy422Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1000,7 +1009,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function launchPlansIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
@@ -1021,7 +1030,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function launchPlansIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchPlansIndex'][0])
     {
@@ -1072,6 +1081,12 @@ class DeploymentPlanApi
                 case 404:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $request,
                         $response,
                     );
@@ -1127,6 +1142,14 @@ class DeploymentPlanApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1366,7 +1389,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function launchPlansShow($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
@@ -1387,7 +1410,7 @@ class DeploymentPlanApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function launchPlansShowWithHttpInfo($workspace, $deployment_plan, $cursor = null, $limit = 5, string $contentType = self::contentTypes['launchPlansShow'][0])
     {
@@ -1438,6 +1461,12 @@ class DeploymentPlanApi
                 case 404:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $request,
                         $response,
                     );
@@ -1493,6 +1522,14 @@ class DeploymentPlanApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1724,6 +1761,1040 @@ class DeploymentPlanApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation launchPlansStore
+     *
+     * Create a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\StoreDeploymentPlanRequest $store_deployment_plan_request store_deployment_plan_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansStore'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansStore201Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
+     */
+    public function launchPlansStore($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
+    {
+        list($response) = $this->launchPlansStoreWithHttpInfo($workspace, $store_deployment_plan_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchPlansStoreWithHttpInfo
+     *
+     * Create a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\StoreDeploymentPlanRequest $store_deployment_plan_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansStore'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansStore201Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchPlansStoreWithHttpInfo($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
+    {
+        $request = $this->launchPlansStoreRequest($workspace, $store_deployment_plan_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchPlansStoreAsync
+     *
+     * Create a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\StoreDeploymentPlanRequest $store_deployment_plan_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansStoreAsync($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
+    {
+        return $this->launchPlansStoreAsyncWithHttpInfo($workspace, $store_deployment_plan_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchPlansStoreAsyncWithHttpInfo
+     *
+     * Create a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\StoreDeploymentPlanRequest $store_deployment_plan_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansStoreAsyncWithHttpInfo($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response';
+        $request = $this->launchPlansStoreRequest($workspace, $store_deployment_plan_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchPlansStore'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  \Plainrouter\OpenAPI\Model\StoreDeploymentPlanRequest $store_deployment_plan_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansStore'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchPlansStoreRequest($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchPlansStore'
+            );
+        }
+
+        // verify the required parameter 'store_deployment_plan_request' is set
+        if ($store_deployment_plan_request === null || (is_array($store_deployment_plan_request) && count($store_deployment_plan_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $store_deployment_plan_request when calling launchPlansStore'
+            );
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/plans';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($store_deployment_plan_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($store_deployment_plan_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $store_deployment_plan_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation launchPlansUpdate
+     *
+     * Update a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan deployment_plan (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateDeploymentPlanRequest|null $update_deployment_plan_request update_deployment_plan_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansUpdate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansStore201Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
+     */
+    public function launchPlansUpdate($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
+    {
+        list($response) = $this->launchPlansUpdateWithHttpInfo($workspace, $deployment_plan, $update_deployment_plan_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchPlansUpdateWithHttpInfo
+     *
+     * Update a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateDeploymentPlanRequest|null $update_deployment_plan_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansUpdate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansStore201Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchPlansUpdateWithHttpInfo($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
+    {
+        $request = $this->launchPlansUpdateRequest($workspace, $deployment_plan, $update_deployment_plan_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchPlansUpdateAsync
+     *
+     * Update a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateDeploymentPlanRequest|null $update_deployment_plan_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansUpdateAsync($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
+    {
+        return $this->launchPlansUpdateAsyncWithHttpInfo($workspace, $deployment_plan, $update_deployment_plan_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchPlansUpdateAsyncWithHttpInfo
+     *
+     * Update a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateDeploymentPlanRequest|null $update_deployment_plan_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansUpdateAsyncWithHttpInfo($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansStore201Response';
+        $request = $this->launchPlansUpdateRequest($workspace, $deployment_plan, $update_deployment_plan_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchPlansUpdate'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateDeploymentPlanRequest|null $update_deployment_plan_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchPlansUpdateRequest($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchPlansUpdate'
+            );
+        }
+
+        // verify the required parameter 'deployment_plan' is set
+        if ($deployment_plan === null || (is_array($deployment_plan) && count($deployment_plan) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $deployment_plan when calling launchPlansUpdate'
+            );
+        }
+
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/plans/{deployment_plan}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($deployment_plan !== null) {
+            $resourcePath = str_replace(
+                '{deployment_plan}',
+                ObjectSerializer::toPathValue($deployment_plan),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_deployment_plan_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($update_deployment_plan_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $update_deployment_plan_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation launchPlansValidate
+     *
+     * Validate a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan deployment_plan (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansValidate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\LaunchPlansValidate422Response
+     */
+    public function launchPlansValidate($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansValidate'][0])
+    {
+        list($response) = $this->launchPlansValidateWithHttpInfo($workspace, $deployment_plan, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchPlansValidateWithHttpInfo
+     *
+     * Validate a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansValidate'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchPlansShow200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\LaunchPlansValidate422Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchPlansValidateWithHttpInfo($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansValidate'][0])
+    {
+        $request = $this->launchPlansValidateRequest($workspace, $deployment_plan, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansShow200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansValidate422Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchPlansShow200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansShow200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchPlansValidate422Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchPlansValidateAsync
+     *
+     * Validate a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansValidate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansValidateAsync($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansValidate'][0])
+    {
+        return $this->launchPlansValidateAsyncWithHttpInfo($workspace, $deployment_plan, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchPlansValidateAsyncWithHttpInfo
+     *
+     * Validate a deployment plan
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansValidate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchPlansValidateAsyncWithHttpInfo($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansValidate'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchPlansShow200Response';
+        $request = $this->launchPlansValidateRequest($workspace, $deployment_plan, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchPlansValidate'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $deployment_plan (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchPlansValidate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchPlansValidateRequest($workspace, $deployment_plan, string $contentType = self::contentTypes['launchPlansValidate'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchPlansValidate'
+            );
+        }
+
+        // verify the required parameter 'deployment_plan' is set
+        if ($deployment_plan === null || (is_array($deployment_plan) && count($deployment_plan) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $deployment_plan when calling launchPlansValidate'
+            );
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/plans/{deployment_plan}/validate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($deployment_plan !== null) {
+            $resourcePath = str_replace(
+                '{deployment_plan}',
+                ObjectSerializer::toPathValue($deployment_plan),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

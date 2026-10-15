@@ -1,0 +1,579 @@
+{
+  "POST /agent/workspaces/{workspace}/actions/dry-run": {
+    "operationId": "actions.api.dry-run",
+    "body": [
+      [
+        "limit"
+      ],
+      [
+        "cursor"
+      ],
+      [
+        "actions",
+        "*",
+        "params",
+        "new_daily_budget_minor"
+      ],
+      [
+        "actions",
+        "*",
+        "params",
+        "size_bytes"
+      ],
+      [
+        "evidence",
+        "*",
+        "action_index"
+      ],
+      [
+        "account_id"
+      ],
+      [
+        "workspace_id"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/actions": {
+    "operationId": "actions.api.index",
+    "body": [],
+    "query": [
+      "page",
+      "account_id",
+      "cursor",
+      "limit"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /agent/workspaces/{workspace}/actions": {
+    "operationId": "actions.api.propose",
+    "body": [
+      [
+        "limit"
+      ],
+      [
+        "cursor"
+      ],
+      [
+        "actions",
+        "*",
+        "params",
+        "new_daily_budget_minor"
+      ],
+      [
+        "actions",
+        "*",
+        "params",
+        "size_bytes"
+      ],
+      [
+        "evidence",
+        "*",
+        "action_index"
+      ],
+      [
+        "account_id"
+      ],
+      [
+        "workspace_id"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/actions/policy": {
+    "operationId": "actions.api.policy",
+    "body": [],
+    "query": [
+      "account_id"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/actions/{action}/decision-receipt": {
+    "operationId": "actions.api.decision-receipt",
+    "body": [],
+    "query": [
+      "account_id"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/actions/{action}": {
+    "operationId": "actions.api.show",
+    "body": [],
+    "query": [
+      "account_id"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/action-batches/{actionBatch}": {
+    "operationId": "actions.api.batch",
+    "body": [],
+    "query": [
+      "account_id",
+      "cursor",
+      "limit"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/action-rules": {
+    "operationId": "actions.rules.index",
+    "body": [],
+    "query": [
+      "page",
+      "account_id",
+      "platform_ad_account_id",
+      "per_page"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /agent/workspaces/{workspace}/action-rules": {
+    "operationId": "actions.rules.store",
+    "body": [
+      [
+        "definition",
+        "minimum_counted_arrivals"
+      ],
+      [
+        "definition",
+        "budget_change_percent"
+      ],
+      [
+        "account_id"
+      ],
+      [
+        "platform_ad_account_id"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/action-rules/{action_rule}": {
+    "operationId": "actions.rules.show",
+    "body": [],
+    "query": [
+      "account_id"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "PATCH /agent/workspaces/{workspace}/action-rules/{action_rule}": {
+    "operationId": "actions.rules.update",
+    "body": [
+      [
+        "definition",
+        "minimum_counted_arrivals"
+      ],
+      [
+        "definition",
+        "budget_change_percent"
+      ],
+      [
+        "account_id"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/tests": {
+    "operationId": "actions.tests.api.index",
+    "body": [],
+    "query": [
+      "page",
+      "per_page"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /agent/workspaces/{workspace}/tests": {
+    "operationId": "actions.tests.api.store",
+    "body": [
+      [
+        "platform_ad_account_id"
+      ],
+      [
+        "arrivals_floor"
+      ],
+      [
+        "minimum_conversions"
+      ],
+      [
+        "maximum_days"
+      ],
+      [
+        "maximum_spend_minor"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/workspaces/{workspace}/tests/{ad_test}": {
+    "operationId": "actions.tests.api.show",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /agent/context": {
+    "operationId": "agent.context",
+    "body": [],
+    "query": [
+      "account_id",
+      "workspace_id"
+    ],
+    "path": []
+  },
+  "GET /cookie-declarations/{publishableKey}": {
+    "operationId": "getCookieDeclaration",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /workspaces/{workspace}/admin/creatives": {
+    "operationId": "launch.creatives.index",
+    "body": [],
+    "query": [
+      "page",
+      "cursor",
+      "per_page"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/creatives": {
+    "operationId": "storeCreative",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/creatives/from-url": {
+    "operationId": "storeCreativeFromUrl",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "PATCH /workspaces/{workspace}/admin/creatives/{creative}/status": {
+    "operationId": "launch.creatives.status",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /workspaces/{workspace}/admin/creatives/{creative}": {
+    "operationId": "launch.creatives.show",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /workspaces/{workspace}/admin/plans": {
+    "operationId": "launch.plans.index",
+    "body": [],
+    "query": [
+      "page",
+      "cursor",
+      "per_page"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/plans": {
+    "operationId": "launch.plans.store",
+    "body": [
+      [
+        "platform_ad_account_id"
+      ],
+      [
+        "ad_set_spec",
+        "daily_budget"
+      ],
+      [
+        "ad_set_spec",
+        "bid_amount"
+      ],
+      [
+        "ad_set_spec",
+        "lifetime_budget"
+      ],
+      [
+        "budget_amount_minor"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /workspaces/{workspace}/admin/plans/{deployment_plan}": {
+    "operationId": "launch.plans.show",
+    "body": [],
+    "query": [
+      "cursor",
+      "limit"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "PATCH /workspaces/{workspace}/admin/plans/{deployment_plan}": {
+    "operationId": "launch.plans.update",
+    "body": [
+      [
+        "platform_ad_account_id"
+      ],
+      [
+        "ad_set_spec",
+        "daily_budget"
+      ],
+      [
+        "ad_set_spec",
+        "bid_amount"
+      ],
+      [
+        "ad_set_spec",
+        "lifetime_budget"
+      ],
+      [
+        "budget_amount_minor"
+      ]
+    ],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/plans/{deployment_plan}/copy": {
+    "operationId": "launch.plans.copy",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/plans/{deployment_plan}/validate": {
+    "operationId": "launch.plans.validate",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/plans/{deployment_plan}/execute": {
+    "operationId": "launch.plans.execute",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /mcp/launcher/import": {
+    "operationId": "launcher.file-import",
+    "body": [
+      [
+        "account_id"
+      ],
+      [
+        "workspace_id"
+      ]
+    ],
+    "query": [],
+    "path": []
+  },
+  "POST /events": {
+    "operationId": "createEvent",
+    "body": [
+      [
+        "event_time"
+      ],
+      [
+        "value_data",
+        "num_items"
+      ]
+    ],
+    "query": [],
+    "path": []
+  },
+  "POST /verification-events": {
+    "operationId": "verifySignalIngestion",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /events/{event}": {
+    "operationId": "getEvent",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /workspaces/{workspace}/admin/policies": {
+    "operationId": "launch.policies.index",
+    "body": [],
+    "query": [
+      "page",
+      "per_page"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/policies": {
+    "operationId": "launch.policies.store",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "POST /workspaces/{workspace}/admin/policies/{launch_policy}/retire": {
+    "operationId": "launch.policies.retire",
+    "body": [],
+    "query": [],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory": {
+    "operationId": "get_account_inventory",
+    "body": [],
+    "query": [
+      "after_id",
+      "limit"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory/metrics": {
+    "operationId": "get_inventory_metrics",
+    "body": [],
+    "query": [
+      "limit"
+    ],
+    "path": [
+      "workspace"
+    ]
+  },
+  "GET /dashboard/events": {
+    "operationId": "listEvents",
+    "body": [],
+    "query": [
+      "per_page"
+    ],
+    "path": []
+  },
+  "GET /dashboard/events/cursor": {
+    "operationId": "listEventsByCursor",
+    "body": [],
+    "query": [
+      "per_page"
+    ],
+    "path": []
+  },
+  "PATCH /destinations/{destination}/test-mode": {
+    "operationId": "setDestinationTestMode",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "POST /destinations/{destination}/test-purchase": {
+    "operationId": "sendTestPurchase",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "POST /deliveries/replay": {
+    "operationId": "replayDeliveries",
+    "body": [
+      [
+        "delivery_ids",
+        "*"
+      ],
+      [
+        "limit"
+      ]
+    ],
+    "query": [],
+    "path": []
+  },
+  "GET /reports/reconciliation": {
+    "operationId": "getReconciliationReport",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /reports/emq": {
+    "operationId": "getEmqReport",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "DELETE /user-data": {
+    "operationId": "deleteUserData",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /sandbox": {
+    "operationId": "getSandbox",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "GET /sandbox/keys": {
+    "operationId": "getSandboxKey",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "POST /sandbox/keys": {
+    "operationId": "createSandboxKey",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "POST /sandbox/events": {
+    "operationId": "validateSandboxEvent",
+    "body": [],
+    "query": [],
+    "path": []
+  },
+  "POST /sandbox/keyed-events": {
+    "operationId": "validateSandboxEventWithKey",
+    "body": [],
+    "query": [],
+    "path": []
+  }
+}

@@ -22,8 +22,10 @@ use Plainrouter\OpenAPI\Api\AdTestApiApi;
 use Plainrouter\OpenAPI\Api\AgentContextApi;
 use Plainrouter\OpenAPI\Api\CookieDeclarationApi;
 use Plainrouter\OpenAPI\Api\CreativeApi;
+use Plainrouter\OpenAPI\Api\DraftBatchFileImportApi;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
 use Plainrouter\OpenAPI\Api\EventApi;
+use Plainrouter\OpenAPI\Api\LaunchPolicyApi;
 use Plainrouter\OpenAPI\Api\MetaInventoryExposureApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
@@ -66,7 +68,9 @@ final class ClientTest extends TestCase
             'cookieDeclarations',
             'creatives',
             'events',
+            'fileImports',
             'inventory',
+            'launchPolicies',
             'operations',
             'plans',
             'sandbox',
@@ -83,8 +87,10 @@ final class ClientTest extends TestCase
         $this->assertInstanceOf(AgentContextApi::class, $client->agentContext);
         $this->assertInstanceOf(CookieDeclarationApi::class, $client->cookieDeclarations);
         $this->assertInstanceOf(CreativeApi::class, $client->creatives);
+        $this->assertInstanceOf(DraftBatchFileImportApi::class, $client->fileImports);
         $this->assertInstanceOf(EventApi::class, $client->events);
         $this->assertInstanceOf(MetaInventoryExposureApi::class, $client->inventory);
+        $this->assertInstanceOf(LaunchPolicyApi::class, $client->launchPolicies);
         $this->assertInstanceOf(OperationsApi::class, $client->operations);
         $this->assertInstanceOf(SandboxApi::class, $client->sandbox);
         $this->assertInstanceOf(DeploymentPlanApi::class, $client->plans);
@@ -139,10 +145,18 @@ final class ClientTest extends TestCase
         $this->assertSame(['agentContext'], $this->operationNames(AgentContextApi::class));
         $this->assertSame(['getCookieDeclaration'], $this->operationNames(CookieDeclarationApi::class));
         $this->assertSame(
-            ['launchCreativesIndex', 'storeCreative', 'storeCreativeFromUrl'],
+            ['launchCreativesIndex', 'launchCreativesShow', 'launchCreativesStatus', 'storeCreative', 'storeCreativeFromUrl'],
             $this->operationNames(CreativeApi::class),
         );
-        $this->assertSame(['launchPlansCopy', 'launchPlansExecute', 'launchPlansIndex', 'launchPlansShow'], $this->operationNames(DeploymentPlanApi::class));
+        $this->assertSame(['launcherFileImport'], $this->operationNames(DraftBatchFileImportApi::class));
+        $this->assertSame(
+            ['launchPoliciesIndex', 'launchPoliciesRetire', 'launchPoliciesStore'],
+            $this->operationNames(LaunchPolicyApi::class),
+        );
+        $this->assertSame(
+            ['launchPlansCopy', 'launchPlansExecute', 'launchPlansIndex', 'launchPlansShow', 'launchPlansStore', 'launchPlansUpdate', 'launchPlansValidate'],
+            $this->operationNames(DeploymentPlanApi::class),
+        );
         $this->assertSame(
             ['createEvent', 'getEvent', 'verifySignalIngestion'],
             $this->operationNames(EventApi::class),
@@ -193,6 +207,8 @@ final class ClientTest extends TestCase
         $this->assertSame($client->configuration, $client->operations->getConfig());
         $this->assertSame($client->configuration, $client->sandbox->getConfig());
         $this->assertSame($client->configuration, $client->plans->getConfig());
+        $this->assertSame($client->configuration, $client->fileImports->getConfig());
+        $this->assertSame($client->configuration, $client->launchPolicies->getConfig());
     }
 
     public function test_uses_safe_defaults(): void

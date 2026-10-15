@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Plainrouter;
 
 use InvalidArgumentException;
-use Plainrouter\OpenAPI\Api\EventApi;
+use Plainrouter\IntegerInputApis\GuardedEventApi;
 use Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
  * The generated Event API with the consent capture-time check applied before
  * any createEvent request is built.
  */
-final class Events extends EventApi
+final class Events extends GuardedEventApi
 {
     /**
      * Keep this literal identical to app/Domains/Signals/Data/ConsentDecision.php::CAPTURED_AT_PATTERN.

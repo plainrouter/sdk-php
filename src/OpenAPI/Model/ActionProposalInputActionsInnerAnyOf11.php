@@ -59,7 +59,7 @@ class ActionProposalInputActionsInnerAnyOf11 implements ModelInterface, ArrayAcc
     protected static $openAPITypes = [
         'type' => 'string',
         'target_entity' => '\Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf4TargetEntity',
-        'params' => '\Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf11Params',
+        'params' => '\Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfParams',
         'rationale' => 'string',
         'idempotency_key' => 'string'
     ];
@@ -426,7 +426,7 @@ class ActionProposalInputActionsInnerAnyOf11 implements ModelInterface, ArrayAcc
     /**
      * Gets params
      *
-     * @return \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf11Params
+     * @return \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfParams
      */
     public function getParams()
     {
@@ -436,7 +436,7 @@ class ActionProposalInputActionsInnerAnyOf11 implements ModelInterface, ArrayAcc
     /**
      * Sets params
      *
-     * @param \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf11Params $params params
+     * @param \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfParams $params params
      *
      * @return self
      */

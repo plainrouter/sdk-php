@@ -1,6 +1,6 @@
 <?php
 /**
- * ListEvents200ResponseEventsLinksInner
+ * LaunchPoliciesIndex200Response
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * ListEvents200ResponseEventsLinksInner Class Doc Comment
+ * LaunchPoliciesIndex200Response Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAccess, \JsonSerializable
+class LaunchPoliciesIndex200Response implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      *
      * @var string
      */
-    protected static $openAPIModelName = 'listEvents_200_response_events_links_inner';
+    protected static $openAPIModelName = 'launch_policies_index_200_response';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $openAPITypes = [
-        'url' => 'string',
-        'label' => 'string',
-        'active' => 'bool'
+        'policies' => '\Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePolicies'
     ];
 
     /**
@@ -70,9 +68,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'url' => null,
-        'label' => null,
-        'active' => null
+        'policies' => null
     ];
 
     /**
@@ -81,9 +77,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'url' => true,
-        'label' => false,
-        'active' => false
+        'policies' => false
     ];
 
     /**
@@ -172,9 +166,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $attributeMap = [
-        'url' => 'url',
-        'label' => 'label',
-        'active' => 'active'
+        'policies' => 'policies'
     ];
 
     /**
@@ -183,9 +175,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $setters = [
-        'url' => 'setUrl',
-        'label' => 'setLabel',
-        'active' => 'setActive'
+        'policies' => 'setPolicies'
     ];
 
     /**
@@ -194,9 +184,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $getters = [
-        'url' => 'getUrl',
-        'label' => 'getLabel',
-        'active' => 'getActive'
+        'policies' => 'getPolicies'
     ];
 
     /**
@@ -256,9 +244,7 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('url', $data ?? [], null);
-        $this->setIfExists('label', $data ?? [], null);
-        $this->setIfExists('active', $data ?? [], null);
+        $this->setIfExists('policies', $data ?? [], null);
     }
 
     /**
@@ -288,14 +274,8 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
     {
         $invalidProperties = [];
 
-        if ($this->container['url'] === null && !$this->isNullableSetToNull('url')) {
-            $invalidProperties[] = "'url' is required";
-        }
-        if ($this->container['label'] === null) {
-            $invalidProperties[] = "'label' can't be null";
-        }
-        if ($this->container['active'] === null) {
-            $invalidProperties[] = "'active' can't be null";
+        if ($this->container['policies'] === null) {
+            $invalidProperties[] = "'policies' can't be null";
         }
         return $invalidProperties;
     }
@@ -313,89 +293,28 @@ class ListEvents200ResponseEventsLinksInner implements ModelInterface, ArrayAcce
 
 
     /**
-     * Gets url
+     * Gets policies
      *
-     * @return string|null
+     * @return \Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePolicies
      */
-    public function getUrl()
+    public function getPolicies()
     {
-        return $this->container['url'];
+        return $this->container['policies'];
     }
 
     /**
-     * Sets url
+     * Sets policies
      *
-     * @param string|null $url url
+     * @param \Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePolicies $policies policies
      *
      * @return self
      */
-    public function setUrl($url)
+    public function setPolicies($policies)
     {
-        if (is_null($url)) {
-            array_push($this->openAPINullablesSetToNull, 'url');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('url', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+        if (is_null($policies)) {
+            throw new \InvalidArgumentException('non-nullable policies cannot be null');
         }
-        $this->container['url'] = $url;
-
-        return $this;
-    }
-
-    /**
-     * Gets label
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->container['label'];
-    }
-
-    /**
-     * Sets label
-     *
-     * @param string $label label
-     *
-     * @return self
-     */
-    public function setLabel($label)
-    {
-        if (is_null($label)) {
-            throw new \InvalidArgumentException('non-nullable label cannot be null');
-        }
-        $this->container['label'] = $label;
-
-        return $this;
-    }
-
-    /**
-     * Gets active
-     *
-     * @return bool
-     */
-    public function getActive()
-    {
-        return $this->container['active'];
-    }
-
-    /**
-     * Sets active
-     *
-     * @param bool $active active
-     *
-     * @return self
-     */
-    public function setActive($active)
-    {
-        if (is_null($active)) {
-            throw new \InvalidArgumentException('non-nullable active cannot be null');
-        }
-        $this->container['active'] = $active;
+        $this->container['policies'] = $policies;
 
         return $this;
     }

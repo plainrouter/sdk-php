@@ -1,6 +1,6 @@
 <?php
 /**
- * ActionProposalInputActionsInnerAnyOf11Params
+ * LaunchCreativesStatus200Response
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Plainrouter\OpenAPI\ObjectSerializer;
 
 /**
- * ActionProposalInputActionsInnerAnyOf11Params Class Doc Comment
+ * LaunchCreativesStatus200Response Class Doc Comment
  *
  * @category Class
  * @package  Plainrouter\OpenAPI
@@ -40,7 +40,7 @@ use \Plainrouter\OpenAPI\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, ArrayAccess, \JsonSerializable
+class LaunchCreativesStatus200Response implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      *
      * @var string
      */
-    protected static $openAPIModelName = 'ActionProposalInput_actions_inner_anyOf_11_params';
+    protected static $openAPIModelName = 'launch_creatives_status_200_response';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @var string[]
      */
     protected static $openAPITypes = [
-        'new_daily_budget_minor' => 'int'
+        'creative' => 'mixed[]'
     ];
 
     /**
@@ -68,7 +68,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'new_daily_budget_minor' => null
+        'creative' => null
     ];
 
     /**
@@ -77,7 +77,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'new_daily_budget_minor' => false
+        'creative' => false
     ];
 
     /**
@@ -166,7 +166,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @var string[]
      */
     protected static $attributeMap = [
-        'new_daily_budget_minor' => 'new_daily_budget_minor'
+        'creative' => 'creative'
     ];
 
     /**
@@ -175,7 +175,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @var string[]
      */
     protected static $setters = [
-        'new_daily_budget_minor' => 'setNewDailyBudgetMinor'
+        'creative' => 'setCreative'
     ];
 
     /**
@@ -184,7 +184,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      * @var string[]
      */
     protected static $getters = [
-        'new_daily_budget_minor' => 'getNewDailyBudgetMinor'
+        'creative' => 'getCreative'
     ];
 
     /**
@@ -244,7 +244,7 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('new_daily_budget_minor', $data ?? [], null);
+        $this->setIfExists('creative', $data ?? [], null);
     }
 
     /**
@@ -274,13 +274,9 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
     {
         $invalidProperties = [];
 
-        if ($this->container['new_daily_budget_minor'] === null) {
-            $invalidProperties[] = "'new_daily_budget_minor' can't be null";
+        if ($this->container['creative'] === null) {
+            $invalidProperties[] = "'creative' can't be null";
         }
-        if (($this->container['new_daily_budget_minor'] < 1)) {
-            $invalidProperties[] = "invalid value for 'new_daily_budget_minor', must be bigger than or equal to 1.";
-        }
-
         return $invalidProperties;
     }
 
@@ -297,32 +293,28 @@ class ActionProposalInputActionsInnerAnyOf11Params implements ModelInterface, Ar
 
 
     /**
-     * Gets new_daily_budget_minor
+     * Gets creative
      *
-     * @return int
+     * @return mixed[]
      */
-    public function getNewDailyBudgetMinor()
+    public function getCreative()
     {
-        return $this->container['new_daily_budget_minor'];
+        return $this->container['creative'];
     }
 
     /**
-     * Sets new_daily_budget_minor
+     * Sets creative
      *
-     * @param int $new_daily_budget_minor new_daily_budget_minor
+     * @param mixed[] $creative creative
      *
      * @return self
      */
-    public function setNewDailyBudgetMinor($new_daily_budget_minor)
+    public function setCreative($creative)
     {
-        if (is_null($new_daily_budget_minor)) {
-            throw new \InvalidArgumentException('non-nullable new_daily_budget_minor cannot be null');
+        if (is_null($creative)) {
+            throw new \InvalidArgumentException('non-nullable creative cannot be null');
         }
-        if (($new_daily_budget_minor < 1)) {
-            throw new \InvalidArgumentException('invalid value for $new_daily_budget_minor when calling ActionProposalInputActionsInnerAnyOf11Params., must be bigger than or equal to 1.');
-        }
-
-        $this->container['new_daily_budget_minor'] = $new_daily_budget_minor;
+        $this->container['creative'] = $creative;
 
         return $this;
     }

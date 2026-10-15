@@ -141,8 +141,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page page (optional)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
-     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -164,8 +164,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
-     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -324,8 +324,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
-     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -350,8 +350,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
-     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -405,8 +405,8 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  int|null $page (optional)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
-     * @param  int|null $platform_ad_account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $platform_ad_account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. Alias of account_id; account_id takes precedence when both are supplied. (optional)
      * @param  string|null $cursor Continue using next_cursor with the same filters; rule lists use an immutable rule ID, other lists an offset or object ID. (optional)
      * @param  int|null $per_page Maximum complete rows; the byte budget may return fewer. Defaults to 25. (optional, default to 25)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesIndex'] to see the possible values for this operation
@@ -577,7 +577,7 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_rule action_rule (required)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -597,7 +597,7 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_rule (required)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
@@ -754,7 +754,7 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_rule (required)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -777,7 +777,7 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_rule (required)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -829,7 +829,7 @@ class ActionRuleApiApi
      *
      * @param  int $workspace The workspace ID (required)
      * @param  string $action_rule (required)
-     * @param  int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
+     * @param  int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['actionsRulesShow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

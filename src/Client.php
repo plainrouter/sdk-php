@@ -7,6 +7,18 @@ namespace Plainrouter;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use Plainrouter\IntegerInputApis\GuardedActionDryRunApiApi;
+use Plainrouter\IntegerInputApis\GuardedActionProposalApiApi;
+use Plainrouter\IntegerInputApis\GuardedActionRuleApiApi;
+use Plainrouter\IntegerInputApis\GuardedAdTestApiApi;
+use Plainrouter\IntegerInputApis\GuardedAgentContextApi;
+use Plainrouter\IntegerInputApis\GuardedCookieDeclarationApi;
+use Plainrouter\IntegerInputApis\GuardedCreativeApi;
+use Plainrouter\IntegerInputApis\GuardedDraftBatchFileImportApi;
+use Plainrouter\IntegerInputApis\GuardedLaunchPolicyApi;
+use Plainrouter\IntegerInputApis\GuardedMetaInventoryExposureApi;
+use Plainrouter\IntegerInputApis\GuardedOperationsApi;
+use Plainrouter\IntegerInputApis\GuardedSandboxApi;
 use Plainrouter\OpenAPI\Api\ActionDryRunApiApi;
 use Plainrouter\OpenAPI\Api\ActionProposalApiApi;
 use Plainrouter\OpenAPI\Api\ActionReadApiApi;
@@ -15,7 +27,9 @@ use Plainrouter\OpenAPI\Api\AdTestApiApi;
 use Plainrouter\OpenAPI\Api\AgentContextApi;
 use Plainrouter\OpenAPI\Api\CookieDeclarationApi;
 use Plainrouter\OpenAPI\Api\CreativeApi;
+use Plainrouter\OpenAPI\Api\DraftBatchFileImportApi;
 use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
+use Plainrouter\OpenAPI\Api\LaunchPolicyApi;
 use Plainrouter\OpenAPI\Api\MetaInventoryExposureApi;
 use Plainrouter\OpenAPI\Api\OperationsApi;
 use Plainrouter\OpenAPI\Api\SandboxApi;
@@ -48,9 +62,13 @@ final class Client
 
     public readonly CreativeApi $creatives;
 
+    public readonly DraftBatchFileImportApi $fileImports;
+
     public readonly Events $events;
 
     public readonly MetaInventoryExposureApi $inventory;
+
+    public readonly LaunchPolicyApi $launchPolicies;
 
     public readonly OperationsApi $operations;
 
@@ -80,20 +98,22 @@ final class Client
             $this->configuration->setAccessToken($token);
         }
 
-        $httpClient = new JsonResponseClient($httpClient ?? new HttpClient(['timeout' => $timeout]), $accept);
+        $httpClient = new JsonResponseClient($httpClient ?? new HttpClient(['timeout' => $timeout]), $accept, $this->configuration->getHost());
 
-        $this->actions = new ActionProposalApiApi($httpClient, $this->configuration);
-        $this->actionDryRun = new ActionDryRunApiApi($httpClient, $this->configuration);
+        $this->actions = new GuardedActionProposalApiApi($httpClient, $this->configuration);
+        $this->actionDryRun = new GuardedActionDryRunApiApi($httpClient, $this->configuration);
         $this->actionReads = new ActionReads($httpClient, $this->configuration);
-        $this->actionRules = new ActionRuleApiApi($httpClient, $this->configuration);
-        $this->adTests = new AdTestApiApi($httpClient, $this->configuration);
-        $this->agentContext = new AgentContextApi($httpClient, $this->configuration);
-        $this->cookieDeclarations = new CookieDeclarationApi($httpClient, $this->configuration);
-        $this->creatives = new CreativeApi($httpClient, $this->configuration);
+        $this->actionRules = new GuardedActionRuleApiApi($httpClient, $this->configuration);
+        $this->adTests = new GuardedAdTestApiApi($httpClient, $this->configuration);
+        $this->agentContext = new GuardedAgentContextApi($httpClient, $this->configuration);
+        $this->cookieDeclarations = new GuardedCookieDeclarationApi($httpClient, $this->configuration);
+        $this->creatives = new GuardedCreativeApi($httpClient, $this->configuration);
+        $this->fileImports = new GuardedDraftBatchFileImportApi($httpClient, $this->configuration);
         $this->events = new Events($httpClient, $this->configuration);
-        $this->inventory = new MetaInventoryExposureApi($httpClient, $this->configuration);
-        $this->operations = new OperationsApi($httpClient, $this->configuration);
-        $this->sandbox = new SandboxApi($httpClient, $this->configuration);
+        $this->launchPolicies = new GuardedLaunchPolicyApi($httpClient, $this->configuration);
+        $this->inventory = new GuardedMetaInventoryExposureApi($httpClient, $this->configuration);
+        $this->operations = new GuardedOperationsApi($httpClient, $this->configuration);
+        $this->sandbox = new GuardedSandboxApi($httpClient, $this->configuration);
         $this->plans = new Plans($httpClient, $this->configuration);
     }
 

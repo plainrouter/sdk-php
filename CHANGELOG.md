@@ -2,6 +2,12 @@
 
 ## 0.4.0 (unreleased)
 
+- Expose the regenerated Launch policy index, create and retire operations and draft-batch file import through the curated client, preserving its shared header, Accept and redirect policy.
+- Tighten validation of the existing contract: integer inputs refuse JSON booleans instead of treating them as 1 or 0. The curated client rejects booleans before sending with an error naming the integer field; integer selectors are generated from the contract, and integers and numeric strings remain accepted.
+- Tighten existing Action params validation: all 14 variants accept only their documented keys; extra keys, including case variants, fail with `action_params_invalid`.
+- Document `launch_video_upload_unavailable` for Launch plans that require a new Meta video upload, at validation and execution.
+- Include newly documented integer-boolean 422 responses, the plan validate 422 code, creative-list 404 and 403 responses, and corrected descriptions.
+
 - Correct `actions.api.index`, `actions.api.policy`, `actions.api.show`, `actions.api.batch`, and `actions.api.decision-receipt` errors: 401 is `AgentCredentialError` or `ErrorMessage`, and 403 is `AgentCredentialError`; list, policy, show, and batch 404 is `ApiRouteNotFound`, while the curated client decodes decision-receipt 404 as `ActionReceiptUnavailable` or `ApiRouteNotFound`, preserving the raw body and `ApiException` status 404 (or the returned model/status with `http_errors=false`) in sync and async calls. The same handling decodes copy 404 as `PlanCopyNotFound` or `ApiRouteNotFound`. Remove `enabled` from action-rule create requests and `platform_ad_account_id` from update requests; both fields are prohibited by the contract.
 - Curate the previously generated-only `actions.api.dry-run`, `actions.api.index`, `actions.api.policy`, `actions.api.decision-receipt`, `actions.api.show`, `actions.api.batch`, `actions.rules.index`, `actions.rules.store`, `actions.rules.show`, `actions.rules.update`, `actions.tests.api.index`, `actions.tests.api.store`, `actions.tests.api.show`, `agent.context`, `getCookieDeclaration`, `launch.creatives.index`, `storeCreative`, `storeCreativeFromUrl`, `get_account_inventory`, and `get_inventory_metrics` operations through the `actionDryRun`, `actionReads`, `actionRules`, `adTests`, `agentContext`, `cookieDeclarations`, `creatives`, and `inventory` groups.
 - Add `GET /agent/context` and action-rule `POST` collection, item `GET`, and item `PATCH` operations.

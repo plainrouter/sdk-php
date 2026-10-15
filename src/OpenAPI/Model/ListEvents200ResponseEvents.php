@@ -63,7 +63,7 @@ class ListEvents200ResponseEvents implements ModelInterface, ArrayAccess, \JsonS
         'from' => 'int',
         'last_page' => 'int',
         'last_page_url' => 'string',
-        'links' => '\Plainrouter\OpenAPI\Model\ListEvents200ResponseEventsLinksInner[]',
+        'links' => '\Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePoliciesLinksInner[]',
         'next_page_url' => 'string',
         'path' => 'string',
         'per_page' => 'int',
@@ -598,7 +598,7 @@ class ListEvents200ResponseEvents implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets links
      *
-     * @return \Plainrouter\OpenAPI\Model\ListEvents200ResponseEventsLinksInner[]
+     * @return \Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePoliciesLinksInner[]
      */
     public function getLinks()
     {
@@ -608,7 +608,7 @@ class ListEvents200ResponseEvents implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets links
      *
-     * @param \Plainrouter\OpenAPI\Model\ListEvents200ResponseEventsLinksInner[] $links links
+     * @param \Plainrouter\OpenAPI\Model\LaunchPoliciesIndex200ResponsePoliciesLinksInner[] $links links
      *
      * @return self
      */

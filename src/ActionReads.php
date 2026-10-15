@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Plainrouter;
 
 use GuzzleHttp\Promise\PromiseInterface;
+use Plainrouter\IntegerInputApis\GuardedActionReadApiApi;
 use Plainrouter\OpenAPI\Api\ActionReadApiApi;
 use Plainrouter\OpenAPI\Model\ActionReceiptUnavailable;
 use Plainrouter\OpenAPI\Model\ApiRouteNotFound;
 
 /** Retains decision-receipt 404 status and body while decoding its documented union. */
-final class ActionReads extends ActionReadApiApi
+final class ActionReads extends GuardedActionReadApiApi
 {
     private const ERROR_MODELS = [
         'receipt_not_available' => ActionReceiptUnavailable::class,
@@ -33,6 +34,6 @@ final class ActionReads extends ActionReadApiApi
     private function receiptApi(): array
     {
         $observer = new CopyResponseClient($this->client);
-        return [$observer, new ActionReadApiApi($observer, $this->config, $this->headerSelector, $this->hostIndex)];
+        return [$observer, new GuardedActionReadApiApi($observer, $this->config, $this->headerSelector, $this->hostIndex)];
     }
 }

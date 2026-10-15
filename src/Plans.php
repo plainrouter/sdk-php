@@ -7,7 +7,7 @@ namespace Plainrouter;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\RejectedPromise;
 use InvalidArgumentException;
-use Plainrouter\OpenAPI\Api\DeploymentPlanApi;
+use Plainrouter\IntegerInputApis\GuardedDeploymentPlanApi;
 use Plainrouter\OpenAPI\ApiException;
 use Plainrouter\OpenAPI\Model\ApiRouteNotFound;
 use Plainrouter\OpenAPI\Model\PlanCopyNotFound;
@@ -16,7 +16,7 @@ use Plainrouter\OpenAPI\Model\WorkspaceLockTimeout;
 use Plainrouter\OpenAPI\ObjectSerializer;
 
 /** Delegates copy to the generated class, decoding known retry and not-found envelopes. */
-final class Plans extends DeploymentPlanApi
+final class Plans extends GuardedDeploymentPlanApi
 {
     private const ERROR_MODELS = [
         'plan_not_found' => PlanCopyNotFound::class,
@@ -75,7 +75,7 @@ final class Plans extends DeploymentPlanApi
     private function copyApi(): array
     {
         $observer = new CopyResponseClient($this->client);
-        return [$observer, new DeploymentPlanApi($observer, $this->config, $this->headerSelector, $this->hostIndex)];
+        return [$observer, new GuardedDeploymentPlanApi($observer, $this->config, $this->headerSelector, $this->hostIndex)];
     }
 
     /** @param array<string, string[]>|null $headers */

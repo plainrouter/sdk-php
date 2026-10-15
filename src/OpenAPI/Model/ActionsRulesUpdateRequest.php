@@ -425,7 +425,7 @@ class ActionsRulesUpdateRequest implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets account_id
      *
-     * @param int|null $account_id Optional account ID, ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied.
+     * @param int|null $account_id Optional integer account ID. JSON booleans return 422 with message plus field errors. A valid supplied ID is ignored by an account-bound key. An unbound key requires exactly one active available advertising account with an active connection; omission uses that account and a supplied ID must match it. Multiple active accounts return 422 even when account_id is supplied.
      *
      * @return self
      */

@@ -14,16 +14,22 @@ use Psr\Http\Message\ResponseInterface;
 /** @internal JSON negotiation and redirect guard for all facade service groups. */
 final class JsonResponseClient implements ClientInterface
 {
-    public function __construct(private readonly ClientInterface $client, private readonly ?string $accept = null) {}
+    public function __construct(
+        private readonly ClientInterface $client,
+        private readonly ?string $accept = null,
+        private readonly string $baseUrl = Client::DEFAULT_BASE_URL,
+    ) {}
 
     public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
+        IntegerInputGuard::assertRequest($request, $this->baseUrl);
         $request = $request->withHeader('Accept', $this->acceptHeader());
         return $this->check($this->client->send($request, ['allow_redirects' => false] + $options), $request);
     }
 
     public function sendAsync(RequestInterface $request, array $options = []): PromiseInterface
     {
+        IntegerInputGuard::assertRequest($request, $this->baseUrl);
         $request = $request->withHeader('Accept', $this->acceptHeader());
         return $this->client->sendAsync($request, ['allow_redirects' => false] + $options)
             ->then(fn (ResponseInterface $response): ResponseInterface => $this->check($response, $request));

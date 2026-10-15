@@ -77,6 +77,12 @@ class CreativeApi
         'launchCreativesIndex' => [
             'application/json',
         ],
+        'launchCreativesShow' => [
+            'application/json',
+        ],
+        'launchCreativesStatus' => [
+            'application/json',
+        ],
         'storeCreative' => [
             'multipart/form-data',
         ],
@@ -144,7 +150,7 @@ class CreativeApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function launchCreativesIndex($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
@@ -165,7 +171,7 @@ class CreativeApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesIndex200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function launchCreativesIndexWithHttpInfo($workspace, $page = 1, $cursor = null, $per_page = 25, string $contentType = self::contentTypes['launchCreativesIndex'][0])
     {
@@ -207,6 +213,24 @@ class CreativeApi
                         $request,
                         $response,
                     );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
             }
 
 
@@ -243,6 +267,30 @@ class CreativeApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -469,6 +517,705 @@ class CreativeApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation launchCreativesShow
+     *
+     * Read a workspace creative
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative creative (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesShow'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
+     */
+    public function launchCreativesShow($workspace, $creative, string $contentType = self::contentTypes['launchCreativesShow'][0])
+    {
+        list($response) = $this->launchCreativesShowWithHttpInfo($workspace, $creative, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchCreativesShowWithHttpInfo
+     *
+     * Read a workspace creative
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesShow'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchCreativesShowWithHttpInfo($workspace, $creative, string $contentType = self::contentTypes['launchCreativesShow'][0])
+    {
+        $request = $this->launchCreativesShowRequest($workspace, $creative, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchCreativesShowAsync
+     *
+     * Read a workspace creative
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesShowAsync($workspace, $creative, string $contentType = self::contentTypes['launchCreativesShow'][0])
+    {
+        return $this->launchCreativesShowAsyncWithHttpInfo($workspace, $creative, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchCreativesShowAsyncWithHttpInfo
+     *
+     * Read a workspace creative
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesShowAsyncWithHttpInfo($workspace, $creative, string $contentType = self::contentTypes['launchCreativesShow'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response';
+        $request = $this->launchCreativesShowRequest($workspace, $creative, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchCreativesShow'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesShow'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchCreativesShowRequest($workspace, $creative, string $contentType = self::contentTypes['launchCreativesShow'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchCreativesShow'
+            );
+        }
+
+        // verify the required parameter 'creative' is set
+        if ($creative === null || (is_array($creative) && count($creative) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $creative when calling launchCreativesShow'
+            );
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/creatives/{creative}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($creative !== null) {
+            $resourcePath = str_replace(
+                '{creative}',
+                ObjectSerializer::toPathValue($creative),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation launchCreativesStatus
+     *
+     * Update a workspace creative status
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative creative (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateCreativeStatusRequest $update_creative_status_request update_creative_status_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesStatus'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError
+     */
+    public function launchCreativesStatus($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
+    {
+        list($response) = $this->launchCreativesStatusWithHttpInfo($workspace, $creative, $update_creative_status_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation launchCreativesStatusWithHttpInfo
+     *
+     * Update a workspace creative status
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateCreativeStatusRequest $update_creative_status_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesStatus'] to see the possible values for this operation
+     *
+     * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function launchCreativesStatusWithHttpInfo($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
+    {
+        $request = $this->launchCreativesStatusRequest($workspace, $creative, $update_creative_status_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation launchCreativesStatusAsync
+     *
+     * Update a workspace creative status
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateCreativeStatusRequest $update_creative_status_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesStatus'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesStatusAsync($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
+    {
+        return $this->launchCreativesStatusAsyncWithHttpInfo($workspace, $creative, $update_creative_status_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation launchCreativesStatusAsyncWithHttpInfo
+     *
+     * Update a workspace creative status
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateCreativeStatusRequest $update_creative_status_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesStatus'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function launchCreativesStatusAsyncWithHttpInfo($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
+    {
+        $returnType = '\Plainrouter\OpenAPI\Model\LaunchCreativesStatus200Response';
+        $request = $this->launchCreativesStatusRequest($workspace, $creative, $update_creative_status_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'launchCreativesStatus'
+     *
+     * @param  int $workspace The workspace ID (required)
+     * @param  string $creative (required)
+     * @param  \Plainrouter\OpenAPI\Model\UpdateCreativeStatusRequest $update_creative_status_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['launchCreativesStatus'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function launchCreativesStatusRequest($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling launchCreativesStatus'
+            );
+        }
+
+        // verify the required parameter 'creative' is set
+        if ($creative === null || (is_array($creative) && count($creative) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $creative when calling launchCreativesStatus'
+            );
+        }
+
+        // verify the required parameter 'update_creative_status_request' is set
+        if ($update_creative_status_request === null || (is_array($update_creative_status_request) && count($update_creative_status_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $update_creative_status_request when calling launchCreativesStatus'
+            );
+        }
+
+
+        $resourcePath = '/workspaces/{workspace}/admin/creatives/{creative}/status';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workspace !== null) {
+            $resourcePath = str_replace(
+                '{workspace}',
+                ObjectSerializer::toPathValue($workspace),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($creative !== null) {
+            $resourcePath = str_replace(
+                '{creative}',
+                ObjectSerializer::toPathValue($creative),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_creative_status_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($update_creative_status_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $update_creative_status_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

@@ -238,6 +238,7 @@ class PlanExecuteRejectedError implements ModelInterface, ArrayAccess, \JsonSeri
     public const CODE_DEPLOYMENT_PLAN_NOT_EXECUTABLE = 'deployment_plan_not_executable';
     public const CODE_CREATIVE_NOT_READY = 'creative_not_ready';
     public const CODE_CREATIVE_BYTES_UNAVAILABLE = 'creative_bytes_unavailable';
+    public const CODE_LAUNCH_VIDEO_UPLOAD_UNAVAILABLE = 'launch_video_upload_unavailable';
     public const CODE_AD_SET_DAILY_BUDGET_INVALID = 'ad_set_daily_budget_invalid';
     public const CODE_AD_SET_BID_AMOUNT_INVALID = 'ad_set_bid_amount_invalid';
     public const CODE_CURRENCY_MISMATCH = 'currency_mismatch';
@@ -257,6 +258,7 @@ class PlanExecuteRejectedError implements ModelInterface, ArrayAccess, \JsonSeri
             self::CODE_DEPLOYMENT_PLAN_NOT_EXECUTABLE,
             self::CODE_CREATIVE_NOT_READY,
             self::CODE_CREATIVE_BYTES_UNAVAILABLE,
+            self::CODE_LAUNCH_VIDEO_UPLOAD_UNAVAILABLE,
             self::CODE_AD_SET_DAILY_BUDGET_INVALID,
             self::CODE_AD_SET_BID_AMOUNT_INVALID,
             self::CODE_CURRENCY_MISMATCH,

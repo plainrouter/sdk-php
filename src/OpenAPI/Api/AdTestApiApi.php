@@ -527,7 +527,7 @@ class AdTestApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\AdTestShowRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ErrorMessage
+     * @return \Plainrouter\OpenAPI\Model\AdTestShowRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage
      */
     public function actionsTestsApiShow($workspace, $ad_test, string $contentType = self::contentTypes['actionsTestsApiShow'][0])
     {
@@ -546,7 +546,7 @@ class AdTestApiApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\AdTestShowRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\AdTestShowRead|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
      */
     public function actionsTestsApiShowWithHttpInfo($workspace, $ad_test, string $contentType = self::contentTypes['actionsTestsApiShow'][0])
     {
@@ -597,6 +597,12 @@ class AdTestApiApi
                 case 404:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $request,
                         $response,
                     );
@@ -658,6 +664,14 @@ class AdTestApiApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ValidationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
