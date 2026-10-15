@@ -245,6 +245,7 @@ class CreateEventRequestAnyOfEventTime implements ModelInterface, ArrayAccess, \
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
     }
 
     /**

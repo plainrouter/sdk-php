@@ -256,6 +256,7 @@ class StoreCreativeFromUrlRequest implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
         $this->setIfExists('source_ref', $data ?? [], null);

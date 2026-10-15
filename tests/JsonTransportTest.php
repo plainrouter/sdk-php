@@ -113,6 +113,204 @@ final class JsonTransportTest extends TestCase
         }
 
         $this->assertIntegerInputGuardsCoverTheGeneratedContract();
+        $this->assertClosedInputGuardsCoverTheGeneratedContract();
+    }
+
+    /** Exercise every spec-derived closed PHP input path within the existing transport case. */
+    private function assertClosedInputGuardsCoverTheGeneratedContract(): void
+    {
+        $paramVariants = [
+            [
+                'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfParams::class,
+                'action' => 'increase_budget',
+                'target_type' => 'campaign',
+                'key' => 'new_daily_budget_minor',
+                'value' => 25000,
+                'valid' => ['new_daily_budget_minor' => 25000],
+            ],
+            [
+                'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf12Params::class,
+                'action' => 'set_status',
+                'target_type' => 'campaign',
+                'key' => 'status',
+                'value' => 'paused',
+                'valid' => ['status' => 'paused'],
+            ],
+            [
+                'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOf13Params::class,
+                'action' => 'duplicate_ad_with_creative',
+                'target_type' => 'ad',
+                'key' => 'asset_id',
+                'value' => 'image:creative-123',
+                'valid' => ['asset_id' => 'image:creative-123', 'status' => 'paused', 'name_suffix' => 'copy'],
+            ],
+        ];
+        $otherClosedObjects = [
+            [
+                'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputActionsInnerAnyOfTargetEntity::class,
+                'key' => 'type',
+                'value' => 'campaign',
+                'valid' => ['type' => 'campaign', 'id' => '123', 'name' => 'Campaign'],
+            ],
+            [
+                'class' => \Plainrouter\OpenAPI\Model\ActionProposalInputEvidenceInner::class,
+                'key' => 'source_tool',
+                'value' => 'get_performance',
+                'valid' => ['source_tool' => 'get_performance', 'fields_used' => ['campaign.status'], 'action_index' => 0],
+            ],
+        ];
+
+        foreach ([...$paramVariants, ...$otherClosedObjects] as $case) {
+            $class = $case['class'];
+            $modelName = (new \ReflectionClass($class))->newInstanceWithoutConstructor()->getModelName();
+            $unknownKey = 'unsupported_probe_key';
+            $caseVariant = ucfirst($case['key']);
+
+            foreach ([$unknownKey, $caseVariant] as $key) {
+                $invalid = $case['valid'] + [$key => 'unexpected'];
+                $this->assertClosedInputGuardRefuses(fn () => new $class($invalid), $key, $modelName);
+                $this->assertClosedInputGuardRefuses(
+                    fn () => \Plainrouter\OpenAPI\ObjectSerializer::deserialize($invalid, $class),
+                    $key,
+                    $modelName,
+                );
+                $this->assertClosedInputGuardRefuses(
+                    fn () => \Plainrouter\OpenAPI\ObjectSerializer::deserialize(json_encode($invalid, JSON_THROW_ON_ERROR), $class),
+                    $key,
+                    $modelName,
+                );
+
+                $model = new $class($case['valid']);
+                $this->assertClosedInputGuardRefuses(fn () => $model[$key] = 'unexpected', $key, $modelName);
+                $this->assertClosedInputGuardRefuses(fn () => $model->{$key} = 'unexpected', $key, $modelName);
+            }
+
+            $model = new $class($case['valid']);
+            $model[$case['key']] = $case['value'];
+            $this->assertSame($case['value'], $model[$case['key']]);
+            set_error_handler(static fn (int $severity): bool => $severity === E_DEPRECATED);
+            try {
+                $model->{$case['key']} = 'dynamic-value';
+            } finally {
+                restore_error_handler();
+            }
+            $this->assertSame(
+                $case['value'],
+                ((array) \Plainrouter\OpenAPI\ObjectSerializer::sanitizeForSerialization($model))[$case['key']],
+                'Documented dynamic properties retain the generated model behavior and stay out of serialized input.',
+            );
+            $deserialized = \Plainrouter\OpenAPI\ObjectSerializer::deserialize($case['valid'], $class);
+            $this->assertSame(
+                $case['value'],
+                ((array) \Plainrouter\OpenAPI\ObjectSerializer::sanitizeForSerialization($deserialized))[$case['key']],
+            );
+
+            $this->assertClosedInputGuardRefuses(fn () => $model[17] = 'unexpected', '17', $modelName);
+        }
+
+        $responses = new MockHandler([
+            new Response(200, [], '{}'),
+            new Response(200, [], '{}'),
+            new Response(200, [], '{}'),
+        ]);
+        $history = [];
+        $stack = HandlerStack::create($responses);
+        $stack->push(Middleware::history($history));
+        $httpClient = new HttpClient(['handler' => $stack]);
+        $client = new Client(httpClient: $httpClient);
+        $generated = new \Plainrouter\OpenAPI\Api\ActionProposalApiApi(
+            $httpClient,
+            (new Configuration)->setHost(Client::DEFAULT_BASE_URL),
+        );
+
+        foreach ($paramVariants as $case) {
+            foreach (['unsupported_probe_key', ucfirst($case['key'])] as $key) {
+                $invalid = $this->actionProposalInput($case, $case['valid']);
+                $invalid['actions'][0]['params'][$key] = 'unexpected';
+                $this->assertClosedInputGuardRefuses(
+                    fn () => $client->actions->actionsApiProposeRequest(1, $invalid),
+                    $key,
+                    'params',
+                );
+                $this->assertClosedInputGuardRefuses(
+                    fn () => $generated->actionsApiProposeWithHttpInfo(1, $invalid),
+                    $key,
+                    'params',
+                );
+                $this->assertClosedInputGuardRefuses(
+                    fn () => $client->actions->actionsApiProposeAsync(1, $invalid)->wait(),
+                    $key,
+                    'params',
+                );
+                $this->assertCount(0, $history, 'Rejected PHP request bodies must not reach the HTTP handler.');
+            }
+        }
+
+        $otherInvalid = $this->actionProposalInput($paramVariants[0], $paramVariants[0]['valid']);
+        $otherInvalid['actions'][0]['target_entity']['Type'] = 'campaign';
+        $this->assertClosedInputGuardRefuses(
+            fn () => $client->actions->actionsApiProposeRequest(1, $otherInvalid),
+            'Type',
+            'target_entity',
+        );
+        $otherInvalid = $this->actionProposalInput($paramVariants[0], $paramVariants[0]['valid']);
+        $otherInvalid['evidence'][0]['unsupported_probe_key'] = true;
+        $this->assertClosedInputGuardRefuses(
+            fn () => $generated->actionsApiProposeWithHttpInfo(1, $otherInvalid),
+            'unsupported_probe_key',
+            'evidence',
+        );
+        $this->assertCount(0, $history, 'Rejected nested target and evidence keys must not reach HTTP.');
+
+        foreach ($paramVariants as $index => $case) {
+            $input = $this->actionProposalInput($case, $case['valid']);
+            if ($index === 0) {
+                $input['client_future_field'] = 'kept';
+            }
+            $client->actions->actionsApiPropose(1, $input);
+            $sent = json_decode((string) $history[$index]['request']->getBody(), true, flags: JSON_THROW_ON_ERROR);
+            $this->assertSame($case['valid'], $sent['actions'][0]['params']);
+            if ($index === 0) {
+                $this->assertSame('kept', $sent['client_future_field'], 'Open request objects retain their existing unknown-key handling.');
+            }
+        }
+        $this->assertCount(3, $history, 'Only documented inputs should reach the HTTP handler.');
+    }
+
+    /** @param array<string, mixed> $valid */
+    private function actionProposalInput(array $case, array $valid): array
+    {
+        return [
+            'actions' => [[
+                'type' => $case['action'],
+                'target_entity' => [
+                    'type' => $case['target_type'],
+                    'id' => '123',
+                    'name' => 'Entity',
+                ],
+                'params' => $valid,
+                'rationale' => 'Regression fixture.',
+            ]],
+            'rationale' => 'Closed-key regression fixture.',
+            'idempotency_key' => 'closed-key-regression',
+            'evidence' => [[
+                'source_tool' => 'get_performance',
+                'fields_used' => ['campaign.status'],
+                'action_index' => 0,
+            ]],
+            'target_source' => 'human_supplied',
+        ];
+    }
+
+    private function assertClosedInputGuardRefuses(callable $call, string $key, string $objectName): void
+    {
+        try {
+            $call();
+            $this->fail("Unknown closed-object key {$key} was not refused");
+        } catch (InvalidArgumentException $error) {
+            $this->assertStringContainsString($key, $error->getMessage());
+            $this->assertStringContainsString($objectName, $error->getMessage());
+        }
     }
 
     /** Exercise every spec-derived integer selector inside this existing transport test case. */

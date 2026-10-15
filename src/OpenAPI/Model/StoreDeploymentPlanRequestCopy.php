@@ -279,6 +279,7 @@ class StoreDeploymentPlanRequestCopy implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('primary_text', $data ?? [], null);
         $this->setIfExists('headline', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);

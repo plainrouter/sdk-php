@@ -287,6 +287,7 @@ class ActionsRulesStoreRequest implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('definition', $data ?? [], null);
         $this->setIfExists('account_id', $data ?? [], null);

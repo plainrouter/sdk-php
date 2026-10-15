@@ -273,6 +273,7 @@ class DeleteUserDataRequest implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('identifier_type', $data ?? [], null);
         $this->setIfExists('identifier_hash', $data ?? [], null);
         $this->setIfExists('identifier', $data ?? [], null);

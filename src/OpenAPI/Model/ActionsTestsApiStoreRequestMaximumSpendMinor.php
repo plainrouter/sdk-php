@@ -245,6 +245,7 @@ class ActionsTestsApiStoreRequestMaximumSpendMinor implements ModelInterface, Ar
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
     }
 
     /**

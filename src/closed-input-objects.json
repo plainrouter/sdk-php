@@ -1,0 +1,3755 @@
+{
+  "schemas": {
+    "#/paths/~1agent~1workspaces~1{workspace}~1actions~1dry-run/post/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/ActionProposalInput"
+    },
+    "#/components/schemas/ActionProposalInput": {
+      "type": "object",
+      "title": "ActionProposalInput",
+      "required": [
+        "actions",
+        "rationale",
+        "idempotency_key",
+        "evidence",
+        "target_source"
+      ],
+      "properties": {
+        "limit": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/limit"
+        },
+        "cursor": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/cursor"
+        },
+        "actions": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/idempotency_key"
+        },
+        "evidence": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/evidence"
+        },
+        "target_source": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/target_source"
+        },
+        "account_id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/account_id"
+        },
+        "workspace_id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/workspace_id"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/limit": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/cursor": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items"
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12"
+        },
+        {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13"
+        }
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/type": {
+      "type": "string",
+      "enum": [
+        "increase_budget"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/params": {
+      "type": "object",
+      "required": [
+        "new_daily_budget_minor"
+      ],
+      "properties": {
+        "new_daily_budget_minor": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/params/properties/new_daily_budget_minor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/params/properties/new_daily_budget_minor": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/0/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/type": {
+      "type": "string",
+      "enum": [
+        "decrease_budget"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/params": {
+      "type": "object",
+      "required": [
+        "new_daily_budget_minor"
+      ],
+      "properties": {
+        "new_daily_budget_minor": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/params/properties/new_daily_budget_minor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/params/properties/new_daily_budget_minor": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/1/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/type": {
+      "type": "string",
+      "enum": [
+        "pause"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/2/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/type": {
+      "type": "string",
+      "enum": [
+        "resume"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/3/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/type": {
+      "type": "string",
+      "enum": [
+        "replace_creative"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/4/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/type": {
+      "type": "string",
+      "enum": [
+        "shift_spend"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/5/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/type": {
+      "type": "string",
+      "enum": [
+        "rollback"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/6/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/type": {
+      "type": "string",
+      "enum": [
+        "create_campaign"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/7/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/type": {
+      "type": "string",
+      "enum": [
+        "create_ad_set"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/8/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/type": {
+      "type": "string",
+      "enum": [
+        "create_ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/params": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/9/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/type": {
+      "type": "string",
+      "enum": [
+        "upload_asset"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params": {
+      "type": "object",
+      "required": [
+        "staged_asset_id",
+        "asset_type",
+        "filename",
+        "content_sha256"
+      ],
+      "properties": {
+        "staged_asset_id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/staged_asset_id"
+        },
+        "asset_type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/asset_type"
+        },
+        "filename": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/filename"
+        },
+        "content_sha256": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/content_sha256"
+        },
+        "mime_type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/mime_type"
+        },
+        "size_bytes": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/size_bytes"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/staged_asset_id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/asset_type": {
+      "type": "string",
+      "enum": [
+        "image"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/filename": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/content_sha256": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/mime_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/params/properties/size_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/10/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/type": {
+      "type": "string",
+      "enum": [
+        "adjust_budget"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/params": {
+      "type": "object",
+      "required": [
+        "new_daily_budget_minor"
+      ],
+      "properties": {
+        "new_daily_budget_minor": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/params/properties/new_daily_budget_minor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/params/properties/new_daily_budget_minor": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/11/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/type": {
+      "type": "string",
+      "enum": [
+        "set_status"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/params": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/params/properties/status"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/params/properties/status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/12/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13": {
+      "type": "object",
+      "required": [
+        "type",
+        "target_entity",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/type"
+        },
+        "target_entity": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity"
+        },
+        "params": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params"
+        },
+        "rationale": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/rationale"
+        },
+        "idempotency_key": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/idempotency_key"
+        }
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/type": {
+      "type": "string",
+      "enum": [
+        "duplicate_ad_with_creative"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/type"
+        },
+        "id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/id"
+        },
+        "name": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/type": {
+      "type": "string",
+      "enum": [
+        "ad_account",
+        "campaign",
+        "ad_set",
+        "ad"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/target_entity/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params": {
+      "type": "object",
+      "required": [
+        "asset_id",
+        "status"
+      ],
+      "properties": {
+        "asset_id": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/asset_id"
+        },
+        "status": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/status"
+        },
+        "name_suffix": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/name_suffix"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/asset_id": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/status": {
+      "type": "string",
+      "enum": [
+        "paused"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/params/properties/name_suffix": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/actions/items/anyOf/13/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/rationale": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/idempotency_key": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ActionProposalInput/properties/evidence/items"
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence/items": {
+      "type": "object",
+      "required": [
+        "source_tool",
+        "fields_used"
+      ],
+      "properties": {
+        "source_tool": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/source_tool"
+        },
+        "fields_used": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/fields_used"
+        },
+        "action_index": {
+          "$ref": "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/action_index"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/source_tool": {
+      "type": "string",
+      "enum": [
+        "get_account_state",
+        "get_signal_health",
+        "get_performance",
+        "get_inventory_metrics",
+        "get-creative-library",
+        "staged-asset-manifest"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/fields_used": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/fields_used/items"
+      }
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/fields_used/items": {
+      "type": "string"
+    },
+    "#/components/schemas/ActionProposalInput/properties/evidence/items/properties/action_index": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/target_source": {
+      "type": "string",
+      "enum": [
+        "human_supplied"
+      ]
+    },
+    "#/components/schemas/ActionProposalInput/properties/account_id": {
+      "type": "integer"
+    },
+    "#/components/schemas/ActionProposalInput/properties/workspace_id": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1actions/post/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/ActionProposalInput"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "name",
+        "platform_ad_account_id",
+        "definition"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/name"
+        },
+        "definition": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition"
+        },
+        "account_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/account_id"
+        },
+        "platform_ad_account_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/platform_ad_account_id"
+        },
+        "window": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window"
+        },
+        "window_days": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days"
+        },
+        "author_type": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type"
+        },
+        "current_revision_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id"
+        }
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/name": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad",
+        "ad_set"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/action": {
+      "type": "string",
+      "enum": [
+        "pause"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio",
+        "budget_change_percent"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio"
+        },
+        "budget_change_percent": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/budget_change_percent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad_set",
+        "campaign"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/action": {
+      "type": "string",
+      "enum": [
+        "increase_budget"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/budget_change_percent": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio",
+        "budget_change_percent"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio"
+        },
+        "budget_change_percent": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/budget_change_percent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad_set",
+        "campaign"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/action": {
+      "type": "string",
+      "enum": [
+        "decrease_budget"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/budget_change_percent": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/account_id": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/platform_ad_account_id": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/window_days/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/author_type/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/name"
+        },
+        "definition": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition"
+        },
+        "account_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/account_id"
+        },
+        "enabled": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/enabled"
+        },
+        "window": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window"
+        },
+        "window_days": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days"
+        },
+        "author_type": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type"
+        },
+        "current_revision_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id"
+        }
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/name": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad",
+        "ad_set"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/action": {
+      "type": "string",
+      "enum": [
+        "pause"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/0/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio",
+        "budget_change_percent"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio"
+        },
+        "budget_change_percent": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/budget_change_percent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad_set",
+        "campaign"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/action": {
+      "type": "string",
+      "enum": [
+        "increase_budget"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/1/properties/budget_change_percent": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2": {
+      "type": "object",
+      "required": [
+        "target_level",
+        "action",
+        "minimum_counted_arrivals",
+        "cost_comparison",
+        "cost_ratio",
+        "budget_change_percent"
+      ],
+      "properties": {
+        "target_level": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/target_level"
+        },
+        "action": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/action"
+        },
+        "minimum_counted_arrivals": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/minimum_counted_arrivals"
+        },
+        "cost_comparison": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_comparison"
+        },
+        "cost_ratio": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio"
+        },
+        "budget_change_percent": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/budget_change_percent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/target_level": {
+      "type": "string",
+      "enum": [
+        "ad_set",
+        "campaign"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/action": {
+      "type": "string",
+      "enum": [
+        "decrease_budget"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/minimum_counted_arrivals": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_comparison": {
+      "type": "string",
+      "enum": [
+        "at_least",
+        "at_most"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/0": {
+      "type": "number"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/cost_ratio/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/definition/anyOf/2/properties/budget_change_percent": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/account_id": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/enabled": {
+      "type": "boolean"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/window_days/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/author_type/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/3"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/0": {
+      "type": "null"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/1": {
+      "const": ""
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/2/items": {},
+    "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema/properties/current_revision_id/anyOf/3": {
+      "type": "object"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "platform_ad_account_id",
+        "ad_set_id",
+        "member_ad_ids",
+        "axis",
+        "event_name"
+      ],
+      "properties": {
+        "platform_ad_account_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/platform_ad_account_id"
+        },
+        "ad_set_id": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/ad_set_id"
+        },
+        "member_ad_ids": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/member_ad_ids"
+        },
+        "axis": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/axis"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/event_name"
+        },
+        "arrivals_floor": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/arrivals_floor"
+        },
+        "minimum_conversions": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/minimum_conversions"
+        },
+        "maximum_days": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_days"
+        },
+        "maximum_spend_minor": {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor"
+        }
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/platform_ad_account_id": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/ad_set_id": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/member_ad_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/member_ad_ids/items"
+      }
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/member_ad_ids/items": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/axis": {
+      "type": "string",
+      "enum": [
+        "hook",
+        "angle",
+        "visual",
+        "offer",
+        "format",
+        "landing"
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/event_name": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/arrivals_floor": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/minimum_conversions": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_days": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/1"
+        },
+        {
+          "$ref": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/2"
+        }
+      ]
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/0": {
+      "type": "string"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/1": {
+      "type": "integer"
+    },
+    "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema/properties/maximum_spend_minor/anyOf/2": {
+      "type": "null"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema": {
+      "type": "object",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/file"
+        },
+        "tags": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags"
+        },
+        "source_ref": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/source_ref"
+        }
+      }
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/file": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags": {
+      "type": "object",
+      "properties": {
+        "generator": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/generator"
+        },
+        "generator_job": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/generator_job"
+        },
+        "parent_creative": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/parent_creative"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/additionalProperties"
+      }
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/generator": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/generator_job": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/properties/parent_creative": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/tags/additionalProperties": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema/properties/source_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/url"
+        },
+        "tags": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags"
+        },
+        "source_ref": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/source_ref"
+        }
+      }
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/url": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags": {
+      "type": "object",
+      "properties": {
+        "generator": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/generator"
+        },
+        "generator_job": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/generator_job"
+        },
+        "parent_creative": {
+          "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/parent_creative"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/additionalProperties"
+      }
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/generator": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/generator_job": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/properties/parent_creative": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/tags/additionalProperties": {
+      "type": "string"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema/properties/source_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1{creative}~1status/patch/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/UpdateCreativeStatusRequest"
+    },
+    "#/components/schemas/UpdateCreativeStatusRequest": {
+      "type": "object",
+      "title": "UpdateCreativeStatusRequest",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/components/schemas/UpdateCreativeStatusRequest/properties/status"
+        }
+      }
+    },
+    "#/components/schemas/UpdateCreativeStatusRequest/properties/status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved",
+        "retired"
+      ]
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1plans/post/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/StoreDeploymentPlanRequest"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest": {
+      "type": "object",
+      "title": "StoreDeploymentPlanRequest",
+      "required": [
+        "platform_ad_account_id",
+        "platform",
+        "budget_type",
+        "budget_amount_minor",
+        "currency",
+        "copy",
+        "landing_page"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/name"
+        },
+        "platform_ad_account_id": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/platform_ad_account_id"
+        },
+        "platform": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/platform"
+        },
+        "campaign_ref": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_ref"
+        },
+        "campaign_spec": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_spec"
+        },
+        "ad_set_ref": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_ref"
+        },
+        "ad_set_spec": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec"
+        },
+        "budget_type": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/budget_type"
+        },
+        "budget_amount_minor": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/budget_amount_minor"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/currency"
+        },
+        "copy": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/copy"
+        },
+        "landing_page": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/landing_page"
+        },
+        "utm_policy_name": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/utm_policy_name"
+        },
+        "naming_policy_name": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/naming_policy_name"
+        },
+        "creative_ids": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_ids"
+        },
+        "creative_overrides": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides"
+        }
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/platform_ad_account_id": {
+      "type": "integer"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/platform": {
+      "type": "string",
+      "enum": [
+        "google",
+        "meta",
+        "microsoft"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_spec": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_spec/items"
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/campaign_spec/items": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "daily_budget": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/daily_budget"
+        },
+        "bid_amount": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/bid_amount"
+        },
+        "lifetime_budget": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/lifetime_budget"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/additionalProperties"
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/daily_budget": {
+      "type": "integer"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/bid_amount": {
+      "type": "integer"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/properties/lifetime_budget": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/ad_set_spec/additionalProperties": {},
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/budget_type": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "lifetime"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/budget_amount_minor": {
+      "type": "integer"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/currency": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/copy": {
+      "type": "object",
+      "required": [
+        "primary_text",
+        "headline",
+        "description",
+        "cta"
+      ],
+      "properties": {
+        "primary_text": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/primary_text"
+        },
+        "headline": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/headline"
+        },
+        "description": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/description"
+        },
+        "cta": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/cta"
+        }
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/primary_text": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/headline": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/description": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/copy/properties/cta": {
+      "type": "string",
+      "enum": [
+        "learn_more",
+        "shop_now",
+        "sign_up"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/landing_page": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/utm_policy_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/naming_policy_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_ids/items"
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_ids/items": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items"
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items": {
+      "type": "object",
+      "required": [
+        "creative_id",
+        "copy",
+        "landing_page"
+      ],
+      "properties": {
+        "creative_id": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/creative_id"
+        },
+        "copy": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy"
+        },
+        "landing_page": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/landing_page"
+        }
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/creative_id": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy": {
+      "type": "object",
+      "required": [
+        "primary_text",
+        "headline",
+        "description",
+        "cta"
+      ],
+      "properties": {
+        "primary_text": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/primary_text"
+        },
+        "headline": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/headline"
+        },
+        "description": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/description"
+        },
+        "cta": {
+          "$ref": "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/cta"
+        }
+      }
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/primary_text": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/headline": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/description": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/cta": {
+      "type": "string",
+      "enum": [
+        "learn_more",
+        "shop_now",
+        "sign_up"
+      ]
+    },
+    "#/components/schemas/StoreDeploymentPlanRequest/properties/creative_overrides/items/properties/landing_page": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1plans~1{deployment_plan}/patch/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/UpdateDeploymentPlanRequest"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest": {
+      "type": "object",
+      "title": "UpdateDeploymentPlanRequest",
+      "properties": {
+        "name": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/name"
+        },
+        "platform_ad_account_id": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/platform_ad_account_id"
+        },
+        "platform": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/platform"
+        },
+        "campaign_ref": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_ref"
+        },
+        "campaign_spec": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_spec"
+        },
+        "ad_set_ref": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_ref"
+        },
+        "ad_set_spec": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec"
+        },
+        "budget_type": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/budget_type"
+        },
+        "budget_amount_minor": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/budget_amount_minor"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/currency"
+        },
+        "copy": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy"
+        },
+        "landing_page": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/landing_page"
+        },
+        "utm_policy_name": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/utm_policy_name"
+        },
+        "naming_policy_name": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/naming_policy_name"
+        },
+        "creative_ids": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_ids"
+        },
+        "creative_overrides": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides"
+        }
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/platform_ad_account_id": {
+      "type": "integer"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/platform": {
+      "type": "string",
+      "enum": [
+        "google",
+        "meta",
+        "microsoft"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_spec": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_spec/items"
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/campaign_spec/items": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "daily_budget": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/daily_budget"
+        },
+        "bid_amount": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/bid_amount"
+        },
+        "lifetime_budget": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/lifetime_budget"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/additionalProperties"
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/daily_budget": {
+      "type": "integer"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/bid_amount": {
+      "type": "integer"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/properties/lifetime_budget": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/ad_set_spec/additionalProperties": {},
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/budget_type": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "lifetime"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/budget_amount_minor": {
+      "type": "integer"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/currency": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy": {
+      "type": "object",
+      "required": [
+        "primary_text",
+        "headline",
+        "description",
+        "cta"
+      ],
+      "properties": {
+        "primary_text": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/primary_text"
+        },
+        "headline": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/headline"
+        },
+        "description": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/description"
+        },
+        "cta": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/cta"
+        }
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/primary_text": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/headline": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/description": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/copy/properties/cta": {
+      "type": "string",
+      "enum": [
+        "learn_more",
+        "shop_now",
+        "sign_up"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/landing_page": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/utm_policy_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/naming_policy_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_ids/items"
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_ids/items": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items"
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items": {
+      "type": "object",
+      "required": [
+        "creative_id",
+        "copy",
+        "landing_page"
+      ],
+      "properties": {
+        "creative_id": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/creative_id"
+        },
+        "copy": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy"
+        },
+        "landing_page": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/landing_page"
+        }
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/creative_id": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy": {
+      "type": "object",
+      "required": [
+        "primary_text",
+        "headline",
+        "description",
+        "cta"
+      ],
+      "properties": {
+        "primary_text": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/primary_text"
+        },
+        "headline": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/headline"
+        },
+        "description": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/description"
+        },
+        "cta": {
+          "$ref": "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/cta"
+        }
+      }
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/primary_text": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/headline": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/description": {
+      "type": "string"
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/copy/properties/cta": {
+      "type": "string",
+      "enum": [
+        "learn_more",
+        "shop_now",
+        "sign_up"
+      ]
+    },
+    "#/components/schemas/UpdateDeploymentPlanRequest/properties/creative_overrides/items/properties/landing_page": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1plans~1{deployment_plan}~1execute/post/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/ExecuteDeploymentPlanRequest"
+    },
+    "#/components/schemas/ExecuteDeploymentPlanRequest": {
+      "type": "object",
+      "title": "ExecuteDeploymentPlanRequest",
+      "required": [
+        "review_version"
+      ],
+      "properties": {
+        "review_version": {
+          "$ref": "#/components/schemas/ExecuteDeploymentPlanRequest/properties/review_version"
+        },
+        "intent_key": {
+          "$ref": "#/components/schemas/ExecuteDeploymentPlanRequest/properties/intent_key"
+        }
+      }
+    },
+    "#/components/schemas/ExecuteDeploymentPlanRequest/properties/review_version": {
+      "type": "string"
+    },
+    "#/components/schemas/ExecuteDeploymentPlanRequest/properties/intent_key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1mcp~1launcher~1import/post/requestBody/content/multipart~1form-data/schema": {
+      "$ref": "#/components/schemas/DraftBatchFileImportRequest"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest": {
+      "type": "object",
+      "title": "DraftBatchFileImportRequest",
+      "required": [
+        "file",
+        "source_adset_id",
+        "source_ad_id",
+        "mode"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/file"
+        },
+        "source_adset_id": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/source_adset_id"
+        },
+        "source_ad_id": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/source_ad_id"
+        },
+        "mode": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/mode"
+        },
+        "folder_to_adset": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/folder_to_adset"
+        },
+        "grouping_enabled": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/grouping_enabled"
+        },
+        "account_id": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/account_id"
+        },
+        "workspace_id": {
+          "$ref": "#/components/schemas/DraftBatchFileImportRequest/properties/workspace_id"
+        }
+      }
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/file": {
+      "type": "string"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/source_adset_id": {
+      "type": "string"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/source_ad_id": {
+      "type": "string"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/mode": {
+      "$ref": "#/components/schemas/DraftBatchMode"
+    },
+    "#/components/schemas/DraftBatchMode": {
+      "type": "string",
+      "title": "DraftBatchMode",
+      "enum": [
+        "duplicate_adset",
+        "duplicate_adset_per_media",
+        "add_to_adset"
+      ]
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/folder_to_adset": {
+      "type": "boolean"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/grouping_enabled": {
+      "type": "boolean"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/account_id": {
+      "type": "integer"
+    },
+    "#/components/schemas/DraftBatchFileImportRequest/properties/workspace_id": {
+      "type": "integer"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0": {
+      "type": "object",
+      "required": [
+        "event_name",
+        "consent_basis"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_id"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_name"
+        },
+        "parent_event_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/parent_event_id"
+        },
+        "event_time": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time"
+        },
+        "event_source": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_source"
+        },
+        "action_source": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/action_source"
+        },
+        "visitor_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/visitor_id"
+        },
+        "consent_basis": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_basis"
+        },
+        "consent": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent"
+        },
+        "consent_mode": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_mode"
+        },
+        "tcf": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/tcf"
+        },
+        "user_data": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/user_data"
+        },
+        "click_ids": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/click_ids"
+        },
+        "value_data": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data"
+        }
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_name": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/parent_event_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time/anyOf/0": {
+      "type": "integer"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_time/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/event_source": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/action_source": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/visitor_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_basis": {
+      "type": "string",
+      "const": "consent"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_mode": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_mode/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/consent_mode/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/tcf": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/tcf/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/tcf/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/user_data": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/user_data/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/user_data/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/click_ids": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/click_ids/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/click_ids/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/value"
+        },
+        "currency": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/currency"
+        },
+        "order_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/order_id"
+        },
+        "contents": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/contents"
+        },
+        "num_items": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/num_items"
+        }
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/value": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/currency": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/order_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/contents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/contents/items"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/contents/items": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/0/properties/value_data/properties/num_items": {
+      "type": "integer"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1": {
+      "type": "object",
+      "required": [
+        "event_name",
+        "consent_basis"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_id"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_name"
+        },
+        "parent_event_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/parent_event_id"
+        },
+        "event_time": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time"
+        },
+        "event_source": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_source"
+        },
+        "action_source": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/action_source"
+        },
+        "visitor_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/visitor_id"
+        },
+        "consent_basis": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_basis"
+        },
+        "consent": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent"
+        },
+        "consent_mode": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_mode"
+        },
+        "tcf": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/tcf"
+        },
+        "user_data": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/user_data"
+        },
+        "click_ids": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/click_ids"
+        },
+        "value_data": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data"
+        }
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_name": {
+      "type": "string",
+      "enum": [
+        "signal_verification",
+        "consent_withdrawal"
+      ]
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/parent_event_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time": {
+      "anyOf": [
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time/anyOf/0"
+        },
+        {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time/anyOf/1"
+        }
+      ]
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time/anyOf/0": {
+      "type": "integer"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_time/anyOf/1": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/event_source": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/action_source": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/visitor_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_basis": {
+      "type": "string",
+      "const": "legitimate_interest"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_mode": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_mode/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/consent_mode/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/tcf": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/tcf/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/tcf/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/user_data": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/user_data/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/user_data/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/click_ids": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/click_ids/additionalProperties"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/click_ids/additionalProperties": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/value"
+        },
+        "currency": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/currency"
+        },
+        "order_id": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/order_id"
+        },
+        "contents": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/contents"
+        },
+        "num_items": {
+          "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/num_items"
+        }
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/value": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/currency": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/order_id": {
+      "type": "string"
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/contents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/contents/items"
+      }
+    },
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/contents/items": {},
+    "#/paths/~1events/post/requestBody/content/application~1json/schema/anyOf/1/properties/value_data/properties/num_items": {
+      "type": "integer"
+    },
+    "#/paths/~1workspaces~1{workspace}~1admin~1policies/post/requestBody/content/application~1json/schema": {
+      "$ref": "#/components/schemas/StoreLaunchPolicyRequest"
+    },
+    "#/components/schemas/StoreLaunchPolicyRequest": {
+      "type": "object",
+      "title": "StoreLaunchPolicyRequest",
+      "required": [
+        "kind",
+        "name",
+        "body"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/components/schemas/StoreLaunchPolicyRequest/properties/kind"
+        },
+        "name": {
+          "$ref": "#/components/schemas/StoreLaunchPolicyRequest/properties/name"
+        },
+        "body": {
+          "$ref": "#/components/schemas/StoreLaunchPolicyRequest/properties/body"
+        }
+      }
+    },
+    "#/components/schemas/StoreLaunchPolicyRequest/properties/kind": {
+      "type": "string",
+      "enum": [
+        "utm",
+        "naming"
+      ]
+    },
+    "#/components/schemas/StoreLaunchPolicyRequest/properties/name": {
+      "type": "string"
+    },
+    "#/components/schemas/StoreLaunchPolicyRequest/properties/body": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/StoreLaunchPolicyRequest/properties/body/items"
+      }
+    },
+    "#/components/schemas/StoreLaunchPolicyRequest/properties/body/items": {
+      "type": "string"
+    },
+    "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "enabled"
+      ],
+      "properties": {
+        "enabled": {
+          "$ref": "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema/properties/enabled"
+        },
+        "test_event_code": {
+          "$ref": "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema/properties/test_event_code"
+        }
+      }
+    },
+    "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema/properties/enabled": {
+      "type": "boolean"
+    },
+    "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema/properties/test_event_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/value"
+        },
+        "currency": {
+          "$ref": "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/currency"
+        },
+        "order_id": {
+          "$ref": "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/order_id"
+        }
+      }
+    },
+    "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/value": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/currency": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema/properties/order_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "properties": {
+        "delivery_ids": {
+          "$ref": "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/delivery_ids"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/event_name"
+        },
+        "limit": {
+          "$ref": "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/limit"
+        }
+      }
+    },
+    "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/delivery_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/delivery_ids/items"
+      }
+    },
+    "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/delivery_ids/items": {
+      "type": "integer"
+    },
+    "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/event_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema/properties/limit": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "identifier_type"
+      ],
+      "properties": {
+        "identifier_type": {
+          "$ref": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier_type"
+        },
+        "identifier_hash": {
+          "$ref": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier_hash"
+        },
+        "identifier": {
+          "$ref": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/oneOf/0"
+        },
+        {
+          "$ref": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/oneOf/1"
+        }
+      ]
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier_type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone",
+        "external_id"
+      ]
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier_hash": {
+      "type": "string"
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/properties/identifier": {
+      "type": "string"
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/oneOf/0": {
+      "required": [
+        "identifier_hash"
+      ]
+    },
+    "#/paths/~1user-data/delete/requestBody/content/application~1json/schema/oneOf/1": {
+      "required": [
+        "identifier"
+      ]
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "event_name"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/event_id"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/event_name"
+        },
+        "action_source": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/action_source"
+        },
+        "value_data": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data"
+        }
+      }
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/event_id": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/event_name": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/action_source": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/value"
+        },
+        "currency": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/currency"
+        },
+        "order_id": {
+          "$ref": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/order_id"
+        }
+      }
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/value": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/currency": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema/properties/value_data/properties/order_id": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema": {
+      "type": "object",
+      "required": [
+        "event_name"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/event_id"
+        },
+        "event_name": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/event_name"
+        },
+        "action_source": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/action_source"
+        },
+        "value_data": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data"
+        }
+      }
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/event_id": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/event_name": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/action_source": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/value"
+        },
+        "currency": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/currency"
+        },
+        "order_id": {
+          "$ref": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/order_id"
+        }
+      }
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/value": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/currency": {
+      "type": "string"
+    },
+    "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema/properties/value_data/properties/order_id": {
+      "type": "string"
+    }
+  },
+  "operations": {
+    "POST /agent/workspaces/{workspace}/actions/dry-run": "#/paths/~1agent~1workspaces~1{workspace}~1actions~1dry-run/post/requestBody/content/application~1json/schema",
+    "POST /agent/workspaces/{workspace}/actions": "#/paths/~1agent~1workspaces~1{workspace}~1actions/post/requestBody/content/application~1json/schema",
+    "POST /agent/workspaces/{workspace}/action-rules": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules/post/requestBody/content/application~1json/schema",
+    "PATCH /agent/workspaces/{workspace}/action-rules/{action_rule}": "#/paths/~1agent~1workspaces~1{workspace}~1action-rules~1{action_rule}/patch/requestBody/content/application~1json/schema",
+    "POST /agent/workspaces/{workspace}/tests": "#/paths/~1agent~1workspaces~1{workspace}~1tests/post/requestBody/content/application~1json/schema",
+    "POST /workspaces/{workspace}/admin/creatives": "#/paths/~1workspaces~1{workspace}~1admin~1creatives/post/requestBody/content/multipart~1form-data/schema",
+    "POST /workspaces/{workspace}/admin/creatives/from-url": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1from-url/post/requestBody/content/application~1json/schema",
+    "PATCH /workspaces/{workspace}/admin/creatives/{creative}/status": "#/paths/~1workspaces~1{workspace}~1admin~1creatives~1{creative}~1status/patch/requestBody/content/application~1json/schema",
+    "POST /workspaces/{workspace}/admin/plans": "#/paths/~1workspaces~1{workspace}~1admin~1plans/post/requestBody/content/application~1json/schema",
+    "PATCH /workspaces/{workspace}/admin/plans/{deployment_plan}": "#/paths/~1workspaces~1{workspace}~1admin~1plans~1{deployment_plan}/patch/requestBody/content/application~1json/schema",
+    "POST /workspaces/{workspace}/admin/plans/{deployment_plan}/execute": "#/paths/~1workspaces~1{workspace}~1admin~1plans~1{deployment_plan}~1execute/post/requestBody/content/application~1json/schema",
+    "POST /mcp/launcher/import": "#/paths/~1mcp~1launcher~1import/post/requestBody/content/multipart~1form-data/schema",
+    "POST /events": "#/paths/~1events/post/requestBody/content/application~1json/schema",
+    "POST /workspaces/{workspace}/admin/policies": "#/paths/~1workspaces~1{workspace}~1admin~1policies/post/requestBody/content/application~1json/schema",
+    "PATCH /destinations/{destination}/test-mode": "#/paths/~1destinations~1{destination}~1test-mode/patch/requestBody/content/application~1json/schema",
+    "POST /destinations/{destination}/test-purchase": "#/paths/~1destinations~1{destination}~1test-purchase/post/requestBody/content/application~1json/schema",
+    "POST /deliveries/replay": "#/paths/~1deliveries~1replay/post/requestBody/content/application~1json/schema",
+    "DELETE /user-data": "#/paths/~1user-data/delete/requestBody/content/application~1json/schema",
+    "POST /sandbox/events": "#/paths/~1sandbox~1events/post/requestBody/content/application~1json/schema",
+    "POST /sandbox/keyed-events": "#/paths/~1sandbox~1keyed-events/post/requestBody/content/application~1json/schema"
+  }
+}

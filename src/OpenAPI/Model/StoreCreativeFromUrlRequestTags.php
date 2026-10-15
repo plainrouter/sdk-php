@@ -257,6 +257,7 @@ class StoreCreativeFromUrlRequestTags implements ModelInterface, ArrayAccess, \J
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('generator', $data ?? [], null);
         $this->setIfExists('generator_job', $data ?? [], null);
         $this->setIfExists('parent_creative', $data ?? [], null);

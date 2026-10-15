@@ -287,6 +287,7 @@ class ActionProposalInputActionsInnerAnyOf10Params implements ModelInterface, Ar
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('staged_asset_id', $data ?? [], null);
         $this->setIfExists('asset_type', $data ?? [], null);
         $this->setIfExists('filename', $data ?? [], null);
@@ -592,6 +593,25 @@ class ActionProposalInputActionsInnerAnyOf10Params implements ModelInterface, Ar
         return $this;
     }
     /**
+     * Sets a property using the generated model's existing dynamic-property behavior.
+     *
+     * @param string $name Property name
+     * @param mixed $value Property value
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $name);
+        $setDynamicProperty = \Closure::bind(
+            function () use ($name, $value): void {
+                $this->{$name} = $value;
+            },
+            $this,
+            self::class,
+        );
+        $setDynamicProperty();
+    }
+
+    /**
      * Returns true if offset exists. False otherwise.
      *
      * @param integer|string $offset Offset
@@ -626,6 +646,7 @@ class ActionProposalInputActionsInnerAnyOf10Params implements ModelInterface, Ar
      */
     public function offsetSet($offset, $value): void
     {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $offset);
         if (is_null($offset)) {
             $this->container[] = $value;
         } else {

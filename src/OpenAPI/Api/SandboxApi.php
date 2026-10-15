@@ -1094,6 +1094,7 @@ class SandboxApi
      */
     public function validateSandboxEventRequest($validate_sandbox_event_request, string $contentType = self::contentTypes['validateSandboxEvent'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /sandbox/events', $validate_sandbox_event_request);
 
         // verify the required parameter 'validate_sandbox_event_request' is set
         if ($validate_sandbox_event_request === null || (is_array($validate_sandbox_event_request) && count($validate_sandbox_event_request) === 0)) {
@@ -1397,6 +1398,7 @@ class SandboxApi
      */
     public function validateSandboxEventWithKeyRequest($validate_sandbox_event_request, string $contentType = self::contentTypes['validateSandboxEventWithKey'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /sandbox/keyed-events', $validate_sandbox_event_request);
 
         // verify the required parameter 'validate_sandbox_event_request' is set
         if ($validate_sandbox_event_request === null || (is_array($validate_sandbox_event_request) && count($validate_sandbox_event_request) === 0)) {

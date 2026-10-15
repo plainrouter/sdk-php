@@ -261,6 +261,7 @@ class UpdateCreativeStatusRequest implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('status', $data ?? [], null);
     }
 

@@ -1051,6 +1051,7 @@ class LaunchPolicyApi
      */
     public function launchPoliciesStoreRequest($workspace, $store_launch_policy_request, string $contentType = self::contentTypes['launchPoliciesStore'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /workspaces/{workspace}/admin/policies', $store_launch_policy_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

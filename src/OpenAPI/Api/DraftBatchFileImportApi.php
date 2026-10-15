@@ -488,6 +488,7 @@ class DraftBatchFileImportApi
             'account_id' => $account_id,
             'workspace_id' => $workspace_id,
         ]);
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /mcp/launcher/import', $formData);
 
         $formParams = $formDataProcessor->flatten($formData);
         $multipart = $formDataProcessor->has_file;

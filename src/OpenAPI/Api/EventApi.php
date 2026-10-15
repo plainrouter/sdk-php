@@ -365,6 +365,7 @@ class EventApi
      */
     public function createEventRequest($create_event_request, $idempotency_key = null, string $contentType = self::contentTypes['createEvent'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /events', $create_event_request);
 
         // verify the required parameter 'create_event_request' is set
         if ($create_event_request === null || (is_array($create_event_request) && count($create_event_request) === 0)) {

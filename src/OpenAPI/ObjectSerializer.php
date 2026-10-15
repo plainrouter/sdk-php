@@ -396,6 +396,7 @@ class ObjectSerializer
      */
     public static function deserialize($data, $class, $httpHeaders = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput($class, $data);
         if (null === $data) {
             return null;
         }

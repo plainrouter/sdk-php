@@ -350,6 +350,7 @@ class CreateEventRequestAnyOf1 implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('event_id', $data ?? [], null);
         $this->setIfExists('event_name', $data ?? [], null);
         $this->setIfExists('parent_event_id', $data ?? [], null);

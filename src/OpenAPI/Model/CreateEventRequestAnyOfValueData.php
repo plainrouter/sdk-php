@@ -269,6 +269,7 @@ class CreateEventRequestAnyOfValueData implements ModelInterface, ArrayAccess, \
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('value', $data ?? [], null);
         $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('order_id', $data ?? [], null);

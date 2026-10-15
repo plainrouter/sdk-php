@@ -366,6 +366,7 @@ class StoreDeploymentPlanRequest implements ModelInterface, ArrayAccess, \JsonSe
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('platform_ad_account_id', $data ?? [], null);
         $this->setIfExists('platform', $data ?? [], null);

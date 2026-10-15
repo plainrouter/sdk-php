@@ -250,6 +250,7 @@ class SetDestinationTestModeRequest implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('enabled', $data ?? [], null);
         $this->setIfExists('test_event_code', $data ?? [], null);
     }

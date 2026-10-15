@@ -279,6 +279,7 @@ class ActionProposalInputEvidenceInner implements ModelInterface, ArrayAccess, \
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('source_tool', $data ?? [], null);
         $this->setIfExists('fields_used', $data ?? [], null);
         $this->setIfExists('action_index', $data ?? [], null);
@@ -454,6 +455,25 @@ class ActionProposalInputEvidenceInner implements ModelInterface, ArrayAccess, \
         return $this;
     }
     /**
+     * Sets a property using the generated model's existing dynamic-property behavior.
+     *
+     * @param string $name Property name
+     * @param mixed $value Property value
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $name);
+        $setDynamicProperty = \Closure::bind(
+            function () use ($name, $value): void {
+                $this->{$name} = $value;
+            },
+            $this,
+            self::class,
+        );
+        $setDynamicProperty();
+    }
+
+    /**
      * Returns true if offset exists. False otherwise.
      *
      * @param integer|string $offset Offset
@@ -488,6 +508,7 @@ class ActionProposalInputEvidenceInner implements ModelInterface, ArrayAccess, \
      */
     public function offsetSet($offset, $value): void
     {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $offset);
         if (is_null($offset)) {
             $this->container[] = $value;
         } else {

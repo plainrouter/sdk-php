@@ -244,6 +244,7 @@ class ActionsRulesStoreRequestWindow implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
     }
 
     /**

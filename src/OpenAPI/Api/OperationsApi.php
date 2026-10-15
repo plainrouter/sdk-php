@@ -361,6 +361,7 @@ class OperationsApi
      */
     public function deleteUserDataRequest($delete_user_data_request, string $contentType = self::contentTypes['deleteUserData'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('DELETE /user-data', $delete_user_data_request);
 
         // verify the required parameter 'delete_user_data_request' is set
         if ($delete_user_data_request === null || (is_array($delete_user_data_request) && count($delete_user_data_request) === 0)) {
@@ -1828,6 +1829,7 @@ class OperationsApi
      */
     public function replayDeliveriesRequest($replay_deliveries_request = null, string $contentType = self::contentTypes['replayDeliveries'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /deliveries/replay', $replay_deliveries_request);
 
 
 
@@ -2162,6 +2164,7 @@ class OperationsApi
      */
     public function sendTestPurchaseRequest($destination, $send_test_purchase_request = null, string $contentType = self::contentTypes['sendTestPurchase'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /destinations/{destination}/test-purchase', $send_test_purchase_request);
 
         // verify the required parameter 'destination' is set
         if ($destination === null || (is_array($destination) && count($destination) === 0)) {
@@ -2497,6 +2500,7 @@ class OperationsApi
      */
     public function setDestinationTestModeRequest($destination, $set_destination_test_mode_request, string $contentType = self::contentTypes['setDestinationTestMode'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('PATCH /destinations/{destination}/test-mode', $set_destination_test_mode_request);
 
         // verify the required parameter 'destination' is set
         if ($destination === null || (is_array($destination) && count($destination) === 0)) {

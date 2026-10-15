@@ -317,6 +317,7 @@ class ActionsRulesStoreRequestDefinition implements ModelInterface, ArrayAccess,
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('target_level', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
         $this->setIfExists('minimum_counted_arrivals', $data ?? [], null);

@@ -1153,6 +1153,7 @@ class AdTestApiApi
      */
     public function actionsTestsApiStoreRequest($workspace, $actions_tests_api_store_request, string $contentType = self::contentTypes['actionsTestsApiStore'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /agent/workspaces/{workspace}/tests', $actions_tests_api_store_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

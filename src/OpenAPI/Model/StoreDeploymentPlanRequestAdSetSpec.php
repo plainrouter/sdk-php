@@ -257,6 +257,7 @@ class StoreDeploymentPlanRequestAdSetSpec implements ModelInterface, ArrayAccess
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('daily_budget', $data ?? [], null);
         $this->setIfExists('bid_amount', $data ?? [], null);
         $this->setIfExists('lifetime_budget', $data ?? [], null);

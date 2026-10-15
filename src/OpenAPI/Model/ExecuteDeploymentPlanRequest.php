@@ -250,6 +250,7 @@ class ExecuteDeploymentPlanRequest implements ModelInterface, ArrayAccess, \Json
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('review_version', $data ?? [], null);
         $this->setIfExists('intent_key', $data ?? [], null);
     }

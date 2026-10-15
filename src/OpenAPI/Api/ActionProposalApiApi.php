@@ -457,6 +457,7 @@ class ActionProposalApiApi
      */
     public function actionsApiProposeRequest($workspace, $action_proposal_input, string $contentType = self::contentTypes['actionsApiPropose'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /agent/workspaces/{workspace}/actions', $action_proposal_input);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

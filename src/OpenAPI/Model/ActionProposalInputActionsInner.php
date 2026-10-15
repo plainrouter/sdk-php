@@ -307,6 +307,7 @@ class ActionProposalInputActionsInner implements ModelInterface, ArrayAccess, \J
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('target_entity', $data ?? [], null);
         $this->setIfExists('params', $data ?? [], null);

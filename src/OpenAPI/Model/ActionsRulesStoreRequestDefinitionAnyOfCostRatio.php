@@ -245,6 +245,7 @@ class ActionsRulesStoreRequestDefinitionAnyOfCostRatio implements ModelInterface
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
     }
 
     /**

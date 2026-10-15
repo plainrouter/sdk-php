@@ -1230,6 +1230,7 @@ class ActionRuleApiApi
      */
     public function actionsRulesStoreRequest($workspace, $actions_rules_store_request, string $contentType = self::contentTypes['actionsRulesStore'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /agent/workspaces/{workspace}/action-rules', $actions_rules_store_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
@@ -1618,6 +1619,7 @@ class ActionRuleApiApi
      */
     public function actionsRulesUpdateRequest($workspace, $action_rule, $actions_rules_update_request = null, string $contentType = self::contentTypes['actionsRulesUpdate'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('PATCH /agent/workspaces/{workspace}/action-rules/{action_rule}', $actions_rules_update_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

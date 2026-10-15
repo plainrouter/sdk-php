@@ -262,6 +262,7 @@ class ValidateSandboxEventRequest implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('event_id', $data ?? [], null);
         $this->setIfExists('event_name', $data ?? [], null);
         $this->setIfExists('action_source', $data ?? [], null);

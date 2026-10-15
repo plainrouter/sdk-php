@@ -305,6 +305,7 @@ class ActionProposalInput implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('limit', $data ?? [], 25);
         $this->setIfExists('cursor', $data ?? [], null);
         $this->setIfExists('actions', $data ?? [], null);

@@ -271,6 +271,7 @@ class StoreLaunchPolicyRequest implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('body', $data ?? [], null);

@@ -874,6 +874,7 @@ class DeploymentPlanApi
      */
     public function launchPlansExecuteRequest($workspace, $deployment_plan, $execute_deployment_plan_request, string $contentType = self::contentTypes['launchPlansExecute'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /workspaces/{workspace}/admin/plans/{deployment_plan}/execute', $execute_deployment_plan_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
@@ -2001,6 +2002,7 @@ class DeploymentPlanApi
      */
     public function launchPlansStoreRequest($workspace, $store_deployment_plan_request, string $contentType = self::contentTypes['launchPlansStore'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /workspaces/{workspace}/admin/plans', $store_deployment_plan_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
@@ -2347,6 +2349,7 @@ class DeploymentPlanApi
      */
     public function launchPlansUpdateRequest($workspace, $deployment_plan, $update_deployment_plan_request = null, string $contentType = self::contentTypes['launchPlansUpdate'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('PATCH /workspaces/{workspace}/admin/plans/{deployment_plan}', $update_deployment_plan_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

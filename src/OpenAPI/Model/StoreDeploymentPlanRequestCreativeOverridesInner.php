@@ -256,6 +256,7 @@ class StoreDeploymentPlanRequestCreativeOverridesInner implements ModelInterface
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('creative_id', $data ?? [], null);
         $this->setIfExists('copy', $data ?? [], null);
         $this->setIfExists('landing_page', $data ?? [], null);

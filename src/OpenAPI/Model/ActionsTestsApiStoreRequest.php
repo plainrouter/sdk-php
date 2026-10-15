@@ -315,6 +315,7 @@ class ActionsTestsApiStoreRequest implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('platform_ad_account_id', $data ?? [], null);
         $this->setIfExists('ad_set_id', $data ?? [], null);
         $this->setIfExists('member_ad_ids', $data ?? [], null);

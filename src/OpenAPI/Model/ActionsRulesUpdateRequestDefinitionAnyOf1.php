@@ -318,6 +318,7 @@ class ActionsRulesUpdateRequestDefinitionAnyOf1 implements ModelInterface, Array
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('target_level', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
         $this->setIfExists('minimum_counted_arrivals', $data ?? [], null);
@@ -635,6 +636,25 @@ class ActionsRulesUpdateRequestDefinitionAnyOf1 implements ModelInterface, Array
         return $this;
     }
     /**
+     * Sets a property using the generated model's existing dynamic-property behavior.
+     *
+     * @param string $name Property name
+     * @param mixed $value Property value
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $name);
+        $setDynamicProperty = \Closure::bind(
+            function () use ($name, $value): void {
+                $this->{$name} = $value;
+            },
+            $this,
+            self::class,
+        );
+        $setDynamicProperty();
+    }
+
+    /**
      * Returns true if offset exists. False otherwise.
      *
      * @param integer|string $offset Offset
@@ -669,6 +689,7 @@ class ActionsRulesUpdateRequestDefinitionAnyOf1 implements ModelInterface, Array
      */
     public function offsetSet($offset, $value): void
     {
+        \Plainrouter\ClosedObjectGuard::assertClosedModelKeyForModel(self::class, $offset);
         if (is_null($offset)) {
             $this->container[] = $value;
         } else {

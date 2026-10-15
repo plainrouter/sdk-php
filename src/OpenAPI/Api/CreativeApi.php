@@ -1100,6 +1100,7 @@ class CreativeApi
      */
     public function launchCreativesStatusRequest($workspace, $creative, $update_creative_status_request, string $contentType = self::contentTypes['launchCreativesStatus'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('PATCH /workspaces/{workspace}/admin/creatives/{creative}/status', $update_creative_status_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
@@ -1541,6 +1542,7 @@ class CreativeApi
             'tags' => $tags,
             'source_ref' => $source_ref,
         ]);
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /workspaces/{workspace}/admin/creatives', $formData);
 
         $formParams = $formDataProcessor->flatten($formData);
         $multipart = $formDataProcessor->has_file;
@@ -1869,6 +1871,7 @@ class CreativeApi
      */
     public function storeCreativeFromUrlRequest($workspace, $store_creative_from_url_request, string $contentType = self::contentTypes['storeCreativeFromUrl'][0])
     {
+        \Plainrouter\ClosedObjectGuard::assertRequestBody('POST /workspaces/{workspace}/admin/creatives/from-url', $store_creative_from_url_request);
 
         // verify the required parameter 'workspace' is set
         if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {

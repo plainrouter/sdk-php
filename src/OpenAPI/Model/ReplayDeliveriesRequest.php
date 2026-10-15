@@ -256,6 +256,7 @@ class ReplayDeliveriesRequest implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(?array $data = null)
     {
+        \Plainrouter\ClosedObjectGuard::assertModelInput(self::class, $data ?? []);
         $this->setIfExists('delivery_ids', $data ?? [], null);
         $this->setIfExists('event_name', $data ?? [], null);
         $this->setIfExists('limit', $data ?? [], null);
