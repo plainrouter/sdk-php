@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.1 (Unreleased)
+
+- Reflect core #1196's stricter server behavior for the existing workspace contract: live credentials targeting foreign, inaccessible same-team, or missing workspaces, and resources inside them, now receive 404 `api_route_not_found`.
+- Non-canonical workspace path IDs (including leading zeros, signs, spaces, decimals, and `true`/`false` in any case) receive the same 404, even for the caller's own workspace. Unauthenticated requests receive the same response for existing and missing workspaces.
+- `workspace_id` is checked only by routes that read it; on those routes, missing, foreign, and non-canonical selectors receive the canonical-missing response, while it has no effect elsewhere. Foreign or non-canonical entries in `workspace_ids` receive the same 422 as nonexistent entries.
+- Callers that branched on 401, 403, 400, or 302 for a foreign or missing workspace now receive 404 `api_route_not_found`.
+- Regenerate the documented contract: `GET /agent/context` and `POST /mcp/launcher/import` now document 404 `ApiRouteNotFound`; `GET /agent/context` 403 now reads “The accessible workspace scope or operation is unauthorized, or an ambiguous workspace selection was omitted.” and 422 now reads “Invalid account ID, mismatched account binding, or ambiguous active accounts.” Curated PHP `agentContext` and `fileImports` calls also decode the new 404 into `ApiRouteNotFound` in sync and async response modes.
+
 ## 0.4.0 (2026-10-15)
 
 - Tighten page validation. On the actions, action-rules, tests, creatives, plans and policies lists, page is an integer from 1 to 10^16. Unset and language-null page values are omitted from requests, preserving the server default page 1. Integer strings such as "2" are accepted. Values outside the bounds are refused by the SDK before sending; the curated SDK also refuses booleans before sending. Other invalid values are refused by the SDK before sending or by the server with 422 on page.

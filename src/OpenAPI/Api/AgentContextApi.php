@@ -136,7 +136,7 @@ class AgentContextApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\AgentContext200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage
+     * @return \Plainrouter\OpenAPI\Model\AgentContext200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage
      */
     public function agentContext($account_id = null, $workspace_id = null, string $contentType = self::contentTypes['agentContext'][0])
     {
@@ -155,7 +155,7 @@ class AgentContextApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\AgentContext200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\AgentContext200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\AgentContext401Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\ValidationError|\Plainrouter\OpenAPI\Model\ErrorMessage, HTTP status code, HTTP response headers (array of strings)
      */
     public function agentContextWithHttpInfo($account_id = null, $workspace_id = null, string $contentType = self::contentTypes['agentContext'][0])
     {
@@ -206,6 +206,12 @@ class AgentContextApi
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\AgentContext401Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -273,6 +279,14 @@ class AgentContextApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\AgentContext401Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

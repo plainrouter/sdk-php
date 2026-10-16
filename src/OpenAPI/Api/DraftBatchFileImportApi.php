@@ -148,7 +148,7 @@ class DraftBatchFileImportApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LauncherFileImport403Response|\Plainrouter\OpenAPI\Model\LauncherFileImport422Response
+     * @return array<string,mixed>|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LauncherFileImport403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\LauncherFileImport422Response
      */
     public function launcherFileImport($file, $source_adset_id, $source_ad_id, $mode, $folder_to_adset = null, $grouping_enabled = null, $account_id = null, $workspace_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['launcherFileImport'][0])
     {
@@ -179,7 +179,7 @@ class DraftBatchFileImportApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LauncherFileImport403Response|\Plainrouter\OpenAPI\Model\LauncherFileImport422Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\LauncherFileImport403Response|\Plainrouter\OpenAPI\Model\ApiRouteNotFound|\Plainrouter\OpenAPI\Model\LauncherFileImport422Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function launcherFileImportWithHttpInfo($file, $source_adset_id, $source_ad_id, $mode, $folder_to_adset = null, $grouping_enabled = null, $account_id = null, $workspace_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['launcherFileImport'][0])
     {
@@ -224,6 +224,12 @@ class DraftBatchFileImportApi
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\Plainrouter\OpenAPI\Model\LauncherFileImport403Response',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $request,
                         $response,
                     );
@@ -277,6 +283,14 @@ class DraftBatchFileImportApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Plainrouter\OpenAPI\Model\LauncherFileImport403Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

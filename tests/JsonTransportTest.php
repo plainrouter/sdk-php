@@ -16,6 +16,78 @@ use PHPUnit\Framework\TestCase;
 
 final class JsonTransportTest extends TestCase
 {
+    public function test_new_workspace_404_operations_decode_api_route_not_found_in_all_call_modes(): void
+    {
+        $bodyFor = static fn (string $method, string $path): string => json_encode([
+            'error' => [
+                'code' => 'api_route_not_found',
+                'message' => 'Workspace is nonexistent, inaccessible or noncanonical.',
+                'resolution' => 'Check the workspace selector and retry.',
+            ],
+            'request' => ['method' => $method, 'path' => $path],
+            'resources' => ['documentation' => 'https://plainrouter.com/docs', 'openapi' => 'https://plainrouter.com/openapi.json'],
+        ], JSON_THROW_ON_ERROR);
+        $contextBody = $bodyFor('GET', '/agent/context');
+        $fileImportBody = $bodyFor('POST', '/mcp/launcher/import');
+        $responses = [];
+        foreach ([$contextBody, $contextBody, $contextBody, $contextBody, $fileImportBody, $fileImportBody, $fileImportBody, $fileImportBody] as $responseBody) {
+            $responses[] = new Response(404, ['Content-Type' => 'application/json'], $responseBody);
+        }
+        $history = [];
+        $stack = HandlerStack::create(new MockHandler($responses));
+        $stack->push(Middleware::history($history));
+        $client = new Client(
+            baseUrl: 'http://127.0.0.1:4567/api/v1',
+            httpClient: new HttpClient(['handler' => $stack]),
+        );
+        $fileImport = static fn (Client $client, bool $async, bool $withHttpInfo): mixed => match ([$async, $withHttpInfo]) {
+            [false, false] => $client->fileImports->launcherFileImport(new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET),
+            [false, true] => $client->fileImports->launcherFileImportWithHttpInfo(new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET),
+            [true, false] => $client->fileImports->launcherFileImportAsync(new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET)->wait(),
+            [true, true] => $client->fileImports->launcherFileImportAsyncWithHttpInfo(new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET)->wait(),
+        };
+        $calls = [
+            fn () => $client->agentContext->agentContext(),
+            fn () => $client->agentContext->agentContextWithHttpInfo(),
+            fn () => $client->agentContext->agentContextAsync()->wait(),
+            fn () => $client->agentContext->agentContextAsyncWithHttpInfo()->wait(),
+            fn () => $fileImport($client, false, false),
+            fn () => $fileImport($client, false, true),
+            fn () => $fileImport($client, true, false),
+            fn () => $fileImport($client, true, true),
+        ];
+
+        foreach ($calls as $index => $call) {
+            $body = $index < 4 ? $contextBody : $fileImportBody;
+            try {
+                $call();
+                $this->fail('A 404 workspace response must remain an ApiException.');
+            } catch (ApiException $error) {
+                $this->assertSame(404, $error->getCode());
+                $this->assertSame($body, $error->getResponseBody());
+                $model = $error->getResponseObject();
+                $this->assertInstanceOf(\Plainrouter\OpenAPI\Model\ApiRouteNotFound::class, $model);
+                $this->assertSame('api_route_not_found', $model->getError()->getCode());
+                $this->assertSame($index < 4 ? '/agent/context' : '/mcp/launcher/import', $model->getRequest()->getPath());
+            }
+        }
+
+        $this->assertCount(8, $history);
+        foreach ($history as $entry) {
+            $this->assertSame('127.0.0.1', $entry['request']->getUri()->getHost());
+        }
+        $this->assertSame([
+            '/api/v1/agent/context',
+            '/api/v1/agent/context',
+            '/api/v1/agent/context',
+            '/api/v1/agent/context',
+            '/api/v1/mcp/launcher/import',
+            '/api/v1/mcp/launcher/import',
+            '/api/v1/mcp/launcher/import',
+            '/api/v1/mcp/launcher/import',
+        ], array_map(static fn (array $entry): string => $entry['request']->getUri()->getPath(), $history));
+    }
+
     public static function redirects(): iterable
     {
         foreach ([300, 301, 302, 303, 304, 307, 308, 399] as $status) {
