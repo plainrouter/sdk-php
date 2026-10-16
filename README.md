@@ -113,6 +113,27 @@ scripts/check-php-generated.sh
 
 Packagist reads the read-only mirror [`plainrouter/sdk-php`](https://github.com/plainrouter/sdk-php), which the `mirror-php.yml` workflow splits from `packages/php`. Releases use `php-v<version>` tags in this repository; the workflow pushes them to the mirror as `v<version>`. It then asks Packagist to refresh the package. Open issues and pull requests here, not on the mirror.
 
+To refresh Packagist metadata for an existing mirror release, open **Actions →
+Mirror PHP SDK → Run workflow**, select `main`, and enable `refresh_only`. The
+equivalent CLI command is:
+
+```sh
+gh workflow run mirror-php.yml --repo plainrouter/sdk --ref main -f refresh_only=true
+```
+
+This mode calls only Packagist's update API for `plainrouter/sdk`, using the
+existing `PACKAGIST_USERNAME` and `PACKAGIST_API_TOKEN` secrets. It does not
+check out code, split, push, tag, or change the mirror. If either secret is
+missing, the refresh is skipped with a notice. Leaving `refresh_only` disabled
+preserves the full manual mirror workflow; `php-v<version>` tag releases follow
+the same steps as before.
+
+After the refresh completes, check
+[`https://repo.packagist.org/p2/plainrouter/sdk.json`](https://repo.packagist.org/p2/plainrouter/sdk.json)
+for the expected version and run `composer require plainrouter/sdk:<version>`
+in a clean directory with no repository override to verify installation through
+Packagist. CDN metadata may take time to update.
+
 Licensed under Apache-2.0.
 
 When `accept:` is omitted, a caller Guzzle client's configured Accept is kept;
