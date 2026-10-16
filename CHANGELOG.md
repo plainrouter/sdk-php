@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 (unreleased)
+## 0.4.0 (2026-10-15)
 
 - Tighten page validation. On the actions, action-rules, tests, creatives, plans and policies lists, page is an integer from 1 to 10^16. Unset and language-null page values are omitted from requests, preserving the server default page 1. Integer strings such as "2" are accepted. Values outside the bounds are refused by the SDK before sending; the curated SDK also refuses booleans before sending. Other invalid values are refused by the SDK before sending or by the server with 422 on page.
 
