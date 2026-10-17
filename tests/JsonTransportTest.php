@@ -81,10 +81,10 @@ final class JsonTransportTest extends TestCase
             '/api/v1/agent/context',
             '/api/v1/agent/context',
             '/api/v1/agent/context',
-            '/api/v1/mcp/launcher/import',
-            '/api/v1/mcp/launcher/import',
-            '/api/v1/mcp/launcher/import',
-            '/api/v1/mcp/launcher/import',
+            '/mcp/launcher/import',
+            '/mcp/launcher/import',
+            '/mcp/launcher/import',
+            '/mcp/launcher/import',
         ], array_map(static fn (array $entry): string => $entry['request']->getUri()->getPath(), $history));
     }
 

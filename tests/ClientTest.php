@@ -49,6 +49,62 @@ final class ClientTest extends TestCase
     /** @var list<array{request: RequestInterface}> */
     private array $history = [];
 
+    public function test_launcher_import_routes_every_base_and_call_mode_on_loopback(): void
+    {
+        $rows = [
+            [null, '/mcp/launcher/import'],
+            ['https://proxy.example/api/v1', '/mcp/launcher/import'],
+            ['https://proxy.example/api/v1/', '/mcp/launcher/import'],
+            ['https://proxy.example/prefix/api/v1', '/prefix/mcp/launcher/import'],
+            ['https://proxy.example/api/v1beta', '/api/v1beta/mcp/launcher/import'],
+            ['https://proxy.example/api/v1/inner', '/api/v1/inner/mcp/launcher/import'],
+            ['http://127.0.0.1:8080', '/mcp/launcher/import'],
+        ];
+        // A separate PHP process captures real HTTP; the middleware redirects every logical host.
+        $script = <<<'PHP'
+$server = stream_socket_server('tcp://127.0.0.1:0');
+echo stream_socket_get_name($server, false), "\n";
+fflush(STDOUT);
+for ($i = 0; $i < 4; $i++) {
+    $socket = stream_socket_accept($server, 10);
+    $first = fgets($socket);
+    $length = 0;
+    while (($line = fgets($socket)) !== "\r\n") {
+        if (stripos($line, 'Content-Length:') === 0) $length = (int) trim(substr($line, 15));
+    }
+    while ($length > 0) $length -= strlen(fread($socket, $length));
+    $body = '{"message":"Unauthenticated."}';
+    fwrite($socket, "HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\nContent-Length: ".strlen($body)."\r\nConnection: close\r\n\r\n".$body);
+    fclose($socket);
+    echo explode(' ', $first)[1], "\n";
+    fflush(STDOUT);
+}
+fclose($server);
+PHP;
+        foreach ($rows as [$base, $expected]) {
+            $process = proc_open([PHP_BINARY, '-r', $script], [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+            $this->assertIsResource($process);
+            $address = trim(fgets($pipes[1]));
+            $stack = HandlerStack::create();
+            $stack->push(Middleware::mapRequest(static function (RequestInterface $request) use ($address): RequestInterface {
+                [$host, $port] = explode(':', $address);
+                return $request->withUri($request->getUri()->withScheme('http')->withHost($host)->withPort((int) $port));
+            }));
+            $client = new Client(baseUrl: $base ?? Client::DEFAULT_BASE_URL, httpClient: new HttpClient(['handler' => $stack, 'proxy' => '', 'http_errors' => false, 'expect' => false]));
+            try {
+                foreach (['launcherFileImport', 'launcherFileImportWithHttpInfo', 'launcherFileImportAsync', 'launcherFileImportAsyncWithHttpInfo'] as $method) {
+                    $result = $client->fileImports->$method(new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET);
+                    if ($result instanceof \GuzzleHttp\Promise\PromiseInterface) $result->wait();
+                    $this->assertSame($expected, trim(fgets($pipes[1])), $base ?? 'default');
+                }
+            } finally {
+                foreach ($pipes as $pipe) fclose($pipe);
+                proc_terminate($process);
+                proc_close($process);
+            }
+        }
+    }
+
     public function test_exposes_service_groups_and_the_configuration(): void
     {
         $properties = array_map(

@@ -17,9 +17,8 @@ class GuardedDraftBatchFileImportApi extends \Plainrouter\OpenAPI\Api\DraftBatch
 
     protected function getHostSettingsForlauncherFileImport(): array
     {
-        if ($this->config->getHost() !== \Plainrouter\Client::DEFAULT_BASE_URL) {
-            return [['url' => $this->config->getHost(), 'description' => 'Configured base URL']];
-        }
-        return parent::getHostSettingsForlauncherFileImport();
+        $base = rtrim($this->config->getHost(), '/');
+        $base = preg_replace('~/api/v1$~', '', $base);
+        return [['url' => $base, 'description' => 'Configured launcher base URL']];
     }
 }
