@@ -92,6 +92,9 @@ final class ErrorResponses
         }
         $data = json_decode($body, true);
         $error = is_array($data) ? ($data['error'] ?? null) : null;
+        if (is_array($data) && is_string($data['message'] ?? null) && ! isset($data['error']) && isset($models[''])) {
+            return ObjectSerializer::deserialize($body, $models[''], $headers ?? []);
+        }
         if (! is_array($error) || ! is_string($error['code'] ?? null) || ! is_string($error['message'] ?? null)) {
             return null;
         }

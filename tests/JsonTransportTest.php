@@ -88,6 +88,70 @@ final class JsonTransportTest extends TestCase
         ], array_map(static fn (array $entry): string => $entry['request']->getUri()->getPath(), $history));
     }
 
+    public function test_inventory_404_bodies_decode_in_all_call_modes(): void
+    {
+        $bodyFor = static fn (string $method, string $path): string => json_encode([
+            'error' => [
+                'code' => 'api_route_not_found',
+                'message' => 'Workspace is nonexistent, inaccessible or noncanonical.',
+                'resolution' => 'Check the workspace selector and retry.',
+            ],
+            'request' => ['method' => $method, 'path' => $path],
+            'resources' => ['documentation' => 'https://plainrouter.com/docs', 'openapi' => 'https://plainrouter.com/openapi.json'],
+        ], JSON_THROW_ON_ERROR);
+        $cases = [
+            ['agentContext', 'agentContext', [], '/agent/context', false],
+            ['fileImports', 'launcherFileImport', [new \SplFileObject(__FILE__), '123', '456', \Plainrouter\OpenAPI\Model\DraftBatchMode::DUPLICATE_ADSET], '/mcp/launcher/import', false],
+        ];
+        foreach (['getAccountInventory', 'getInventoryMetrics'] as $operation) {
+            foreach ([false, true] as $accountMissing) {
+                $cases[] = ['inventory', $operation, [1, '123'], '/workspaces/1/admin/ad-accounts/123/inventory'.($operation === 'getInventoryMetrics' ? '/metrics' : ''), $accountMissing];
+            }
+        }
+        foreach ($cases as [$group, $operation, $arguments, $path, $accountMissing]) {
+            $method = $group === 'fileImports' ? 'POST' : 'GET';
+            $body = $accountMissing ? '{"message":"Account not found."}' : $bodyFor($method, $path);
+            foreach ([true, false] as $httpErrors) {
+                $history = [];
+                $stack = HandlerStack::create(new MockHandler(array_fill(0, 4, new Response(404, ['Content-Type' => 'application/json'], $body))));
+                $stack->push(Middleware::history($history));
+                $client = new Client(
+                    baseUrl: 'http://127.0.0.1:4567/api/v1',
+                    httpClient: new HttpClient(['handler' => $stack, 'http_errors' => $httpErrors]),
+                );
+                foreach (['', 'WithHttpInfo', 'Async', 'AsyncWithHttpInfo'] as $mode) {
+                    try {
+                        $result = $client->{$group}->{$operation.$mode}(...$arguments);
+                        if (str_starts_with($mode, 'Async')) {
+                            $result = $result->wait();
+                        }
+                        $this->assertFalse($httpErrors, 'A 404 must remain an ApiException with http_errors enabled.');
+                        $model = str_ends_with($mode, 'WithHttpInfo') ? $result[0] : $result;
+                    } catch (ApiException $error) {
+                        $this->assertTrue($httpErrors);
+                        $this->assertSame(404, $error->getCode());
+                        $this->assertSame($body, $error->getResponseBody());
+                        $model = $error->getResponseObject();
+                    }
+                    if ($accountMissing) {
+                        $this->assertInstanceOf($operation === 'getInventoryMetrics' ? \Plainrouter\OpenAPI\Model\ErrorMessage::class : \Plainrouter\OpenAPI\Model\GetAccountInventory404Response::class, $model);
+                        $this->assertSame('Account not found.', $model->getMessage());
+                    } else {
+                        $this->assertInstanceOf(\Plainrouter\OpenAPI\Model\ApiRouteNotFound::class, $model);
+                        $this->assertSame('api_route_not_found', $model->getError()->getCode());
+                        $this->assertSame($path, $model->getRequest()->getPath());
+                    }
+                }
+                $this->assertCount(4, $history);
+                foreach ($history as $entry) {
+                    $this->assertSame('127.0.0.1', $entry['request']->getUri()->getHost());
+                    $this->assertSame($group === 'fileImports' ? $path : '/api/v1'.$path, $entry['request']->getUri()->getPath());
+                    $this->assertSame($method, $entry['request']->getMethod());
+                }
+            }
+        }
+    }
+
     public static function generatedAsyncErrorModes(): iterable
     {
         yield 'async model result' => [false];

@@ -57,6 +57,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $openAPITypes = [
+        'error' => '\Plainrouter\OpenAPI\Model\ApiRouteNotFoundError',
+        'request' => '\Plainrouter\OpenAPI\Model\ApiRouteNotFoundRequest',
+        'resources' => '\Plainrouter\OpenAPI\Model\ApiRouteNotFoundResources',
         'message' => 'string'
     ];
 
@@ -68,6 +71,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'error' => null,
+        'request' => null,
+        'resources' => null,
         'message' => null
     ];
 
@@ -77,6 +83,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'error' => false,
+        'request' => false,
+        'resources' => false,
         'message' => false
     ];
 
@@ -166,6 +175,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $attributeMap = [
+        'error' => 'error',
+        'request' => 'request',
+        'resources' => 'resources',
         'message' => 'message'
     ];
 
@@ -175,6 +187,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $setters = [
+        'error' => 'setError',
+        'request' => 'setRequest',
+        'resources' => 'setResources',
         'message' => 'setMessage'
     ];
 
@@ -184,6 +199,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $getters = [
+        'error' => 'getError',
+        'request' => 'getRequest',
+        'resources' => 'getResources',
         'message' => 'getMessage'
     ];
 
@@ -257,6 +275,9 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('error', $data ?? [], null);
+        $this->setIfExists('request', $data ?? [], null);
+        $this->setIfExists('resources', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
     }
 
@@ -287,6 +308,15 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
     {
         $invalidProperties = [];
 
+        if ($this->container['error'] === null) {
+            $invalidProperties[] = "'error' can't be null";
+        }
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
+        }
+        if ($this->container['resources'] === null) {
+            $invalidProperties[] = "'resources' can't be null";
+        }
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
@@ -313,6 +343,87 @@ class GetAccountInventory404Response implements ModelInterface, ArrayAccess, \Js
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets error
+     *
+     * @return \Plainrouter\OpenAPI\Model\ApiRouteNotFoundError
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param \Plainrouter\OpenAPI\Model\ApiRouteNotFoundError $error error
+     *
+     * @return self
+     */
+    public function setError($error)
+    {
+        if (is_null($error)) {
+            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        }
+        $this->container['error'] = $error;
+
+        return $this;
+    }
+
+    /**
+     * Gets request
+     *
+     * @return \Plainrouter\OpenAPI\Model\ApiRouteNotFoundRequest
+     */
+    public function getRequest()
+    {
+        return $this->container['request'];
+    }
+
+    /**
+     * Sets request
+     *
+     * @param \Plainrouter\OpenAPI\Model\ApiRouteNotFoundRequest $request request
+     *
+     * @return self
+     */
+    public function setRequest($request)
+    {
+        if (is_null($request)) {
+            throw new \InvalidArgumentException('non-nullable request cannot be null');
+        }
+        $this->container['request'] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Gets resources
+     *
+     * @return \Plainrouter\OpenAPI\Model\ApiRouteNotFoundResources
+     */
+    public function getResources()
+    {
+        return $this->container['resources'];
+    }
+
+    /**
+     * Sets resources
+     *
+     * @param \Plainrouter\OpenAPI\Model\ApiRouteNotFoundResources $resources resources
+     *
+     * @return self
+     */
+    public function setResources($resources)
+    {
+        if (is_null($resources)) {
+            throw new \InvalidArgumentException('non-nullable resources cannot be null');
+        }
+        $this->container['resources'] = $resources;
+
+        return $this;
+    }
 
     /**
      * Gets message

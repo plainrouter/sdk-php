@@ -14,7 +14,6 @@ use Plainrouter\IntegerInputApis\GuardedAdTestApiApi;
 use Plainrouter\IntegerInputApis\GuardedCookieDeclarationApi;
 use Plainrouter\IntegerInputApis\GuardedCreativeApi;
 use Plainrouter\IntegerInputApis\GuardedLaunchPolicyApi;
-use Plainrouter\IntegerInputApis\GuardedMetaInventoryExposureApi;
 use Plainrouter\IntegerInputApis\GuardedOperationsApi;
 use Plainrouter\IntegerInputApis\GuardedSandboxApi;
 use Plainrouter\OpenAPI\Api\ActionDryRunApiApi;
@@ -109,7 +108,7 @@ final class Client
         $this->fileImports = new FileImports($httpClient, $this->configuration);
         $this->events = new Events($httpClient, $this->configuration);
         $this->launchPolicies = new GuardedLaunchPolicyApi($httpClient, $this->configuration);
-        $this->inventory = new GuardedMetaInventoryExposureApi($httpClient, $this->configuration);
+        $this->inventory = new Inventory($httpClient, $this->configuration);
         $this->operations = new GuardedOperationsApi($httpClient, $this->configuration);
         $this->sandbox = new GuardedSandboxApi($httpClient, $this->configuration);
         $this->plans = new Plans($httpClient, $this->configuration);

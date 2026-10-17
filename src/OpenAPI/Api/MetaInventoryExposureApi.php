@@ -585,7 +585,7 @@ class MetaInventoryExposureApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError
+     * @return \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ValidationError
      */
     public function getInventoryMetrics($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
@@ -612,7 +612,7 @@ class MetaInventoryExposureApi
      *
      * @throws \Plainrouter\OpenAPI\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Plainrouter\OpenAPI\Model\GetInventoryMetrics200Response|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ErrorMessage|\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response|\Plainrouter\OpenAPI\Model\ValidationError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getInventoryMetricsWithHttpInfo($workspace, $account_id, $start_date = null, $end_date = null, $campaign_id = null, $adset_id = null, $ad_id = null, $include_changes = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getInventoryMetrics'][0])
     {
@@ -662,7 +662,7 @@ class MetaInventoryExposureApi
                     );
                 case 404:
                     return $this->handleResponseWithDataType(
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response',
                         $request,
                         $response,
                     );
@@ -723,7 +723,7 @@ class MetaInventoryExposureApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        '\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -834,7 +834,7 @@ class MetaInventoryExposureApi
                     \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
                         401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
                         403 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
-                        404 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ActionsTestsApiIndex404Response',
                         422 => '\Plainrouter\OpenAPI\Model\ValidationError',
                     ]);
                     throw $apiException;
