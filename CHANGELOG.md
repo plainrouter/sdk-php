@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.1 (Unreleased)
+## 0.4.1 (2026-10-17)
 
 - Fix launcher import with custom base URLs so it reaches the route core serves.
 - `GET /workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory` and `GET /workspaces/{workspace}/admin/ad-accounts/{account_id}/inventory/metrics` now document the workspace 404, which decodes as `ApiRouteNotFound`; account-not-found 404s retain their message. Compatibility: generated metrics 404 `ErrorMessage` becomes `ActionsTestsApiIndex404Response`; the former message model is now `GetAccountInventory404ResponseAnyOf`, while `GetAccountInventory404Response::valid()` returns `false` for `{"message":"Account not found."}` because `error`, `request` and `resources` are absent.
