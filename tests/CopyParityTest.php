@@ -49,8 +49,8 @@ final class CopyParityTest extends TestCase
                 foreach ([false, true] as $async) {
                     $expected = $this->capture(false, $async, $httpErrors, $status, $body);
                     $actual = $this->capture(true, $async, $httpErrors, $status, $body);
-                    if ($async && $httpErrors && in_array($status, [401, 403, 404, 413, 422, 429, 500, 503], true)) {
-                        // Direct generated async calls now decode documented models; the curated copy path keeps its narrower envelope recovery.
+                    if ($async && $httpErrors && in_array($status, [404, 503], true)) {
+                        // Only the curated 404 unions and 503 retry envelopes retain their existing recovery.
                         $this->assertSame(ApiException::class, $actual['exception']);
                         $this->assertSame("[$status] Error connecting to the API (https://example.test/api/v1/workspaces/1/admin/plans/failed-plan/copy)", $actual['message']);
                         $this->assertSame($status, $actual['code']);

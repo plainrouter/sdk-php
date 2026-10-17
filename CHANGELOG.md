@@ -2,7 +2,7 @@
 
 ## 0.4.1 (Unreleased)
 
-- Decode documented error response models on direct generated async calls, matching sync `ApiException` response objects.
+- Decode documented error response models on generated and facade async calls, matching sync `ApiException` response objects while preserving curated 404 and copy 503 handling.
 - Reflect core #1196's stricter server behavior for the existing workspace contract: live credentials targeting foreign, inaccessible same-team, or missing workspaces, and resources inside them, now receive 404 `api_route_not_found`.
 - Non-canonical workspace path IDs (including leading zeros, signs, spaces, decimals, and `true`/`false` in any case) receive the same 404, even for the caller's own workspace. Unauthenticated requests receive the same response for existing and missing workspaces.
 - `workspace_id` is checked only by routes that read it; on those routes, missing, foreign, and non-canonical selectors receive the canonical-missing response, while it has no effect elsewhere. Foreign or non-canonical entries in `workspace_ids` receive the same 422 as nonexistent entries.

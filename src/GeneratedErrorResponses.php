@@ -15,8 +15,8 @@ final class GeneratedErrorResponses
     /** @param array<int, class-string<ModelInterface>> $models */
     public static function apply(ApiException $error, ClientInterface $client, array $models): void
     {
-        if ($client instanceof CopyResponseClient) {
-            // CopyResponseClient owns the curated union and retry recovery behavior.
+        if ($client instanceof CopyResponseClient && in_array($error->getCode(), [404, 503], true)) {
+            // Leave the curated 404 unions and copy's 503 retry recovery unchanged.
             return;
         }
 
