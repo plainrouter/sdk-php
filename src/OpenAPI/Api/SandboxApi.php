@@ -1069,7 +1069,8 @@ class SandboxApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1077,8 +1078,12 @@ class SandboxApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1373,7 +1378,8 @@ class SandboxApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1381,8 +1387,13 @@ class SandboxApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }

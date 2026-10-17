@@ -421,7 +421,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -429,8 +430,19 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        403 => '\Plainrouter\OpenAPI\Model\LaunchPlansCopy403Response',
+                        404 => '\Plainrouter\OpenAPI\Model\LaunchPlansCopy404Response',
+                        413 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        422 => '\Plainrouter\OpenAPI\Model\LaunchPlansCopy422Response',
+                        429 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        500 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        503 => '\Plainrouter\OpenAPI\Model\WorkspaceLockTimeout',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -847,7 +859,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -855,8 +868,20 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        403 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        409 => '\Plainrouter\OpenAPI\Model\PlanExecuteConflict',
+                        413 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        422 => '\Plainrouter\OpenAPI\Model\LaunchPlansExecute422Response',
+                        429 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        500 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        503 => '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1227,7 +1252,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1235,8 +1261,15 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        403 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1613,7 +1646,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1621,8 +1655,15 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        403 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1982,7 +2023,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1990,8 +2032,14 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -2328,7 +2376,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -2336,8 +2385,14 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -2680,7 +2735,8 @@ class DeploymentPlanApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -2688,8 +2744,14 @@ class DeploymentPlanApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\LaunchPlansValidate422Response',
+                    ]);
+                    throw $apiException;
                 }
             );
     }

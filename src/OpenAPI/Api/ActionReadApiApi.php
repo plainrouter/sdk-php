@@ -371,7 +371,8 @@ class ActionReadApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -379,8 +380,15 @@ class ActionReadApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentCredentialError',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -772,7 +780,8 @@ class ActionReadApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -780,8 +789,15 @@ class ActionReadApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentCredentialError',
+                        404 => '\Plainrouter\OpenAPI\Model\ActionsApiDecisionReceipt404Response',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1154,7 +1170,8 @@ class ActionReadApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1162,8 +1179,15 @@ class ActionReadApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentCredentialError',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1563,7 +1587,8 @@ class ActionReadApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1571,8 +1596,15 @@ class ActionReadApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentCredentialError',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
@@ -1917,7 +1949,8 @@ class ActionReadApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1925,8 +1958,15 @@ class ActionReadApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentCredentialError',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                    ]);
+                    throw $apiException;
                 }
             );
     }

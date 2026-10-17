@@ -431,7 +431,8 @@ class ActionProposalApiApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -439,8 +440,20 @@ class ActionProposalApiApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        401 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\ActionsApiDryRun401Response',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        409 => '\Plainrouter\OpenAPI\Model\ProposalReplayConflict',
+                        413 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                        429 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        500 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        503 => '\Plainrouter\OpenAPI\Model\ProposalUnavailable',
+                    ]);
+                    throw $apiException;
                 }
             );
     }

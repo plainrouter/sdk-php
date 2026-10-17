@@ -99,7 +99,7 @@ final class ProposalErrorsTest extends TestCase
         }
     }
 
-    public function test_generated_async_errors_are_classified_by_code_without_a_response_model(): void
+    public function test_generated_async_errors_decode_documented_models_for_retryable_codes(): void
     {
         foreach (['workspace_lock_timeout', 'proposal_not_recorded'] as $code) {
             foreach (['propose', 'execute'] as $operation) {
@@ -121,7 +121,9 @@ final class ProposalErrorsTest extends TestCase
                 } catch (ApiException $exception) {
                     $this->assertSame(503, $exception->getCode());
                     $this->assertSame($envelope, json_decode($exception->getResponseBody(), true, flags: JSON_THROW_ON_ERROR));
-                    $this->assertNull($exception->getResponseObject());
+                    $this->assertInstanceOf(ProposalUnavailable::class, $exception->getResponseObject());
+                    $this->assertSame($code, $exception->getResponseObject()->getError()->getCode());
+                    $this->assertSame($envelope, json_decode(json_encode($exception->getResponseObject(), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR));
                     $this->assertTrue(ProposalErrors::isRetryable($exception));
                     $this->assertSame(['1'], $exception->getResponseHeaders()['Retry-After']);
                 }

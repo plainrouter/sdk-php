@@ -315,7 +315,8 @@ class CookieDeclarationApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -323,8 +324,13 @@ class CookieDeclarationApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        404 => '\Plainrouter\OpenAPI\Model\GetCookieDeclaration404Response',
+                        429 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                    ]);
+                    throw $apiException;
                 }
             );
     }

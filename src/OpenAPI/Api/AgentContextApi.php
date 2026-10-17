@@ -375,7 +375,8 @@ class AgentContextApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    $responseBody = (string) $response->getBody();
+                    $apiException = new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -383,8 +384,17 @@ class AgentContextApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string) $response->getBody()
+                        $responseBody
                     );
+                    \Plainrouter\GeneratedErrorResponses::apply($apiException, $this->client, [
+                        400 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                        401 => '\Plainrouter\OpenAPI\Model\AgentContext401Response',
+                        403 => '\Plainrouter\OpenAPI\Model\AgentContext401Response',
+                        404 => '\Plainrouter\OpenAPI\Model\ApiRouteNotFound',
+                        422 => '\Plainrouter\OpenAPI\Model\ValidationError',
+                        429 => '\Plainrouter\OpenAPI\Model\ErrorMessage',
+                    ]);
+                    throw $apiException;
                 }
             );
     }
